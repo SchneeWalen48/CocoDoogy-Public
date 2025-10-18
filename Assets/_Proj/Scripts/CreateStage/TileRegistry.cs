@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 [CreateAssetMenu(menuName = "TileRegistry")]
 public class TileRegistry : ScriptableObject
@@ -9,7 +11,8 @@ public class TileRegistry : ScriptableObject
     public class TileBinding
     {
         public string code; // "G", "W", "P", "I", "B" ...
-        public GameObject prefab;
+        //public GameObject prefab;
+        public AssetReferenceGameObject tileRef;
         public bool blocking; // 벽 등
         public bool water; // 물
         public bool ice; // 빙판
@@ -21,8 +24,8 @@ public class TileRegistry : ScriptableObject
     public class EntityBinding
     {
         public string type; // "spawn", "goal", "box", "door", "bridge", ...
-        public GameObject prefab;
-        
+        //public GameObject prefab;
+        public AssetReferenceGameObject entityRef;
     }
 
     public List<TileBinding> tiles;
@@ -78,5 +81,45 @@ public class TileRegistry : ScriptableObject
     {
         Init();
         return emap != null && emap.ContainsKey(type);
+    }
+
+    public AsyncOperationHandle<GameObject> LoadTilePrefabAsync(string code)
+    {
+        Init();
+        var binding = GetTile(code);
+        if(binding != null && binding.tileRef != null && binding.tileRef.RuntimeKeyIsValid())
+        {
+            return binding.tileRef.LoadAssetAsync<GameObject>();
+        }
+        Debug.LogError($"[TR] 타일 프리팹 코드 로드 불가 {code}");
+        return default;
+    }
+
+    public AsyncOperationHandle<GameObject> LoadEntityPrefabAsync(string type)
+    {
+        Init();
+        var binding = GetEntity(type);
+        if(binding != null && binding.entityRef != null && !binding.entityRef.RuntimeKeyIsValid())
+        {
+            return binding.entityRef.LoadAssetAsync<GameObject>();
+        }
+        Debug.LogError($"[TR] 엔터티 프리팹 로드 불가 {type}");
+        return default;
+    }
+
+    public void ReleaseTilePrefab(AsyncOperationHandle<GameObject> handle)
+    {
+        if (handle.IsValid())
+        {
+            Addressables.Release(handle);
+        }
+    }
+
+    public void ReleaseEntityPrefab(AsyncOperationHandle<GameObject> handle)
+    {
+        if (handle.IsValid())
+        {
+            Addressables.Release(handle);
+        }
     }
 }
