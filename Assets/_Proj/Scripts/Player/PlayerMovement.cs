@@ -23,6 +23,17 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask blocking;
     public float frontOffset = 0.4f;
     public Vector3 probeHalfExtents = new Vector3(0.25f, 0.6f, 0.25f); // 앞면 검사 박스 크기
+
+    [Header("Slope")]
+    public float slopeLimitDeg = 45f;     // 허용 경사 각
+    public float groundProbeRadius = 0.25f;
+    public float groundProbeExtra = 0.1f; // 여유
+    public LayerMask groundMask;          // 평지+경사 모두 포함
+
+    [Header("Step")]
+    public bool enableStepAssist = true;
+    public float stepHeight = 0.3f;       // 올라설 수 있는 최대 턱 높이
+    public float stepCheckDistance = 0.35f;
     #endregion
 
     void Awake()
@@ -64,65 +75,69 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveDir = (right * input.x) + (fwd * input.y);
         if (moveDir.sqrMagnitude > 0.1f) moveDir.Normalize();
 
-        //Vector3 vel = moveDir * moveSpeed;
-        //vel.y = rb.linearVelocity.y;
-        //rb.linearVelocity = vel;
+        // 경사 보정
+        Vector3 finalDir = moveDir;
+        if (TryGetGround(out var gnorm))
+        {
+            // 경사 한계 각도 내에서만 투영
+            float slopeAngle = Vector3.Angle(gnorm, Vector3.up);
+            if (slopeAngle <= slopeLimitDeg + 0.01f)
+                finalDir = Vector3.ProjectOnPlane(moveDir, gnorm).normalized;
+        }
 
-        // 그리드/타일 기반에서는 MovePosition이 적합
-        Vector3 nextPos = rb.position + moveDir * (moveSpeed * Time.fixedDeltaTime);
+        // 스텝(낮은 턱) 보조
+        Vector3 addStep = Vector3.zero;
+        if (finalDir.sqrMagnitude > 0.0001f && TryStepUp(finalDir, out var step))
+            addStep = step;
+
+        // 최종 이동
+        Vector3 nextPos = rb.position + finalDir * (moveSpeed * Time.fixedDeltaTime) + addStep;
         rb.MovePosition(nextPos);
 
-        Quaternion targetRot = Quaternion.LookRotation(new Vector3(moveDir.x, 0, moveDir.z), Vector3.up);
+        // 회전은 그대로
+        Quaternion targetRot = Quaternion.LookRotation(new Vector3(finalDir.x, 0, finalDir.z), Vector3.up);
         Quaternion smoothRot = Quaternion.Slerp(rb.rotation, targetRot, rotateLerp * Time.fixedDeltaTime);
         rb.MoveRotation(smoothRot);
-
-        TryPushOnce(moveDir);
     }
 
-    private void TryPushOnce(Vector3 moveDir)
+    bool TryGetGround(out Vector3 groundNormal)
     {
-        // 전방 탐지. Trigger 무시
-        if (moveDir.sqrMagnitude < 1e-4f) return;
+        // 캡슐 아래반 측정: 플레이어 콜라이더 기준으로
+        groundNormal = Vector3.up;
 
-        Vector3 flatDir = new Vector3(moveDir.x, 0f, moveDir.z).normalized;
-        Vector3 boxCenter = rb.worldCenterOfMass + flatDir * frontOffset;
-        Quaternion boxRot = Quaternion.identity;
+        var pos = rb.position + Vector3.up * (groundProbeRadius + groundProbeExtra);
+        float castDist = groundProbeRadius + groundProbeExtra * 2f;
 
-        Collider[] hits = Physics.OverlapBox(
-        boxCenter, probeHalfExtents, boxRot,
-        pushable, QueryTriggerInteraction.Ignore
-    );
-        if (hits == null || hits.Length == 0) return;
-
-        // 가장 가까운 상자 하나만 선택
-        Collider best = hits[0];
-        float bestDist = float.MaxValue;
-        for (int i = 0; i < hits.Length; i++)
+        if (Physics.SphereCast(pos, groundProbeRadius, Vector3.down, out RaycastHit hit,
+            castDist, groundMask, QueryTriggerInteraction.Ignore))
         {
-            float d = (hits[i].attachedRigidbody ?
-                       (hits[i].attachedRigidbody.worldCenterOfMass - rb.worldCenterOfMass).sqrMagnitude :
-                       (hits[i].bounds.center - rb.worldCenterOfMass).sqrMagnitude);
-            if (d < bestDist) { bestDist = d; best = hits[i]; }
+            groundNormal = hit.normal;
+            return true;
         }
-        if (!best.TryGetComponent<PushableObjects>(out var crate)) return;
-        if (crate.IsMoving) return;
+        return false;
+    }
 
-        Vector3 pushAxis;
-        if (Mathf.Abs(flatDir.x) >= Mathf.Abs(flatDir.z))
-            pushAxis = new Vector3(Mathf.Sign(flatDir.x), 0f, 0f);
-        else
-            pushAxis = new Vector3(0f, 0f, Mathf.Sign(flatDir.z));
+    bool TryStepUp(Vector3 moveDir, out Vector3 stepOffset)
+    {
+        stepOffset = Vector3.zero;
+        if (!enableStepAssist || stepHeight <= 0f) return false;
 
-        Vector3 currCell = crate.Snap(crate.transform.position);
-        Vector3 nextCell = currCell + pushAxis * tileSize;
+        // 낮은 턱(벽)에 막혔는지 전방 레이로 체크
+        Vector3 originLow = rb.position + Vector3.up * 0.05f;
+        Vector3 originHigh = rb.position + Vector3.up * (stepHeight + 0.05f);
 
-        if (IsCellBlocked(nextCell))
+        if (Physics.Raycast(originLow, moveDir, out RaycastHit hitLow, stepCheckDistance, blocking))
         {
-            Debug.Log("[Push] blocked next cell.");
-            return;
+            // 같은 지점에서 높은 위치로 다시 쏴서 위가 비어있으면 올라설 수 있음
+            bool upperBlocked = Physics.Raycast(originHigh, moveDir, stepCheckDistance, blocking);
+            if (!upperBlocked)
+            {
+                // 살짝 위로 올려줌
+                stepOffset = Vector3.up * (Mathf.Clamp(stepHeight, 0.01f, 0.5f));
+                return true;
+            }
         }
-
-        crate.SlideOneCell(nextCell);
+        return false;
     }
 
     bool IsCellBlocked(Vector3 cellCenter)
