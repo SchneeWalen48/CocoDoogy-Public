@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class UIGroup : MonoBehaviour, IAudioGroup
+public class UIGroup : MonoBehaviour, IAudioController
 {
     private AudioMixer mixer;
     private AudioMixerGroup group;
@@ -37,7 +37,7 @@ public class UIGroup : MonoBehaviour, IAudioGroup
         throw new System.NotImplementedException();
     }
 
-    public void StopAll()
+    public void Stop()
     {
         throw new System.NotImplementedException();
     }

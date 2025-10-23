@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class BGMGroup : MonoBehaviour, IAudioGroup
+public class BGMGroup : AudioGroupBase
 {
     private AudioMixer mixer;
     private AudioMixerGroup group;
@@ -23,30 +23,29 @@ public class BGMGroup : MonoBehaviour, IAudioGroup
     }
 
     // 오디오 상태 제어
-    public void Play()
+    public override void Play()
     {
-        audioS = GetComponentInChildren<AudioSource>();
-        audioS.Play();
+        base.Play();
     }
 
-    public void Pause()
+    public override void Pause()
     {
-        audioS = GetComponentInChildren<AudioSource>();
-        audioS.Pause();
+        base.Pause();
     }
 
-    public void Resume()
+    public override void Resume()
     {
-        throw new System.NotImplementedException();
+        base.Resume();
     }
 
-    public void StopAll()
+    public override void Stop()
     {
-        throw new System.NotImplementedException();
+        base.Stop();
     }
 
-    public void ResetGroup()
+    public override void ResetGroup()
     {
-        throw new System.NotImplementedException();
+        base.ResetGroup();
     }
+    
 }

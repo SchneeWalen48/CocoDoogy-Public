@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class AmbientGroup : MonoBehaviour, IAudioGroup
+public class AmbientGroup : AudioGroupBase
 {
     [Header("Pooling Settings")]
     [SerializeField] private int poolSize = 5;
@@ -26,28 +26,28 @@ public class AmbientGroup : MonoBehaviour, IAudioGroup
         player.PlayAudio(clip, group, loop, pooled, pos);
     }
 
-    public void Play()
+    public override void Play()
     {
-        throw new System.NotImplementedException();
+        base.Play();
     }
 
-    public void Pause()
+    public override void Pause()
     {
-        throw new System.NotImplementedException();
+        base .Pause();
     }
 
-    public void Resume()
+    public override void Resume()
     {
-        throw new System.NotImplementedException();
+        base.Resume();
     }
 
-    public void StopAll()
+    public override void Stop()
     {
-        throw new System.NotImplementedException();
+        base.Stop();
     }
 
-    public void ResetGroup()
+    public override void ResetGroup()
     {
-        throw new System.NotImplementedException();
+        base.ResetGroup();
     }
 }

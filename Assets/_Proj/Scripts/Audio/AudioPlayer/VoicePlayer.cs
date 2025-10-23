@@ -17,7 +17,7 @@ public class VoicePlayer
     {
         if (currentSource == null)
         {
-            GameObject gObj = new GameObject($"Voice_{clip.name}");
+            GameObject gObj = new GameObject($"VoicePlayer");
             gObj.transform.parent = myTrans;
             currentSource = gObj.AddComponent<AudioSource>();
             currentSource.outputAudioMixerGroup = group;

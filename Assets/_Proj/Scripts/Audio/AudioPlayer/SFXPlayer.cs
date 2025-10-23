@@ -1,8 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class SFXPlayer
+public class SFXPlayer : PlayerRegister
 {
     private readonly AudioMixer mixer;
     private readonly Transform myTrans;
@@ -26,9 +28,10 @@ public class SFXPlayer
         }
         else
         {
-            GameObject gObj = new GameObject($"SFX_{clip.name}");
+            GameObject gObj = new GameObject($"SFXPlay");
             gObj.transform.parent = myTrans;
             currentSource = gObj.AddComponent<AudioSource>();
+            activeSources.Add(currentSource);
         }
         currentSource.outputAudioMixerGroup = group;
         currentSource.clip = clip;
@@ -70,7 +73,18 @@ public class SFXPlayer
             //play
             currentSource.Play();
             // loop일때 정지 및 빼는거 추가 해야함
-            UnityEngine.Object.Destroy(currentSource.gameObject, clip.length);
+            if (loop) { }
+            else NewDestroy(currentSource.gameObject, clip.length);
+        }
+    }
+
+    private void NewDestroy(GameObject gObj, float length)
+    {
+        AudioSource aS = gObj.GetComponent<AudioSource>();
+        UnityEngine.Object.Destroy(gObj, length);
+        if (gObj.IsDestroyed())
+        {
+            activeSources.Remove(aS);
         }
     }
     // PlayOneShot()

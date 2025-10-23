@@ -1,15 +1,16 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class AmbientPlayer
+public class AmbientPlayer : PlayerRegister
 {
     private readonly AudioMixer mixer;
     private readonly Transform myTrans;
     private readonly AudioPool audioPool;
     private MonoBehaviour coroutineHost;
-    private AudioSource currentSource;
+    public AudioSource currentSource;
 
     public AmbientPlayer(AudioMixer mixer, Transform myTrans, AudioPool pool)
     {
@@ -27,9 +28,10 @@ public class AmbientPlayer
         }
         else
         {
-            GameObject gObj = new GameObject($"Ambient_{clip.name}");
+            GameObject gObj = new GameObject($"AmbientPlayer");
             gObj.transform.parent = myTrans;
             currentSource = gObj.AddComponent<AudioSource>();
+            activeSources.Add(currentSource);
         }
         currentSource.outputAudioMixerGroup = group;
         currentSource.clip = clip;
@@ -71,7 +73,18 @@ public class AmbientPlayer
             //play
             currentSource.Play();
             // loop일때 정지 및 빼는거 추가 해야함
-            UnityEngine.Object.Destroy(currentSource.gameObject, clip.length);
+            if (loop) { }
+            else NewDestroy(currentSource.gameObject, clip.length);
+        }
+    }
+
+    private void NewDestroy(GameObject gObj, float length)
+    {
+        AudioSource aS = gObj.GetComponent<AudioSource>();
+        UnityEngine.Object.Destroy (gObj, length);
+        if (gObj.IsDestroyed())
+        {
+            activeSources.Remove(aS);
         }
     }
 

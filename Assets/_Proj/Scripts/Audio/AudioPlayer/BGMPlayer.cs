@@ -6,7 +6,7 @@ public class BGMPlayer
 {
     private readonly AudioMixer mixer;
     private readonly Transform myTrans;
-    private AudioSource currentSource;
+    public AudioSource currentSource;
 
     public BGMPlayer(AudioMixer mixer, Transform myTrans)
     {
@@ -18,7 +18,7 @@ public class BGMPlayer
     {
         if (currentSource == null)
         {
-            GameObject gObj = new GameObject($"BGM_{clip.name}");
+            GameObject gObj = new GameObject($"BGMPlayer");
             gObj.transform.parent = myTrans;
             currentSource = gObj.AddComponent<AudioSource>();
             currentSource.outputAudioMixerGroup = group;
@@ -37,6 +37,9 @@ public class BGMPlayer
             currentSource.DOFade(1f, fadeIn);
         });
     }
+
+
+
     // 각 오디오Player는 재생 담당인데 상태전환이 여기에 붙는게 맞을까? 오디오 팀장인 Group에서 해야하는거 아닌가?
     //public void Play()
     //{

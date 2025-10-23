@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class CutsceneGroup : MonoBehaviour, IAudioGroup
+public class CutsceneGroup : MonoBehaviour, IAudioController
 {
     private AudioMixer mixer;
     private AudioMixerGroup group;
@@ -36,7 +36,7 @@ public class CutsceneGroup : MonoBehaviour, IAudioGroup
         throw new System.NotImplementedException();
     }
 
-    public void StopAll()
+    public void Stop()
     {
         throw new System.NotImplementedException();
     }

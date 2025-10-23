@@ -18,7 +18,7 @@ public class CutscenePlayer
     {
         if (currentSource == null)
         {
-            GameObject gObj = new GameObject($"Cutscene_{clip.name}");
+            GameObject gObj = new GameObject($"CutscenePlayer");
             gObj.transform.parent = myTrans;
             currentSource = gObj.AddComponent<AudioSource>();
             currentSource.outputAudioMixerGroup = group;

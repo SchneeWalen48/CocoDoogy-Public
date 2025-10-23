@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class SFXGroup : MonoBehaviour, IAudioGroup
+public class SFXGroup : MonoBehaviour, IAudioController
 {
     [Header("Pooling Settings")]
     [SerializeField] private int poolSize = 10;
@@ -41,7 +41,7 @@ public class SFXGroup : MonoBehaviour, IAudioGroup
         throw new System.NotImplementedException();
     }
 
-    public void StopAll()
+    public void Stop()
     {
         throw new System.NotImplementedException();
     }

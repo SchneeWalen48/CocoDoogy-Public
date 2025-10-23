@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -31,12 +32,13 @@ public interface IAudioGroupSetting
     AudioMixerGroup GetGroup(AudioType type);
 }
 
-public interface IAudioGroup
+public interface IAudioController
 {
     void Play();
     void Pause();
     void Resume();
-    void StopAll();
+    void Stop();
     void ResetGroup();
 
 }
+
