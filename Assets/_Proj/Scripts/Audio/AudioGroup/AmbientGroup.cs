@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class AmbientGroup : AudioGroupBase
+public class AmbientGroup : MonoBehaviour, IAudioController
 {
     [Header("Pooling Settings")]
     [SerializeField] private int poolSize = 5;
@@ -14,8 +14,9 @@ public class AmbientGroup : AudioGroupBase
     private void Awake()
     {
         mixer = AudioManager.AudioGroupProvider.GetMixer();
+        Debug.Log($"AmbientGroup Mixer : {mixer.name}");
         group = AudioManager.AudioGroupProvider.GetGroup(AudioType.Ambient);
-        Debug.Log($"AmbientGroup : {group}");
+        Debug.Log($"AmbientGroup MixerGroup : {group}");
         audioPool = new AudioPool(transform, group, poolSize);
         player = new AmbientPlayer(mixer, transform, audioPool);
     }
@@ -26,28 +27,29 @@ public class AmbientGroup : AudioGroupBase
         player.PlayAudio(clip, group, loop, pooled, pos);
     }
 
-    public override void Play()
+    // 오디오 제어
+    public void PlayPlayer()
     {
-        base.Play();
+        player.PlayAll();
     }
 
-    public override void Pause()
+    public void PausePlayer()
     {
-        base .Pause();
+        player.PauseAll();
     }
 
-    public override void Resume()
+    public void ResumePlayer()
     {
-        base.Resume();
+        player.ResumeAll();
     }
 
-    public override void Stop()
+    public void StopPlayer()
     {
-        base.Stop();
+        player.StopAll();
     }
 
-    public override void ResetGroup()
+    public void ResetPlayer()
     {
-        base.ResetGroup();
+        player.ResetAll();
     }
 }

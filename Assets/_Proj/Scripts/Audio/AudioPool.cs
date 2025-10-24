@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,6 @@ public class AudioPool
     private readonly Queue<AudioSource> pool = new();
     private readonly Transform parent;
     private readonly AudioMixerGroup defaultGroup;
-    //public List<AudioSource> newPooledSources = new List<AudioSource>();
 
     public AudioPool(Transform parent, AudioMixerGroup defaultGroup, int size)
     {
@@ -32,11 +32,10 @@ public class AudioPool
     {
         if (pool.Count == 0)
         {
-            Debug.LogWarning("새로 만들께용");
+            Debug.LogWarning("새로 만들게용");
             var newPool = new GameObject("NewPooledAudio").AddComponent<AudioSource>();
             newPool.transform.SetParent(parent);
             newPool.tag = "newPooled";
-            //newPooledSources.Add(newPool);
             return newPool;
         }
 
@@ -54,29 +53,62 @@ public class AudioPool
     }
 
     // 풀로 재생 파일 중 반복 재생하는 파일들 풀에서 꺼내기 ex) 환경음 중에서 물 흐르는 소리
+    public void PlayPool()
+    {
+        foreach (var src in pool)
+        {
+            if (src != null && !src.isPlaying) src.Play();
+        }
+    }
+    
+    public void PausePool()
+    {
+        foreach (var src in pool)
+        {
+            if (src != null && src.isPlaying) src.Pause();
+        }
+    }
+
+    public void ResumePool()
+    {
+        foreach (var src in pool)
+        {
+            if (src != null && !src.isPlaying) src.UnPause();
+        }
+    }
+
     public void StopPool()
     {
         foreach (var src in pool)
         {
-            if (src != null && src.isPlaying) src.Stop();
+            if (src != null && src.isPlaying) 
+            {
+                src.DOFade(0, 1f);
+                src.Stop();
+            }
         }
-        //foreach (var src in newPooledSources)
-        //{
-        //    if (src != null && src.isPlaying) src.Stop();
-        //}
     }
 
-    public void ResetNewPooled()
+    public void ResetPool()
     {
-        GameObject gObj;
         foreach (var src in pool)
         {
-            if (src != null && src.CompareTag("newPooled"))
+            if (src != null)
             {
-                src.Stop();
+                if (src.isPlaying) src.Stop();
+                src.loop = false;
+                src.volume = 1f;
+                src.pitch = 1f;
                 src.clip = null;
-                gObj = src.gameObject.GetComponent<GameObject>();
-                UnityEngine.GameObject.Destroy(gObj);
+            }
+        }
+        foreach (var gObj in pool)
+        {
+            if (gObj.CompareTag("newPooled"))
+            {
+                GameObject gO;
+                gO = gObj.gameObject;
+                UnityEngine.GameObject.Destroy(gO);
             }
         }
     }

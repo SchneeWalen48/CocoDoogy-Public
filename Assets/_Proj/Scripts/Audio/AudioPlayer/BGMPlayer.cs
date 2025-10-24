@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using DG.Tweening;
 
-public class BGMPlayer
+public class BGMPlayer : AudioPlayerControl
 {
     private readonly AudioMixer mixer;
     private readonly Transform myTrans;
@@ -21,6 +21,7 @@ public class BGMPlayer
             GameObject gObj = new GameObject($"BGMPlayer");
             gObj.transform.parent = myTrans;
             currentSource = gObj.AddComponent<AudioSource>();
+            activeSources.Add(currentSource);
             currentSource.outputAudioMixerGroup = group;
             //Object.DontDestroyOnLoad(gObj);
         }
@@ -40,22 +41,6 @@ public class BGMPlayer
 
 
 
-    // 각 오디오Player는 재생 담당인데 상태전환이 여기에 붙는게 맞을까? 오디오 팀장인 Group에서 해야하는거 아닌가?
-    //public void Play()
-    //{
-
-    //}
-
-    //public void Pause()
-    //{
-    //    if (currentSource == null) return;
-    //    currentSource.Pause();
-    //}
-
-    //public void Resume()
-    //{
-    //    if (currentSource == null) return;
-    //    currentSource.UnPause();
-    //}
+    // 각 오디오Player는 재생 담당인데 상태전환이 여기에 붙는게 맞을까? 오디오 팀장인 Group에서 해야하는거 아닌가? 에잉 만들고 명령은 Group에서 하자
 }
 

@@ -9,7 +9,7 @@ public struct AudioGroupMapping
     public AudioType type;
     public AudioMixerGroup group;
 }
-[DefaultExecutionOrder(-100)]
+[DefaultExecutionOrder(-99)]
 public class AudioManager : MonoBehaviour, IAudioGroupSetting
 {
     public static AudioManager Instance { get; private set; }
@@ -37,7 +37,8 @@ public class AudioManager : MonoBehaviour, IAudioGroupSetting
 
     private Dictionary<AudioType, AudioMixerGroup> groupMap;
     private AudioLibraryProvider libraryProvider;
-    private OptionVolumeManager volumeManager;
+    private AudioVolumeHandler volumeHandler;
+    private IAudioController[] audioGroups;
 
     void Awake()
     {
@@ -54,11 +55,11 @@ public class AudioManager : MonoBehaviour, IAudioGroupSetting
         {
             groupMap[map.type] = map.group;
         }
-        
+
         AudioGroupProvider = this;
 
         libraryProvider = new AudioLibraryProvider(bgmLibrary, sfxLibrary, ambientLibrary, cutsceneLibrary, voiceLibrary, uiLibrary);
-        volumeManager = new OptionVolumeManager(mixer);
+        volumeHandler = new AudioVolumeHandler(mixer);
 
         // AudioGroupMapping
         bgmGroup = GetComponentInChildren<BGMGroup>();
@@ -67,6 +68,20 @@ public class AudioManager : MonoBehaviour, IAudioGroupSetting
         cutsceneGroup = GetComponentInChildren<CutsceneGroup>();
         voiceGroup = GetComponentInChildren<VoiceGroup>();
         uiGroup = GetComponentInChildren<UIGroup>();
+
+        audioGroups = new IAudioController[6] { bgmGroup, sfxGroup, ambientGroup, cutsceneGroup, voiceGroup, uiGroup };
+
+        // 세팅 불러오기
+        if (SettingManager.Instance == null)
+        {
+            var settingGO = new GameObject("SettingManager");
+            settingGO.AddComponent<SettingManager>();
+        }
+        var volumeData = SettingManager.Instance.settingData;
+        volumeHandler.ApplyVolumes(volumeData.audio);
+        //
+        
+
     }
 
     public AudioMixer GetMixer()
@@ -102,7 +117,7 @@ public class AudioManager : MonoBehaviour, IAudioGroupSetting
             case UIKey uk:
                 PlayAudio(uk, index);
                 break;
-            default: throw new Exception("키는 BGMKey, SFXKey, AmbientKey, CutsceneKey, VoiceKey, UIKey");
+            default: throw new Exception("Key: BGMKey, SFXKey, AmbientKey, CutsceneKey, VoiceKey, UIKey");
         }
     }
 
@@ -151,19 +166,72 @@ public class AudioManager : MonoBehaviour, IAudioGroupSetting
     }
     #endregion
 
-    // 오디오 컨트롤 // 중요한건 실행되고 있는 오디오를 정지시킬 수 있는 로직이어야함
-    // 배경음과 컷신은 해당 오브젝트에서 재생되는 것이니 그 오브젝트를 정지시키면 되지않을까?
-
-
-    // 볼륨
-    public void SetVolume(string channel, float linear)
+    // 오디오 컨트롤
+    public void ResetAllAudioGroup()
     {
-        volumeManager.SetVolume(channel, linear);
+        foreach (var r in audioGroups)
+        {
+            r.ResetPlayer();
+        }
     }
 
-    public float GetVolume(string channel)
+    public void StopAllAudioGroup()
     {
-        return volumeManager.GetVolume(channel);
+        foreach (var r in audioGroups)
+        {
+            r.StopPlayer();
+        }
+    }
+
+    // 볼륨
+    // 구조 VolumeUI <-(실시간 오디오데이터 변경 반영)-> AudioVolumeHandler(AudioManager의 파츠) AudioManager <-(오디오데이터 저장, 불러오기)-> SettingManager
+    public void SetVolume(AudioType type, float value)
+    {
+        var data = SettingManager.Instance.settingData.audio;
+        switch (type)
+        {
+            case AudioType.BGM:
+                data.BGM = value;
+                break;
+            case AudioType.SFX:
+                data.SFX = value;
+                break;
+            case AudioType.Ambient:
+                data.Ambient = value;
+                break;
+            case AudioType.Cutscene:
+                data.Cutscene = value;
+                break;
+            case AudioType.Voice:
+                data.Voice = value;
+                break;
+            case AudioType.Master:
+                data.Master = value;
+                break;
+        }
+        volumeHandler.SetVolume(type, value);
+        SettingManager.Instance.SaveSettings();
+    }
+
+    public float GetVolume(AudioType type)
+    {
+        var data = SettingManager.Instance.settingData.audio;
+        switch (type)
+        {
+            case AudioType.BGM:
+                return data.BGM;
+            case AudioType.SFX:
+                return data.SFX;
+            case AudioType.Ambient:
+                return data.Ambient;
+            case AudioType.Cutscene:
+                return data.Cutscene;
+            case AudioType.Voice:
+                return data.Voice;
+            case AudioType.Master:
+                return data.Master;
+        }
+        return -1f;
     }
 
 }

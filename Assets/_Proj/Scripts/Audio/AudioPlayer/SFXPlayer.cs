@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class SFXPlayer : PlayerRegister
+public class SFXPlayer : AudioPlayerControl
 {
     private readonly AudioMixer mixer;
     private readonly Transform myTrans;
@@ -76,6 +76,36 @@ public class SFXPlayer : PlayerRegister
             if (loop) { }
             else NewDestroy(currentSource.gameObject, clip.length);
         }
+    }
+
+    public override void PlayAll()
+    {
+        base.PlayAll();
+        audioPool.PlayPool();
+    }
+
+    public override void PauseAll()
+    {
+        base.PauseAll();
+        audioPool.PausePool();
+    }
+
+    public override void ResumeAll()
+    {
+        base.ResumeAll();
+        audioPool.ResumePool();
+    }
+
+    public override void ResetAll()
+    {
+        base.ResetAll();
+        audioPool.ResetPool();
+    }
+
+    public override void StopAll()
+    {
+        base.StopAll();
+        audioPool.StopPool();
     }
 
     private void NewDestroy(GameObject gObj, float length)

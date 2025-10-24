@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class AmbientPlayer : PlayerRegister
+public class AmbientPlayer : AudioPlayerControl
 {
     private readonly AudioMixer mixer;
     private readonly Transform myTrans;
@@ -32,6 +32,7 @@ public class AmbientPlayer : PlayerRegister
             gObj.transform.parent = myTrans;
             currentSource = gObj.AddComponent<AudioSource>();
             activeSources.Add(currentSource);
+            Debug.Log($"{activeSources}에 {currentSource.name} 집어 넣음");
         }
         currentSource.outputAudioMixerGroup = group;
         currentSource.clip = clip;
@@ -78,12 +79,43 @@ public class AmbientPlayer : PlayerRegister
         }
     }
 
+    public override void PlayAll()
+    {
+        base.PlayAll();
+        audioPool.PlayPool();
+    }
+
+    public override void PauseAll()
+    {
+        base.PauseAll();
+        audioPool.PausePool();
+    }
+
+    public override void ResumeAll()
+    {
+        base.ResumeAll();
+        audioPool.ResumePool();
+    }
+
+    public override void ResetAll()
+    {
+        base.ResetAll();
+        audioPool.ResetPool();
+    }
+
+    public override void StopAll()
+    {
+        base.StopAll();
+        audioPool.StopPool();
+    }
+
     private void NewDestroy(GameObject gObj, float length)
     {
         AudioSource aS = gObj.GetComponent<AudioSource>();
         UnityEngine.Object.Destroy (gObj, length);
         if (gObj.IsDestroyed())
         {
+            Debug.Log($"{activeSources}에 {aS.name} 삭제함");
             activeSources.Remove(aS);
         }
     }

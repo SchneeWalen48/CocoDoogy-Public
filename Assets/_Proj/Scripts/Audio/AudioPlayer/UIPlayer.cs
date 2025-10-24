@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class UIPlayer
+public class UIPlayer : AudioPlayerControl
 {
     private readonly AudioMixer mixer;
     private readonly Transform myTrans;
@@ -21,6 +21,7 @@ public class UIPlayer
             GameObject gObj = new GameObject($"UIPlayer");
             gObj.transform.parent = myTrans;
             currentSource = gObj.AddComponent<AudioSource>();
+            activeSources.Add(currentSource);
             currentSource.outputAudioMixerGroup = group;
             //Object.DontDestroyOnLoad(gObj);
         }

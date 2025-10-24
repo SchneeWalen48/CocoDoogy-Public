@@ -21,29 +21,29 @@ public class UIGroup : MonoBehaviour, IAudioController
         player.PlayAudio(clip, group);
     }
 
-    // UI 쪽은 어떤 상태든 제어에서 자유로운 몸이니 굳이 필요없을 듯?
-    public void Play()
+    // UI 부분은 어떤 상태든 제어에서 자유로운 몸이니 굳이 필요없을 듯? 그래도 넣긴 합시다
+    public void PlayPlayer()
     {
-        throw new System.NotImplementedException();
+        //player.PlayAll();
     }
 
-    public void Pause()
+    public void PausePlayer()
     {
-        throw new System.NotImplementedException();
+        //player.PauseAll();
     }
 
-    public void Resume()
+    public void ResumePlayer()
     {
-        throw new System.NotImplementedException();
+        //player.ResumeAll();
     }
 
-    public void Stop()
+    public void StopPlayer()
     {
-        throw new System.NotImplementedException();
+        //player.StopAll();
     }
 
-    public void ResetGroup()
+    public void ResetPlayer()
     {
-        throw new System.NotImplementedException();
+        //player.ResetAll();
     }
 }

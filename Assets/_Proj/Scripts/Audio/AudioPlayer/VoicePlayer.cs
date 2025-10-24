@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class VoicePlayer
+public class VoicePlayer : AudioPlayerControl
 {
     private readonly AudioMixer mixer;
     private readonly Transform myTrans;
@@ -20,6 +20,7 @@ public class VoicePlayer
             GameObject gObj = new GameObject($"VoicePlayer");
             gObj.transform.parent = myTrans;
             currentSource = gObj.AddComponent<AudioSource>();
+            activeSources.Add(currentSource);
             currentSource.outputAudioMixerGroup = group;
             //Object.DontDestroyOnLoad(gObj);
         }

@@ -7,7 +7,8 @@ public enum AudioType
     Ambient,
     Cutscene,
     Voice,
-    UI
+    UI,
+    Master
 }
 
 public enum BGMKey

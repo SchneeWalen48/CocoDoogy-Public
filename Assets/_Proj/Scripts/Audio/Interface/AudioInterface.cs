@@ -34,11 +34,11 @@ public interface IAudioGroupSetting
 
 public interface IAudioController
 {
-    void Play();
-    void Pause();
-    void Resume();
-    void Stop();
-    void ResetGroup();
+    void PlayPlayer();
+    void PausePlayer();
+    void ResumePlayer();
+    void StopPlayer();
+    void ResetPlayer();
 
 }
 

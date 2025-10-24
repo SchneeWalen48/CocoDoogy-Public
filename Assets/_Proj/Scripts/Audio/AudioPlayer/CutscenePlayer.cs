@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using DG.Tweening;
 
-public class CutscenePlayer
+public class CutscenePlayer : AudioPlayerControl
 {
     private readonly AudioMixer mixer;
     private readonly Transform myTrans;
@@ -21,6 +21,7 @@ public class CutscenePlayer
             GameObject gObj = new GameObject($"CutscenePlayer");
             gObj.transform.parent = myTrans;
             currentSource = gObj.AddComponent<AudioSource>();
+            activeSources.Add(currentSource);
             currentSource.outputAudioMixerGroup = group;
             //Object.DontDestroyOnLoad(gObj);
         }

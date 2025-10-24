@@ -21,28 +21,28 @@ public class VoiceGroup : MonoBehaviour, IAudioController
         player.PlayAudio(clip, group);
     }
 
-    public void Play()
+    public void PlayPlayer()
     {
-        throw new System.NotImplementedException();
+        player.PlayAll();
     }
 
-    public void Pause()
+    public void PausePlayer()
     {
-        throw new System.NotImplementedException();
+        player.PauseAll();
     }
 
-    public void Resume()
+    public void ResumePlayer()
     {
-        throw new System.NotImplementedException();
+        player.ResumeAll();
     }
 
-    public void Stop()
+    public void StopPlayer()
     {
-        throw new System.NotImplementedException();
+        player.StopAll();
     }
 
-    public void ResetGroup()
+    public void ResetPlayer()
     {
-        throw new System.NotImplementedException();
+        player.ResetAll();
     }
 }
