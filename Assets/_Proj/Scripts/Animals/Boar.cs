@@ -22,6 +22,7 @@ public class Boar : PushableObjects, IDashDirection
     public LayerMask pushableLayer;
     [Tooltip("돌진 속도를 조정하려면 여기를 수정")]
     public float dashSpeed = 0.08f; // 돌진 속도
+    public float rotateLerp = 10f;
 
     [Header("HitStop")]
     public bool useGlobalTimeScale = true; // 전체 일시정지(0.06s)로 타격감
@@ -108,19 +109,23 @@ public class Boar : PushableObjects, IDashDirection
         StartCoroutine(DashCoroutine(moveDir, dashDir));
     }
 
-    protected IEnumerator DashMoveTo(Vector3 target)
+    protected IEnumerator DashMoveTo(Vector3 target, Vector3 moveDir)
     {
+        Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
+
         isMoving = true;
         Vector3 start = transform.position;
         float elapsed = 0f;
 
         while (elapsed < dashSpeed)
         {
+            transform.rotation = Quaternion.Slerp(transform.rotation,targetRot, rotateLerp * Time.deltaTime);
             transform.position = Vector3.Lerp(start, target, elapsed / dashSpeed);
             elapsed += Time.deltaTime;
             yield return null;
         }
 
+        transform.rotation = targetRot;
         transform.position = target;
         isMoving = false;
     }
@@ -130,6 +135,17 @@ public class Boar : PushableObjects, IDashDirection
         isMoving = true;
         btnGroup.SetActive(false);
 
+        Quaternion initTargetRot = Quaternion.LookRotation(moveDir, Vector3.up);
+        float rotateTime = 0.1f;
+        float rotElapsed = 0f;
+        Quaternion startRot = transform.rotation;
+
+        while(rotElapsed < rotateTime)
+        {
+            rotElapsed += Time.deltaTime;
+            transform.rotation = Quaternion.Slerp(startRot, initTargetRot, rotElapsed / rotateTime);
+            yield return null;
+        }
         while (true)
         {
             Vector3 currentPos = transform.position;
@@ -141,7 +157,7 @@ public class Boar : PushableObjects, IDashDirection
             if (hits.Length == 0)
             {
                 // 완전 비었으면 전진
-                yield return StartCoroutine(DashMoveTo(nextPos));
+                yield return StartCoroutine(DashMoveTo(nextPos, moveDir));
                 continue;
             }
 
