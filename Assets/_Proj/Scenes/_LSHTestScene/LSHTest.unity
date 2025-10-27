@@ -2579,14 +2579,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6647131506220806908, guid: 27e82c8a2f2dc474a8d10d84ae09e664, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1054175060}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6647131506220806907, guid: 27e82c8a2f2dc474a8d10d84ae09e664, type: 3}
       insertIndex: -1
       addedObject: {fileID: 782396786}
     - targetCorrespondingSourceObject: {fileID: 6647131506220806907, guid: 27e82c8a2f2dc474a8d10d84ae09e664, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 782396791}
+      addedObject: {fileID: 782396796}
   m_SourcePrefab: {fileID: 100100000, guid: 27e82c8a2f2dc474a8d10d84ae09e664, type: 3}
 --- !u!1 &421640824
 GameObject:
@@ -4426,7 +4429,12 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &782396791
+--- !u!4 &782396795 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6647131506220806908, guid: 27e82c8a2f2dc474a8d10d84ae09e664, type: 3}
+  m_PrefabInstance: {fileID: 412814178}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &782396796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4435,14 +4443,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 782396785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88aa5d199b8ad44419f283a3e2c4e66d, type: 3}
+  m_Script: {fileID: 11500000, guid: 850087b7545599f42902439fa0eea482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveRadius: 10
-  waitTime: 0.01
   moveSpeed: 50
   angularSpeed: 180
   acceleration: 80
+  moveRadius: 30
+  waitTime: 1
 --- !u!1 &783164527
 GameObject:
   m_ObjectHideFlags: 0
@@ -5316,7 +5324,7 @@ GameObject:
   - component: {fileID: 964618858}
   - component: {fileID: 964618857}
   - component: {fileID: 964618860}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5628,7 +5636,7 @@ GameObject:
   - component: {fileID: 1029424941}
   - component: {fileID: 1029424940}
   - component: {fileID: 1029424943}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5808,7 +5816,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5828,13 +5836,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1054175057}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0.97723114, z: -0.21217771, w: 0}
+  m_LocalPosition: {x: 0, y: 1.4, z: 1.69}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 782396795}
+  m_LocalEulerAnglesHint: {x: 24.5, y: 180, z: 0}
 --- !u!114 &1054175061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5849,7 +5857,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EventMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   m_MaxRayIntersections: 0
 --- !u!114 &1054175062
 MonoBehaviour:
@@ -6762,7 +6770,7 @@ GameObject:
   - component: {fileID: 1280569666}
   - component: {fileID: 1280569665}
   - component: {fileID: 1280569668}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6888,7 +6896,7 @@ GameObject:
   - component: {fileID: 1290980092}
   - component: {fileID: 1290980091}
   - component: {fileID: 1290980094}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7140,7 +7148,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.33333334
+  m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: df8088fc062cfae4683fdd1d39bf85df, type: 2}
   m_BuildHeightMesh: 0
@@ -11855,7 +11863,6 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1054175060}
   - {fileID: 247443324}
   - {fileID: 1766736744}
   - {fileID: 729984785}

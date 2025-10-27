@@ -1,16 +1,25 @@
+using System;
 using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    
+    public static InteractionManager Instance { get; private set; }
 
+    public event Action<IInteractable> OnInteracted;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void InteractionEvent(IInteractable target)
     {
-        
+        OnInteracted?.Invoke(target);
     }
 }
