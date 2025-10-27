@@ -68,6 +68,17 @@ public class Boar : PushableObjects, IDashDirection
         DetectPlayer();
     }
 
+    // HACK : 카메라 세팅에 따라 카메라 정면을 조금 따라가도록 수정하는 것이 나은 방법일 수도 있음. 추후 joystick, camera 변경 후 다시 생각.
+    private void LateUpdate()
+    {
+        // 멧돼지(부모)의 회전에 상관없이 UI가 월드 축에 고정되게 유지
+        if (btnGroup != null)
+        {
+            // World Rotation을 Quaternion.identity(X=0, Y=0, Z=0)로 설정
+            btnGroup.transform.rotation = Quaternion.identity;
+        }
+    }
+
     // 플레이어 감지
     void DetectPlayer()
     {
