@@ -38,5 +38,9 @@ public class AudioPlayTest : MonoBehaviour
     {
         AudioEvents.Raise(UIKey.UIOpen, -1);
     }
-
+    public void Quit()
+    {
+        SettingManager.Instance.SaveSettings();
+        Application.Quit();
+    }
 }

@@ -209,6 +209,8 @@ public class AudioManager : MonoBehaviour, IAudioGroupSetting
                 data.Master = value;
                 break;
         }
+        SettingManager.Instance.settingData.audio = data;
+
         volumeHandler.SetVolume(type, value);
         SettingManager.Instance.SaveSettings();
     }

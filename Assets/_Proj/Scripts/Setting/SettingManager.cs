@@ -30,6 +30,8 @@ public class SettingManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        LoadSettings();
     }
 
     public void SaveSettings()
@@ -59,4 +61,5 @@ public class SettingManager : MonoBehaviour
     {
         SaveSettings();
     }
+
 }

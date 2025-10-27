@@ -144,6 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5654981415320873989}
   - component: {fileID: 6745742510023782600}
+  - component: {fileID: 3402298703582150645}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -204,6 +205,18 @@ MonoBehaviour:
   cutsceneLibrary: {fileID: 11400000, guid: 48162746b7a7eee4cb57e3e6ed43cd81, type: 2}
   voiceLibrary: {fileID: 11400000, guid: f655cfdfb2dff7a4881658bc89128ee1, type: 2}
   uiLibrary: {fileID: 11400000, guid: 740325be80d2f454d93944fe32e722e3, type: 2}
+--- !u!114 &3402298703582150645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3847754152560321171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ce7853fadc5a6419e70385b3ded9df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5322242817703582010
 GameObject:
   m_ObjectHideFlags: 0
