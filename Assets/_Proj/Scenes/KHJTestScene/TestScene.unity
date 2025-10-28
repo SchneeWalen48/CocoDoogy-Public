@@ -643,7 +643,7 @@ MonoBehaviour:
   tileSize: 1
   blockingMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 384
   groundMask:
     serializedVersion: 2
     m_Bits: 1
@@ -889,7 +889,7 @@ MonoBehaviour:
   tileSize: 1
   blockingMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 384
   groundMask:
     serializedVersion: 2
     m_Bits: 1
@@ -2226,7 +2226,7 @@ MonoBehaviour:
   tileSize: 1
   blockingMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 384
   groundMask:
     serializedVersion: 2
     m_Bits: 1
@@ -2479,7 +2479,6 @@ GameObject:
   - component: {fileID: 795707065}
   - component: {fileID: 795707066}
   - component: {fileID: 795707067}
-  - component: {fileID: 795707068}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -3252,7 +3251,7 @@ MonoBehaviour:
   tileSize: 1
   blockingMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 384
   groundMask:
     serializedVersion: 2
     m_Bits: 1
@@ -4412,7 +4411,7 @@ MonoBehaviour:
   tileSize: 1
   blockingMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 384
   groundMask:
     serializedVersion: 2
     m_Bits: 1
@@ -4846,7 +4845,7 @@ MonoBehaviour:
   tileSize: 1
   blockingMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 384
   groundMask:
     serializedVersion: 2
     m_Bits: 1
@@ -5634,7 +5633,7 @@ MonoBehaviour:
   tileSize: 1
   blockingMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 384
   groundMask:
     serializedVersion: 2
     m_Bits: 1
@@ -6092,7 +6091,7 @@ MonoBehaviour:
   tileSize: 1
   blockingMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 384
   groundMask:
     serializedVersion: 2
     m_Bits: 1
@@ -6446,7 +6445,7 @@ MonoBehaviour:
   tileSize: 1
   blockingMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 384
   groundMask:
     serializedVersion: 2
     m_Bits: 1
@@ -6806,7 +6805,7 @@ MonoBehaviour:
   tileSize: 1
   blockingMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 384
   groundMask:
     serializedVersion: 2
     m_Bits: 1
@@ -6959,7 +6958,7 @@ MonoBehaviour:
   tileSize: 1
   blockingMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 384
   groundMask:
     serializedVersion: 2
     m_Bits: 1
@@ -7540,7 +7539,7 @@ MonoBehaviour:
   tileSize: 1
   blockingMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 384
   groundMask:
     serializedVersion: 2
     m_Bits: 1
