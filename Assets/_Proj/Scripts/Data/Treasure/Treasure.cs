@@ -21,4 +21,7 @@ public class Treasure : ScriptableObject
 
     public int Count; // 수량
 
+    public GameObject prefab;
+
+    public Sprite icon;
 }
