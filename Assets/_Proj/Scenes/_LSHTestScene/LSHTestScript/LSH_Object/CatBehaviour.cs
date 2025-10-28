@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ObjectScript : MonoBehaviour, IInteractable, IDraggable, ILongPressable
+public class CatBehaviour : MonoBehaviour, IInteractable, IDraggable, ILongPressable
 {
     [Header("NavMeshAgent")]
     [SerializeField] float moveSpeed = 3.5f; // 이동 속도
@@ -16,8 +16,8 @@ public class ObjectScript : MonoBehaviour, IInteractable, IDraggable, ILongPress
     [SerializeField] Transform[] Waypoints { get; set; } // 웨이 포인트
     private int currentwaypoinIndex = 0;
 
-    private ObjectAnimationController oAC;
-    private ObjectNavMeshAgentController oNMAC;
+    private ObjectAnimationControl oAC;
+    private NavMeshAgentControl oNMAC;
     private Camera mainCam;
     private Vector3 originalPos;
     private bool isDragging = false;
@@ -30,22 +30,15 @@ public class ObjectScript : MonoBehaviour, IInteractable, IDraggable, ILongPress
     {
         var agent = GetComponent<NavMeshAgent>();
         var anim = GetComponent<Animator>();
-        oAC = new ObjectAnimationController(anim);
-        oNMAC = new ObjectNavMeshAgentController(agent, moveSpeed, angularSpeed, acceleration, moveRadius, waitTime, timer, transform);
+        oAC = new ObjectAnimationControl(anim);
+        oNMAC = new NavMeshAgentControl(agent, moveSpeed, angularSpeed, acceleration, moveRadius, waitTime, timer, transform);
         mainCam = Camera.main;
         Debug.Log($"Main Cam = {mainCam.name}");
 
-        for (int i = 0; i < Waypoints.Length; i++)
-        {
-            oNMAC.waypoints[i] = Waypoints[i];
-        }
     }
 
     private void OnEnable()
     {
-        if (Waypoints.Length > 0)
-        {
-        }
         oNMAC.MoveRandomPosition();
         
     }
@@ -62,9 +55,9 @@ public class ObjectScript : MonoBehaviour, IInteractable, IDraggable, ILongPress
 
     private void Update()
     {
-        oNMAC.MoveValueChanged();
+        //oNMAC.MoveValueChanged();
         oAC.MoveAnim(oNMAC.ValueOfMagnitude());
-        oNMAC.WaitAndMove();
+        //oNMAC.WaitAndMove();
     }
 
     public void OnDragStart(Vector3 position)
@@ -72,6 +65,8 @@ public class ObjectScript : MonoBehaviour, IInteractable, IDraggable, ILongPress
         // 나중에 bool 변수(메인 캐릭터 등등) 리턴.
         originalPos = transform.position;
         isDragging = true;
+        oAC.StopAnim();
+        oNMAC.AgentStop();
     }
 
     public void OnDrag(Vector3 position)
@@ -86,6 +81,9 @@ public class ObjectScript : MonoBehaviour, IInteractable, IDraggable, ILongPress
             foreach (var hit in CanMovePlace)
             {
                 if (hit.collider == this.GetComponent<Collider>()) continue;
+                //if (!hit.collider.gameObject.CompareTag("MainPlane")) continue;
+               // if (!hit.collider.gameObject.layer.) continue;
+                
                 Vector3 pos = hit.point;
                 pos.y = 0f;
                 transform.position = pos;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ObjectMeta : MonoBehaviour
+public class GameObjectData : MonoBehaviour
 {
     public TestScriptableObject Data { get; private set; }
 

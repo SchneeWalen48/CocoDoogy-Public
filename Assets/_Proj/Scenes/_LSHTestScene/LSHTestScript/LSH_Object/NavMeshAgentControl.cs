@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ObjectNavMeshAgentController
+public class NavMeshAgentControl
 {
     // NavMeshAgent ºÎºÐ
     private readonly NavMeshAgent agent;
@@ -16,7 +16,7 @@ public class ObjectNavMeshAgentController
     private Transform transform;
     public Transform[] waypoints { get; set; }
 
-    public ObjectNavMeshAgentController(NavMeshAgent agent, float moveSpeed, float angularSpeed, float acceleration, float moveRadius, float waitTime, float timer, Transform transform)
+    public NavMeshAgentControl(NavMeshAgent agent, float moveSpeed, float angularSpeed, float acceleration, float moveRadius, float waitTime, float timer, Transform transform)
     {
         this.agent = agent;
         this.moveSpeed = moveSpeed;
