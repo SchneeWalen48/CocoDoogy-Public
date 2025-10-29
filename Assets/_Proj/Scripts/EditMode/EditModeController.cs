@@ -936,7 +936,6 @@ public class EditModeController : MonoBehaviour
     }
     #endregion
 
-    // EditController.cs 내부 아무 곳 (Region Utils 등)
     private bool IsOverGround(Vector3 worldPos)
     {
         if (!requireGround) return true;
