@@ -639,7 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b01b265e234fdd47b834a63d0cef32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.12
+  moveTime: 0.2
   tileSize: 1
   blockingMask:
     serializedVersion: 2
@@ -885,7 +885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b01b265e234fdd47b834a63d0cef32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.12
+  moveTime: 0.2
   tileSize: 1
   blockingMask:
     serializedVersion: 2
@@ -1746,6 +1746,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 437609031}
+  - component: {fileID: 437609032}
   - component: {fileID: 437609029}
   - component: {fileID: 437609028}
   - component: {fileID: 437609027}
@@ -1845,6 +1846,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &437609032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437609026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b01b265e234fdd47b834a63d0cef32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveTime: 0.12
+  tileSize: 1
+  blockingMask:
+    serializedVersion: 2
+    m_Bits: 384
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1
+  slopeMask:
+    serializedVersion: 2
+    m_Bits: 0
+  throughLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  requiredHoldtime: 0.9
+  allowFall: 1
+  allowSlope: 0
 --- !u!1 &462038717
 GameObject:
   m_ObjectHideFlags: 0
@@ -2222,7 +2252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b01b265e234fdd47b834a63d0cef32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.12
+  moveTime: 0.2
   tileSize: 1
   blockingMask:
     serializedVersion: 2
@@ -3591,8 +3621,9 @@ MonoBehaviour:
   occluderMask:
     serializedVersion: 2
     m_Bits: 384
-  riseSecondsPerTile: 0.5
-  hangSeconds: 0.4
+  riseSec: 0.1
+  hangSec: 0.4
+  fallSec: 1
 --- !u!1 &1133486613
 GameObject:
   m_ObjectHideFlags: 0
@@ -5629,7 +5660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b01b265e234fdd47b834a63d0cef32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.12
+  moveTime: 0.2
   tileSize: 1
   blockingMask:
     serializedVersion: 2
@@ -6087,7 +6118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b01b265e234fdd47b834a63d0cef32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.12
+  moveTime: 0.2
   tileSize: 1
   blockingMask:
     serializedVersion: 2
@@ -6441,7 +6472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b01b265e234fdd47b834a63d0cef32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.12
+  moveTime: 0.2
   tileSize: 1
   blockingMask:
     serializedVersion: 2
@@ -6801,7 +6832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b01b265e234fdd47b834a63d0cef32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.12
+  moveTime: 0.2
   tileSize: 1
   blockingMask:
     serializedVersion: 2
@@ -6954,7 +6985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b01b265e234fdd47b834a63d0cef32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.12
+  moveTime: 0.2
   tileSize: 1
   blockingMask:
     serializedVersion: 2
@@ -7535,7 +7566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b01b265e234fdd47b834a63d0cef32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.12
+  moveTime: 0.2
   tileSize: 1
   blockingMask:
     serializedVersion: 2
@@ -8018,10 +8049,10 @@ SceneRoots:
   - {fileID: 562939523}
   - {fileID: 601934553}
   - {fileID: 795707064}
+  - {fileID: 437609031}
   - {fileID: 172523475}
   - {fileID: 233665280}
   - {fileID: 1621411388}
-  - {fileID: 437609031}
   - {fileID: 1868279834}
   - {fileID: 1680770751}
   - {fileID: 1927625609}
