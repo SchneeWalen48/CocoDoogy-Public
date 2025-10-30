@@ -3621,8 +3621,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6cf8e677aeaf2343a8fe004ced255c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectDatabase:
-  - {fileID: 11400000, guid: d99d90af2fef2114b93de78b7e777c3b, type: 2}
+  charDatabase:
+  - {fileID: 11400000, guid: d1c3f27c93a52c5468dfaf01dd2375bd, type: 2}
   plane: {fileID: 373962469}
   waypoints:
   - {fileID: 691912471}
@@ -5373,7 +5373,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1043265987}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3987b7f61c07a55459cbed49eecf28e0, type: 3}
   m_Name: 
@@ -6311,7 +6311,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 798160575}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.998481
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9965,7 +9965,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0.000030517578}
   m_SizeDelta: {x: 0, y: 550}
   m_Pivot: {x: 0, y: 1}
 --- !u!4 &1998608442

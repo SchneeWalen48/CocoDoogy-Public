@@ -1,27 +1,26 @@
 using UnityEngine;
 
-// »ç¿ëÀÚ°¡ ¿ÀºêÁ§Æ®¿Í »óÈ£ÀÛ¿ë
-public interface IInteractable
+// ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È£ï¿½Û¿ï¿½
+public interface ILobbyInteractable
 {
-    void OnInteract();
+    void OnLobbyInteract();
 }
 
-public interface IDraggable
+public interface ILobbyDraggable
 {
-    void OnDragStart(Vector3 position);
-    void OnDrag(Vector3 position);
-    void OnDragEnd(Vector3 position);
+    void OnLobbyBeginDrag(Vector3 position);
+    void OnLobbyDrag(Vector3 position);
+    void OnLobbyEndDrag(Vector3 position);
 }
 
-public interface ILongPressable
+public interface ILobbyPressable
 {
-    void OnLongPress();
+    void OnLobbyPress();
 }
 //
 
-// ¿ÀºêÁ§Æ®µé ¼­·Î »óÈ£ÀÛ¿ë
-public interface ILobbyInteracte
+public interface ILobbyCharactersEmotion
 {
-    void OnLobbyInteract();
-    void OnCocoAndMasterInteract(string animStateName);
+    void OnCocoMasterEmotion();
+    void OnCocoAnimalEmotion();
 }

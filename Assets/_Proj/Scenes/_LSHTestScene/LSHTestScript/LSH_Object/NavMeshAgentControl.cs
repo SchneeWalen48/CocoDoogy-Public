@@ -1,22 +1,23 @@
 using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class NavMeshAgentControl
 {
-    // NavMeshAgent ºÎºĞ
+    // NavMeshAgent ï¿½Îºï¿½
     private readonly NavMeshAgent agent;
-    private float moveSpeed; // ÀÌµ¿ ¼Óµµ
-    private float angularSpeed; // ÅÏ ¼Óµµ
-    private float acceleration; // °¡¼Óµµ
+    private float moveSpeed; // ï¿½Ìµï¿½ ï¿½Óµï¿½
+    private float angularSpeed; // ï¿½ï¿½ ï¿½Óµï¿½
+    private float acceleration; // ï¿½ï¿½ï¿½Óµï¿½
 
-    // ±× ¿Ü
-    private float moveRadius; // ÀÌµ¿ ¹üÀ§
-    private float waitTime; // ¸ñÇ¥ ÁöÁ¡ µµ´Ş ÈÄ ´ë±â ½Ã°£
+    // ï¿½ï¿½ ï¿½ï¿½
+    private float moveRadius; // ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
+    private float waitTime; // ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
     private float timer;
     private Transform transform;
 
-    public NavMeshAgentControl(NavMeshAgent agent, float moveSpeed, float angularSpeed, float acceleration, float moveRadius, float waitTime, float timer, Transform transform)
+    public NavMeshAgentControl(NavMeshAgent agent, float moveSpeed, float angularSpeed, float acceleration, float moveRadius, float waitTime, Transform transform)
     {
         this.agent = agent;
         this.moveSpeed = moveSpeed;
@@ -24,7 +25,6 @@ public class NavMeshAgentControl
         this.acceleration = acceleration;
         this.moveRadius = moveRadius;
         this.waitTime = waitTime;
-        this.timer = timer;
         this.transform = transform;
     }
 
@@ -55,13 +55,16 @@ public class NavMeshAgentControl
         }
     }
 
-    public void NewWrap()
-    {
-        agent.Warp(transform.position);
-        Debug.Log($"{agent.Warp(transform.position)}");
-    }
+    // public void NewWrap() // ï¿½Ê¿ï¿½ï¿½
+    // {
+    //     agent.Warp(transform.position);
+    //     Debug.Log($"{agent.Warp(transform.position)}");
+    // }
 
-    // ÀÌµ¿
+    /// <summary>
+    /// ì´ë™
+    /// </summary>
+    /// <param name="point"></param>
     public void MoveToPoint(Transform point)
     {
         Vector3 pos = point.position;
@@ -83,11 +86,11 @@ public class NavMeshAgentControl
 
     public void LetsGoCoco(ref int currentIndex, int reset, Transform[] waypoints)
     {
-        Debug.Log($"¿¡ÀÌÀüÆ® »óÅÂ : {agent.pathPending}");
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ : {agent.pathPending}");
         if (agent.enabled && !agent.pathPending && agent.remainingDistance < 0.5f)
         {
-            Debug.Log($"1ÇöÀç ÀÎµ¦½º °ª : {currentIndex}");
-            Debug.Log($"1ÇöÀç ¿şÀÌÆ÷ÀÎÆ® ±æÀÌ : {waypoints.Length}");
+            Debug.Log($"1ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ : {currentIndex}");
+            Debug.Log($"1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ : {waypoints.Length}");
             if (currentIndex < waypoints.Length)
             {
                 MoveToPoint(waypoints[currentIndex]);
@@ -99,7 +102,7 @@ public class NavMeshAgentControl
                 currentIndex++;
                 if (waypoints[currentIndex] == null)
                 {
-                    Debug.Log("2´ÙÀ½ Æ÷ÀÎÆ® ¾ø´Âµª¼õ");
+                    Debug.Log("2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½");
                 }
             }
         }
@@ -117,9 +120,9 @@ public class NavMeshAgentControl
     }
 
     //
-    public void AgentIsStop(bool stop)
+    public void AgentIsStop(bool which)
     {
-        if (stop) agent.isStopped = true;
+        if (which == true) agent.isStopped = true;
         else agent.isStopped = false;
     }
     public void EnableAgent(bool which)

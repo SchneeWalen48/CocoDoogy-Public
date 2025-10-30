@@ -10,9 +10,9 @@ using UnityEngine.EventSystems;
 
 public class UserInteractionHandler : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    private IInteractable interactable;
-    private IDraggable draggable;
-    private ILongPressable longPressable;
+    private ILobbyInteractable interactable;
+    private ILobbyDraggable draggable;
+    private ILobbyPressable longPressable;
 
     private bool isPressing = false;
     private bool isDragging = false;
@@ -22,15 +22,15 @@ public class UserInteractionHandler : MonoBehaviour, IPointerClickHandler, IPoin
 
     private void Awake()
     {
-        interactable = GetComponent<IInteractable>();
-        draggable = GetComponent<IDraggable>();
-        longPressable = GetComponent<ILongPressable>();
+        interactable = GetComponent<ILobbyInteractable>();
+        draggable = GetComponent<ILobbyDraggable>();
+        longPressable = GetComponent<ILobbyPressable>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (isPressing) return;
-        draggable?.OnDragStart(eventData.position);
+        draggable?.OnLobbyBeginDrag(eventData.position);
         isDragging = true;
     }
 
@@ -38,7 +38,7 @@ public class UserInteractionHandler : MonoBehaviour, IPointerClickHandler, IPoin
     {
         if (isPressing) return;
         //Vector3 worldPos = eventData.pointerCurrentRaycast.worldPosition;
-        draggable?.OnDrag(eventData.position);
+        draggable?.OnLobbyDrag(eventData.position);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -46,14 +46,14 @@ public class UserInteractionHandler : MonoBehaviour, IPointerClickHandler, IPoin
         if (isPressing) return;
         //Vector3 setPos = eventData.pointerCurrentRaycast.worldPosition;
         //transform.position = setPos;
-        draggable?.OnDragEnd(eventData.position);
+        draggable?.OnLobbyEndDrag(eventData.position);
         isDragging = false;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (isPressing || isDragging) return;
-        interactable.OnInteract();
+        interactable.OnLobbyInteract();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -74,7 +74,7 @@ public class UserInteractionHandler : MonoBehaviour, IPointerClickHandler, IPoin
         {
             if (Time.time - pressTime >= 0.15f)
             {
-                longPressable?.OnLongPress();
+                longPressable?.OnLobbyPress();
                 isPressing = false;
             }
             yield return null;

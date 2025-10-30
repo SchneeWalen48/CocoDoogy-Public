@@ -2,7 +2,7 @@ using UnityEngine;
 // 이건 테스트용 데이터입니다.
 
 [CreateAssetMenu(fileName = "ObjectData", menuName = "LSH_Test/ObjectData")]
-public class TestScriptableObject : ScriptableObject
+public class TestScriptableCharacter : ScriptableObject
 {
     [Header("기본 정보")]
     public int id;

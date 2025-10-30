@@ -3,7 +3,7 @@ using System;
 using Unity.AI.Navigation;
 using UnityEngine;
 using System.Collections.Generic;
-// SurfaceÀúÀå : Áö±ÝÀº ¿©±â¿¡ ´Ù ¶§·Á ³Ö°ÚÁö¸¸ ³ªÁß¿¡ ºÐÇÒÇÏ°Ú½¿´Ù.
+// Surfaceï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Ú½ï¿½ï¿½ï¿½.
 [Serializable]
 public class  NavMeshSaveData
 {
@@ -21,7 +21,7 @@ public class NavMeshObjectData
 
 public class InLobbyManager : MonoBehaviour
 {
-    [SerializeField] TestScriptableObject[] objectDatabase;
+    [SerializeField] TestScriptableCharacter[] charDatabase;
     [SerializeField] GameObject plane;
     
     private NavMeshSurface planeSurface;
@@ -42,11 +42,13 @@ public class InLobbyManager : MonoBehaviour
 
     }
 
-    void Start() // Áö±ÝÀº ½ºÅ¸Æ®ÀÌÁö¸¸ ÀÎ°ÔÀÓÀÌ¶û ÇÕÃ¼ÇÏ¸é ¾î¶»°Ô Enable·Î ÇÏ³ª? ·Îºñ¸Å´ÏÀú°¡ ÀÎ°ÔÀÓ±îÁö µþ·Á°¥ ÇÊ¿ä´Â ¾øÀ»Å×°í, ¾ÀÀ» ·ÎµùÇÏ´Â °Å´Ï.. ¸ô·ç?
+    void Start() // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î°ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½Ã¼ï¿½Ï¸ï¿½ ï¿½î¶»ï¿½ï¿½ Enableï¿½ï¿½ ï¿½Ï³ï¿½? ï¿½Îºï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î°ï¿½ï¿½Ó±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ï´ï¿½ ï¿½Å´ï¿½.. ï¿½ï¿½ï¿½ï¿½? ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ÚµÎ±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½Å¸Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ ï¿½Â´Â°ï¿½ ï¿½Æ´Ò±ï¿½ï¿½ï¿½
     {
-        foreach (var data in objectDatabase)
+        foreach (var data in charDatabase)
         {
             GameObject obj = Instantiate(data.prefab, waypoints[0].position, Quaternion.identity);
+            obj.tag = data.type.ToString();
+            obj.layer = LayerMask.NameToLayer("InLobbyObject");
             var meta = obj.GetComponent<GameObjectData>();
             meta.Initialize(data);
         }
