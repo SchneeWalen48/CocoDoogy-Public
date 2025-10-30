@@ -1,10 +1,15 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
     //이 클래스가 해야 할 일: 스테이지 구성 요청(블록팩토리), 스테이지 내 각종 상호작용 상태 기억, 시작점에 주인공 생성, 주인공이 도착점에 도달 시 스테이지 클리어 처리.
+
+
+
 
     public Transform stageRoot;
     [SerializeField] GameObject playerPrefab;
@@ -16,6 +21,11 @@ public class StageManager : MonoBehaviour
 
     Vector3Int startPoint;
     Vector3Int endPoint;
+
+    public Dictionary<Vector3Int, List<Block>> placedBlocks = new();
+
+    public List<Vector3Int> pbKeys = new();
+    public List<Block> pbValues = new();
 
     //맵의 이름으로 찾아온 현재 맵 데이터 객체 (초기상태로의 복귀를 위해 필요)
     private MapData currentMapData;
@@ -29,6 +39,12 @@ public class StageManager : MonoBehaviour
         currentMapData = await FirebaseManager_FORTEST.Instance.LoadMapFromFirebase(mapNameToLoad);
         StartCoroutine(StageStart());
     }
+
+    //TODO: 상호작용 상태 기억시키기
+
+    //TODO: 도착점 도달 시 스테이지 클리어 처리시키기.
+    //스테이지 클리어 시에 
+
     IEnumerator StageStart()
     {
         stageRoot.name = mapNameToLoad;
@@ -58,15 +74,36 @@ public class StageManager : MonoBehaviour
         {
             print($"[StageManager] {block.blockName}: {block.blockType} [{block.position.x}],[{block.position.y}],[{block.position.z}]");
             //여기서 팩토리가 들고 있는 프리팹으로 인스턴시에이트.
+            
             GameObject go = factory.CreateBlock(block);
             go.transform.SetParent(stageRoot, true);
             go.name = block.blockName;
 
+            //생성 후 블록의 타입이나 블록의 이름에 따라 적절한 컴포넌트를 붙여 줌.
+                if (block.blockName == "WoodBlockData")
+                    go.AddComponent<WoodBox>();
+               else 
+                    go.AddComponent<GroundBlock>();
+            EnlistBlock(go.GetComponent<Block>());
+            
             if (block.blockType == BlockType.StartPoint)
                 startPoint = block.position; 
             if (block.blockType == BlockType.EndPoint) 
                 endPoint = block.position;
             
         }
+
+        pbKeys = placedBlocks.Keys.ToList();
+
+        foreach (var kv in placedBlocks)
+            pbValues.AddRange(kv.Value);
+    }
+
+    void EnlistBlock(Block target)
+    {
+        if (!placedBlocks.ContainsKey(target.gridPosition))
+            placedBlocks.Add(target.gridPosition, new() { target });
+        else
+            placedBlocks[target.gridPosition].Add(target);
     }
 }

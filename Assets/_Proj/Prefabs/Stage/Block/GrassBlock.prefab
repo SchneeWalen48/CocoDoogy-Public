@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4018061059828461531}
   - component: {fileID: 4860738267412263318}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GrassBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 6960749691205591003}
   - component: {fileID: 2254017847878439963}
   - component: {fileID: 8718296339635573335}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ground1_grass_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3577324349072203026}
   - component: {fileID: 4825683847847583991}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ground_cube_grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 8700519786946436987}
   - component: {fileID: 5020290908198876598}
   - component: {fileID: 8629290367080952986}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ground1_grass_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 5248595536622088498}
   - component: {fileID: 522906397955252510}
   - component: {fileID: 5350371182202796197}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ground1_grass_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
