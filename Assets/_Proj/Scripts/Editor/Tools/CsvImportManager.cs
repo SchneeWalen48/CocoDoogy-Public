@@ -58,49 +58,46 @@ public class CsvImportManager : EditorWindow
             {
                 //CSV의 type이 "SO"인 경우가 추가될 때마다 case를 추가, 각 CSV에 맞는 Parser클래스 생성
                 case "tbl_animal_mst":
-                    DecoParser.Import(csvPath);
+                    AnimalParser.Import(csvPath);
                     break;
                 case "tbl_artifact_mst":
-                    //DecoParser.Import(csvPath);
+                    ArtifactParser.Import(csvPath);
                     break;
                 case "tbl_background_mst":
-                    //DecoParser.Import(csvPath);
+                    BackgroundParser.Import(csvPath);
                     break;
                 case "tbl_chapter_mst":
-                    //DecoParser.Import(csvPath);
+                    ChapterParser.Import(csvPath);
                     break;
                 case "tbl_codex_mst":
-                    //DecoParser.Import(csvPath);
+                    CodexParser.Import(csvPath);
                     break;
                 case "tbl_costume_mst":
-                    //DecoParser.Import(csvPath);
+                    CodexParser.Import(csvPath);
                     break;
                 case "tbl_deco_mst":
-                    //DecoParser.Import(csvPath);
+                    DecoParser.Import(csvPath);
                     break;
                 case "tbl_home_mst":
-                    //DecoParser.Import(csvPath);
+                    HomeParser.Import(csvPath);
                     break;
                 case "tbl_profile_icon_mst":
-                    //DecoParser.Import(csvPath);
+                    Profile_iconParser.Import(csvPath);
                     break;
                 case "tbl_quest_mst":
-                    //DecoParser.Import(csvPath);
+                    QuestParser.Import(csvPath);
                     break;
                 case "tbl_shop_item_dtl":
-                    //DecoParser.Import(csvPath);
+                    Shop_itemParser.Import(csvPath);
                     break;
                 case "tbl_shop_mst":
-                    //DecoParser.Import(csvPath);
+                    ShopParser.Import(csvPath);
                     break;
                 case "tbl_stage_mst":
-                    //DecoParser.Import(csvPath);
-                    break;
-                case "tbl_text_mst":
-                    //DecoParser.Import(csvPath);
+                    StageParser.Import(csvPath);
                     break;
                 case "tbl_treasure_mst":
-                    //DecoParser.Import(csvPath);
+                    TreasureParser.Import(csvPath);
                     break;
                 default:
                     Debug.LogWarning($"[CSV] {fileName} 변환 로직 없음");

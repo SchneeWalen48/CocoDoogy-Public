@@ -55,7 +55,7 @@
     },
     {
       "name": "tbl_text_mst",
-      "type": "SO"
+      "type": "CSV_ONLY"
     },
     {
       "name": "tbl_treasure_mst",

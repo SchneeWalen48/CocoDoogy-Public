@@ -8,6 +8,10 @@ public static class DecoParser
     //static으로 클래스와 함수를 선언, 인스턴스 만들 필요없고, 기능만 제공
     public static void Import(string csvPath)
     {
+        //텍스트 테이블 로드
+        string textCsvPath = "Assets/_Proj/Data/CSV/tbl_text_mst.csv";
+        var textDict = TextParser.Import(textCsvPath);
+
         string[] lines = File.ReadAllLines(csvPath);
         //매개변수로 받음 csvPath에서 텍스트 파일을 열고 파일의 모든 줄을 읽은 다음 파일을 닫음
         //한줄씩 lines에 저장
@@ -47,14 +51,18 @@ public static class DecoParser
             int.TryParse(v[7], out int stack);
 
             // Enum 변환 부분
-            Enum.TryParse(v[4], true, out Type category);
-            Enum.TryParse(v[5], true, out Tag tag);
-            Enum.TryParse(v[6], true, out Acquire acquire);
+            Enum.TryParse(v[4], true, out DecoType category);
+            Enum.TryParse(v[5], true, out DecoTag tag);
+            Enum.TryParse(v[6], true, out DecoAcquire acquire);
+
+            // [key] → 실제 텍스트 변환 적용
+            string rawName = v[1];
+            string finalName = TextParser.Resolve(rawName, textDict);
 
             db.decoList.Add(new DecoData
             {
                 deco_id = id,
-                deco_name = v[1],
+                deco_name = finalName,
                 deco_prefab = v[2],
                 deco_icon = v[3],
                 deco_type = category,

@@ -11,9 +11,9 @@ public class DecoData
     public string deco_name;
     public string deco_prefab;
     public string deco_icon;
-    public Type deco_type;
-    public Tag deco_tag; 
-    public Acquire deco_acquire;
+    public DecoType deco_type;
+    public DecoTag deco_tag; 
+    public DecoAcquire deco_acquire;
     public int deco_stack;
     public string deco_desc;
 
@@ -38,15 +38,15 @@ public class DecoData
     }
     //Deco의 prefab과 sprite가 필요할 때 사용할 함수
 }
-public enum Type
+public enum DecoType
 {
     plant, strucure, furniture, fixtures
 }
-public enum Tag
+public enum DecoTag
 {
     tree, flower, chair, house, lite
 }
-public enum Acquire
+public enum DecoAcquire
 {
     quest, ingame, shop
 }
