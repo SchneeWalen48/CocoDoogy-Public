@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9566e36e9998e34a8dccf57b0c8e430, type: 3}
-  m_Name: RockBlcokData
+  m_Name: SlopeBlock
   m_EditorClassIdentifier: 
-  blockType: 0
-  blockName: RockBlockData
-  prefab: {fileID: 0}
+  blockType: 1
+  blockName: SlopeBlock
+  prefab: {fileID: 864918247218194157, guid: 0b46f5d383121eb478c7136f7e75d219, type: 3}

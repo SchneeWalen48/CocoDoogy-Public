@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9566e36e9998e34a8dccf57b0c8e430, type: 3}
   m_Name: WoodBlockData
   m_EditorClassIdentifier: 
-  blockType: 2
-  blockName: WoodBlockData
+  blockType: 4
+  blockName: Box
   prefab: {fileID: 8637482385679172723, guid: 5383bb109be2fef4c84e16e529ea5983, type: 3}

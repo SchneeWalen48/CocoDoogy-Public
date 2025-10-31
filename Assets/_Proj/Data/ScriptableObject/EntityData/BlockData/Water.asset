@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9566e36e9998e34a8dccf57b0c8e430, type: 3}
-  m_Name: SlopeBlockData
+  m_Name: Water
   m_EditorClassIdentifier: 
-  blockType: 0
-  blockName: SlopeBlockData
-  prefab: {fileID: 864918247218194157, guid: 0b46f5d383121eb478c7136f7e75d219, type: 3}
+  blockType: 2
+  blockName: Water
+  prefab: {fileID: 4989480202343424376, guid: 4780e5a6afe656349aa280465fceffc3, type: 3}

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9566e36e9998e34a8dccf57b0c8e430, type: 3}
-  m_Name: WaterBlockData
+  m_Name: GrassBlock
   m_EditorClassIdentifier: 
   blockType: 0
-  blockName: WaterBlockData
-  prefab: {fileID: 0}
+  blockName: GrassBlock
+  prefab: {fileID: 6485049397789045037, guid: 26ab8d8858295914283f696915da511f, type: 3}

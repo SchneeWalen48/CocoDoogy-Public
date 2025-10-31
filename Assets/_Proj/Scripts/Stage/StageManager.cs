@@ -1,8 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+
+[Serializable]
+public class StageClearInfo
+{
+    public string stageName;
+    public int score; //0, 1, 2, 3
+}
 
 public class StageManager : MonoBehaviour
 {
@@ -28,8 +36,10 @@ public class StageManager : MonoBehaviour
     public List<Block> pbValues = new();
 
     //맵의 이름으로 찾아온 현재 맵 데이터 객체 (초기상태로의 복귀를 위해 필요)
-    private MapData currentMapData;
+    private MapData currentMapData; //맵데이터는 늘 기억되고 있을 것임.
 
+
+     
     [SerializeField] BlockFactory factory;
 
     async void Start()
@@ -102,7 +112,7 @@ public class StageManager : MonoBehaviour
                 var woodBox = go.AddComponent<WoodBox>();
                 EnlistBlock(woodBox);
             }
-            else if (block.blockType == BlockType.EndPoint)
+            else if (block.blockType == BlockType.End)
             {
                 endBlock = go.AddComponent<EndBlock>();
                 endBlock.Init(this);
@@ -114,10 +124,13 @@ public class StageManager : MonoBehaviour
                 EnlistBlock(blockComponent);
             }
             
-            if (block.blockType == BlockType.StartPoint)
-                startPoint = block.position; 
+            if (block.blockType == BlockType.Start)
+                startPoint = block.position;
 
-            
+            if (loaded.blocks.Find(x => x.blockType == BlockType.Start) == null)
+            {
+                startPoint = Vector3Int.up * 50;
+            }
         }
 
         pbKeys = placedBlocks.Keys.ToList();

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9566e36e9998e34a8dccf57b0c8e430, type: 3}
   m_Name: FlowWaterData
   m_EditorClassIdentifier: 
-  blockType: 2
-  blockName: 
+  blockType: 3
+  blockName: FlowWater
   prefab: {fileID: 0}

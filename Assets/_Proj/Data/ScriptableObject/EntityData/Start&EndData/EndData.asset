@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9566e36e9998e34a8dccf57b0c8e430, type: 3}
   m_Name: EndData
   m_EditorClassIdentifier: 
-  blockType: 5
-  blockName: EndData
+  blockType: 14
+  blockName: End
   prefab: {fileID: 58334552429323181, guid: e2cf6634b36453d4ba9387bd744d29d5, type: 3}
