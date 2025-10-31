@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public abstract class PushableObjects : MonoBehaviour, IPushHandler
@@ -31,6 +32,8 @@ public abstract class PushableObjects : MonoBehaviour, IPushHandler
 
     public bool allowFall = true;
     public bool allowSlope = false;
+
+    public event Action OnFallFinished;
     #endregion
     // TODO : 슬로프 탈 때 Constraints.FreezeRotation 끄기. 이게 맞나..?
     protected virtual void Awake()
@@ -104,12 +107,12 @@ public abstract class PushableObjects : MonoBehaviour, IPushHandler
                 // 허용이면 그대로 진행 (낙하 연출로 사라지는/끝층까지 떨어지는 케이스)
             }
         }
-
-
         // 이동 후 낙하여부까지 처리
         StartCoroutine(MoveAndFall(target));
         return true;
     }
+
+
 
     // 모양에 맞는 충돌 검사 구현하도록
     protected abstract bool CheckBlocking(Vector3 target);
@@ -130,6 +133,12 @@ public abstract class PushableObjects : MonoBehaviour, IPushHandler
 
         transform.position = target;
         isMoving = false;
+
+        // 낙하 이벤트 위해 추가
+        if (allowFall)
+        {
+            yield return StartCoroutine(CheckFall());
+        }
     }
 
     protected IEnumerator MoveAndFall(Vector3 target)
@@ -143,15 +152,19 @@ public abstract class PushableObjects : MonoBehaviour, IPushHandler
         }
     }
 
+
     // 지면 없으면 아래로 반복 낙하
     protected IEnumerator CheckFall()
     {
         isFalling = true;
 
+        bool startedFalling = false; // 낙하 실제 수행?
+
         Vector3 currPos = transform.position;
 
         while(!Physics.Raycast(currPos + Vector3.up * 0.1f, Vector3.down, 1.5f, groundMask))
         {
+            startedFalling = true;
             Vector3 fallTarget = currPos + Vector3.down * tileSize;
 
             if(fallTarget.y < -100f) // 무한 추락 방지
@@ -164,6 +177,12 @@ public abstract class PushableObjects : MonoBehaviour, IPushHandler
             yield return StartCoroutine(MoveTo(fallTarget));
             currPos = transform.position;
         }
+        // 낙하 하고, 바닥에 충돌하는 순간
+        if (startedFalling)
+        {
+            OnFallFinished?.Invoke(); // 낙하 완료 시 이벤트 발생
+        }
+
         isFalling = false;
     }
 
@@ -236,5 +255,6 @@ public abstract class PushableObjects : MonoBehaviour, IPushHandler
          
         //if (allowFall) { yield return StartCoroutine(CheckFall()); }
         isMoving = false;
+        yield return StartCoroutine(CheckFall());
     }
 }

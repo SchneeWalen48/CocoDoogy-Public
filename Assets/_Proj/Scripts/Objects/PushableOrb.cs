@@ -13,6 +13,7 @@ public class PushableOrb : PushableObjects
     [SerializeField] private Shockwave shockwave;
     [Tooltip("쿨타임")]
     public float coolTime = 5f;
+    private float lastShockwaveTime = -float.MaxValue;
 
     protected override void Awake()
     {
@@ -20,6 +21,39 @@ public class PushableOrb : PushableObjects
         sph = GetComponent<SphereCollider>(); 
         allowSlope = true;
         shockwave = GetComponent<Shockwave>();
+
+        // 낙하 완료 이벤트 구독
+        OnFallFinished += OnOrbFallFinished;
+    }
+
+    void OnDestroy()
+    {
+        OnFallFinished -= OnOrbFallFinished;
+    }
+
+    void OnOrbFallFinished()
+    {
+        if (Time.time < lastShockwaveTime + coolTime)
+            return;
+        if (shockwave != null)
+        {
+            // y 축을 기준으로 수평적으로 충돌체를 검색
+            shockwave.Fire(
+                origin: transform.position,
+                tile: tileSize,
+                radiusTiles: shockwave.radiusShock,
+                targetLayer: shockwave.targetLayer,
+                useOcclusion: shockwave.useOcclusion,
+                occludeMask: shockwave.occluderMask,
+                riseSeconds: shockwave.riseSec,
+                hangSeconds: shockwave.hangSec,
+                fallSeconds: shockwave.fallSec
+            // 토큰은 내부에서 생성됨
+            );
+
+            lastShockwaveTime = Time.time;
+            Debug.Log("구슬 착지 완료. 수평 충격파 발사됨.");
+        }
     }
 
     protected override bool CheckBlocking(Vector3 target)
