@@ -4667,6 +4667,9 @@ MonoBehaviour:
   moveSpeed: 5
   accel: 25
   rotateLerp: 12
+  slopeMask:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!54 &795707066
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5256,7 +5259,7 @@ GameObject:
   - component: {fileID: 846312819}
   - component: {fileID: 846312818}
   - component: {fileID: 846312817}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
