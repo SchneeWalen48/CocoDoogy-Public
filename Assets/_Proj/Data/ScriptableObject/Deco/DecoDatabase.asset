@@ -13,21 +13,12 @@ MonoBehaviour:
   m_Name: DecoDatabase
   m_EditorClassIdentifier: 
   decoList:
-  - id: 10001
-    name: deco_maple_tree
-    prefabPath: Prefabs/Deco/deco_maple_tree
-    iconPath: Icons/Deco/icon_maple_tree
-    category: 0
-    tag: tree
-    acquire: 2
-    stack: 99
-    description: deco_maple_tree_desc
-  - id: 10002
-    name: Toy_02 1
-    prefabPath: Prefabs/Deco/Armchair_041
-    iconPath: Icons/Deco/deco_maple_tree 1
-    category: 0
-    tag: tree
-    acquire: 2
-    stack: 99
-    description: Armchair_041
+  - deco_id: 10001
+    deco_name: "\uB2E8\uD48D \uB098\uBB34"
+    deco_prefab: Assets/Resources/Prefabs/Deco/deco_maple_tree.prefab
+    deco_icon: Assets/Resources/Icons/Deco/icon_maple_tree.png
+    deco_type: 0
+    deco_tag: 2
+    deco_acquire: 1
+    deco_stack: 99
+    deco_desc: "\uC0DD\uBA85\uB825\uC774 \uAC15\uD55C \uB2E8\uD48D \uB098\uBB34\uC785\uB2C8\uB2E4"

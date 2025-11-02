@@ -101,3 +101,7 @@ InitTestScene*.unity*
 ====공유 불가 에셋===
 /[Aa]ssets/_Proj/_NotShared
 /[Aa]ssets/_Proj/_NotShared.meta
+
+==== Firebase 공유 X ====
+[Aa]ssets/[Ff]irebase/
+[Aa]ssets/[Ff]irebase.meta
