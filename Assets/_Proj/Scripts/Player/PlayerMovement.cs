@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using static UnityEngine.UI.Image;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
@@ -44,7 +45,43 @@ public class PlayerMovement : MonoBehaviour
         if (camTr == null) camTr = Camera.main?.transform;
 
         Vector2 input = new Vector2(joystick.InputDir.x, joystick.InputDir.z);
+        if (input.magnitude > 0)
+        {
+            Vector3 input45Below = new(joystick.InputDir.x, -1, joystick.InputDir.z);
 
+            Vector3 offsetRbPos = transform.position + (Vector3.up * .5f);
+
+            Quaternion rotR = Quaternion.Euler(0, 45f, 0);
+            Quaternion rotL = Quaternion.Euler(0, -45f, 0);
+            Vector3 rotatedR = rotR * input45Below;
+            Vector3 rotatedL = rotL * input45Below;
+
+
+            Ray mainRay = new(offsetRbPos, input45Below);
+
+            RaycastHit[] mainRayHits = Physics.RaycastAll(mainRay, .73f, LayerMask.GetMask("Ground", "Wall", "Slope"));
+            
+            for (int i = 0; i < mainRayHits.Length; i++)
+            {
+                print($"PlayerMovement: [{i}]: {mainRayHits[i].collider.name}");
+            }
+
+            if (mainRayHits. Length < 1)
+            {
+                input = Vector2.zero;
+            }
+            else
+            {
+                Ray subRayL = new(offsetRbPos, rotatedL);
+                Ray subRayR = new(offsetRbPos, rotatedR);
+                if (!Physics.Raycast(subRayL, .73f, LayerMask.GetMask("Ground", "Wall", "Slope")) &&
+                !Physics.Raycast(subRayR, .73f, LayerMask.GetMask("Ground", "Wall", "Slope")))
+                {
+                    input = Vector2.zero;
+                }
+            }
+            
+        }
         //Vector3 inputOffset = new(joystick.InputDir.x, 0, joystick.InputDir.z);
         //Ray ray = new(transform.position + (inputOffset * .3f), inputOffset);
         //RaycastHit[] results = new RaycastHit[10];
