@@ -33,13 +33,17 @@ public abstract class BaseLobbyCharacterBehaviour : MonoBehaviour, ILobbyInterac
     protected bool yCaptured = false; // yValue가 값을 얻었는지 판단
     protected int mainPlaneMask;
 
+    protected bool isMoving;
+    protected WaitUntil waitU;
+    protected WaitForSeconds waitFS;
+
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
         // agent
-        charAgent = new NavMeshAgentControl(agent, moveSpeed, angularSpeed, acceleration, moveRadius, waitTime, trans);
+        charAgent = new NavMeshAgentControl(agent, moveSpeed, angularSpeed, acceleration, moveRadius, trans);
         // charAnim
         charAnim = new LobbyCharacterAnim(anim);
         mainCam = Camera.main;
@@ -48,6 +52,8 @@ public abstract class BaseLobbyCharacterBehaviour : MonoBehaviour, ILobbyInterac
         //originalLayer = LayerMask.NameToLayer("InLobbyObject"); // 로비매니저로
         //editableLayer = LayerMask.NameToLayer("Editable"); // 로비매니저로
         mainPlaneMask = LayerMask.NameToLayer("MainPlaneLayer");
+        waitU = new WaitUntil(() => !agent.pathPending && agent.remainingDistance <= 0.5f);
+        waitFS = new WaitForSeconds(waitTime);
         //isEditMode = false; // 상태패턴 전환 시 수정, 로비매니저로
 
     }
@@ -64,20 +70,39 @@ public abstract class BaseLobbyCharacterBehaviour : MonoBehaviour, ILobbyInterac
         }
     }
 
+    protected void Update()
+    {
+        charAnim.MoveAnim(charAgent.ValueOfMagnitude());
+        //charAgent.MoveValueChanged();
+    }
+
     protected void OnDisable() // 코코두기와 마스터는 리스트에서 지우면 안됩니다.
     {
         // 씬전환 시에는 return 시키고 그것이 아니라면 초기화 해야함
         switch (gameObject.tag)
         {
             case "CocoDoogy":
+                StopMoving();
                 break;
             case "Master":
+                StopMoving();
                 break;
             case "Animal":
                 Unregister();
+                StopMoving();
                 break;
             default: throw new Exception("누구세요?");
         }
+    }
+
+    protected void StopMoving()
+    {
+        if (isMoving == true)
+        {
+            isMoving = false;
+            StopAllCoroutines();
+            if (agent != null && agent.isActiveAndEnabled) agent.ResetPath();
+        } 
     }
 
     // 애니메이션 시 에이전트 제어 근데 이곳에 쓰는게 맞나.
@@ -112,10 +137,11 @@ public abstract class BaseLobbyCharacterBehaviour : MonoBehaviour, ILobbyInterac
         if (InLobbyManager.Instance.isEditMode) return;
 
         originalPos = transform.position;
+        StopMoving();
         isDragging = true;
         charAnim.StopAnim();
-        charAgent.AgentIsStop(true);
-        charAgent.EnableAgent(false);
+        agent.isStopped = true;
+        agent.enabled = false;
     }
     /// <summary>
     /// 드래그 중
@@ -153,7 +179,7 @@ public abstract class BaseLobbyCharacterBehaviour : MonoBehaviour, ILobbyInterac
             transform.position = navHit.position;
             Debug.Log($"{gameObject.name} : NavMesh 있음 해당 포지션으로");
         }
-        charAgent.EnableAgent(true);
+        agent.enabled = true;
         agent.Warp(transform.position);
         
     }
@@ -177,7 +203,7 @@ public abstract class BaseLobbyCharacterBehaviour : MonoBehaviour, ILobbyInterac
         if (InLobbyManager.Instance.isEditMode) return;
 
         Debug.Log($"Press");
-        charAgent.AgentIsStop(true);
+        agent.isStopped = true;
         charAnim.StopAnim();
     }
 
@@ -210,8 +236,8 @@ public abstract class BaseLobbyCharacterBehaviour : MonoBehaviour, ILobbyInterac
     /// </summary>
     public virtual void InNormal()
     {
-        if (!agent.enabled) charAgent.EnableAgent(true);
-        if (agent.isStopped) charAgent.AgentIsStop(false);
+        if (!agent.enabled) agent.enabled = true;
+        if (agent.isStopped) agent.isStopped = false;
         agent.Warp(transform.position);
     }
     /// <summary>
@@ -220,8 +246,9 @@ public abstract class BaseLobbyCharacterBehaviour : MonoBehaviour, ILobbyInterac
     public void InEdit()
     {
         charAnim.StopAnim();
-        if (!agent.isStopped) charAgent.AgentIsStop(true);
-        charAgent.EnableAgent(false);
+        StopMoving();
+        if (!agent.isStopped) agent.isStopped = true;
+        agent.enabled = false;
     }
 
     public abstract void InUpdate();
