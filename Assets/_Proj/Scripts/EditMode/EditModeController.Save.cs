@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -187,12 +187,6 @@ public partial class EditModeController
         Debug.Log($"[Save] Draggable (활성) {count}개 저장 완료");
     }
     // CocoDoogy, Master 태그는 위치 저장에서 제외
-    private static bool ShouldSkipSave(Transform t)
-    {
-        if (!t) return false;
-        string tag = t.tag;
-        return tag == "CocoDoogy" || tag == "Master";
-    }
 
 
 
