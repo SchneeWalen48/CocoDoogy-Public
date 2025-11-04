@@ -14,10 +14,10 @@ public class NormalBlock : Block, IEdgeColliderHandler
     private Vector3 EnumToDir(FourDir dir)
     {
 
-        return dir == FourDir.Forward ? Vector3.forward :
-               dir == FourDir.Left ? Vector3.left :
-               dir == FourDir.Backward ? Vector3.back :
-               Vector3.right;
+        return dir == FourDir.Forward ? transform.forward :
+               dir == FourDir.Left ? -transform.right :
+               dir == FourDir.Backward ? -transform.forward :
+               transform.right;
     }
 
     void Awake()
@@ -32,11 +32,11 @@ public class NormalBlock : Block, IEdgeColliderHandler
     {
         for (int i = 0; i < 4; i++)
         {
-
+            Vector3 rayOrigin = transform.position - (Vector3.up * .49f);
             Vector3 dir = EnumToDir((FourDir)i);
-            Ray ray = new Ray(transform.position, dir);
+            Ray ray = new Ray(rayOrigin, dir);
             
-            var results = Physics.RaycastAll(ray, 1, groundLayer);
+            var results = Physics.RaycastAll(ray, 1.49f, groundLayer);
 
             foreach (RaycastHit hit in results)
             {
@@ -46,6 +46,10 @@ public class NormalBlock : Block, IEdgeColliderHandler
             //그라운드레이어로 취급되는 오브젝트가 아무것도 검출되지 않았다는 뜻.
             {
                 transparentColliders[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                transparentColliders[i].gameObject.SetActive(false);
             }
         }
     }

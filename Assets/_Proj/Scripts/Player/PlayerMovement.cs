@@ -189,25 +189,25 @@ public class PlayerMovement : MonoBehaviour
         // 위치 이동
         Vector3 nextPos = rb.position + finalDir * (moveSpeed * Time.fixedDeltaTime) + stepOffset;
 
-        // 같은 y층 오브젝트 감지
-        float halfTile = 0.5f;
-        Vector3 boxCenter = nextPos + Vector3.up * 0.5f; // 플레이어 중심
-        Vector3 halfExt = new Vector3(0.4f, 0.45f, 0.4f);
-        Collider[] sameYHits = Physics.OverlapBox(boxCenter, halfExt, Quaternion.identity, ~0, QueryTriggerInteraction.Collide);
+        //// 같은 y층 오브젝트 감지
+        //float halfTile = 0.5f;
+        //Vector3 boxCenter = nextPos + Vector3.up * 0.5f; // 플레이어 중심
+        //Vector3 halfExt = new Vector3(0.4f, 0.45f, 0.4f);
+        //Collider[] sameYHits = Physics.OverlapBox(boxCenter, halfExt, Quaternion.identity, ~0, QueryTriggerInteraction.Collide);
 
-        foreach (var col in sameYHits)
-        {
-            if (col.attachedRigidbody == rb) continue;
-            if (col.isTrigger) continue;
+        //foreach (var col in sameYHits)
+        //{
+        //    if (col.attachedRigidbody == rb) continue;
+        //    if (col.isTrigger) continue;
 
-            // 상대의 중심 y값이 같은 층에 있다면 이동 차단
-            float dy = Mathf.Abs(col.bounds.center.y - rb.position.y);
-            if (dy < halfTile && !Physics.Raycast(rb.position + Vector3.up * 0.1f, Vector3.down, 1.2f, slopeMask))
-            {
-                // 같은 높이 + 슬로프 아님 -> 이동 금지
-                return;
-            }
-        }
+        //    // 상대의 중심 y값이 같은 층에 있다면 이동 차단
+        //    float dy = Mathf.Abs(col.bounds.center.y - rb.position.y);
+        //    if (dy < halfTile && !Physics.Raycast(rb.position + Vector3.up * 0.1f, Vector3.down, 1.2f, slopeMask))
+        //    {
+        //        // 같은 높이 + 슬로프 아님 -> 이동 금지
+        //        return;
+        //    }
+        //}
         rb.MovePosition(nextPos);
 
         // 회전 처리
