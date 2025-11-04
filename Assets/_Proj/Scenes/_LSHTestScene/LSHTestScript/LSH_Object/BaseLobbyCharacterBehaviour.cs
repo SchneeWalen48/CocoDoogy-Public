@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-// 뭘 빼고 뭘 넣어야 이쁠까 
+// NavMeshAgent 이용 시 고려해야할 것 isStopped, pathPending, hasPath 
 [RequireComponent(typeof(GameObjectData), typeof(UserInteractionHandler), typeof(Draggable))]
 [RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
 public abstract class BaseLobbyCharacterBehaviour : MonoBehaviour, ILobbyInteractable, ILobbyDraggable, ILobbyPressable, ILobbyCharactersEmotion, ILobbyState
