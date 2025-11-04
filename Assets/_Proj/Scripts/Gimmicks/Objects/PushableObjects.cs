@@ -218,6 +218,7 @@ public abstract class PushableObjects : MonoBehaviour, IPushHandler, IRider
     public void OnStartRiding()
     {
         isRiding = true;
+        isMoving = false;
         isHoling = false;
         currHold = 0f;
 

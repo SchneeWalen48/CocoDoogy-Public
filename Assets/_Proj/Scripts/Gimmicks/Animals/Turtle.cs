@@ -9,6 +9,9 @@ using UnityEngine.UI;
 // 통과X에 부딪히면 멈춤.(물/물길만 다닐 수 있음)
 // 움직이는 동안은 팝업X
 // 물길 영향 X
+// 11/4
+// TODO : 버튼이 눌려서 거북이가 이동을 시작하면 플레이어의 움직임을 정지 시켜야 함. 그 외에는 자유롭게 넘나들 수 있도록 플레이어 이동 로직 막으면 안 됨.
+
 [RequireComponent(typeof(Rigidbody))]
 public class Turtle : MonoBehaviour, IDashDirection, IPlayerFinder
 {
@@ -179,43 +182,53 @@ public class Turtle : MonoBehaviour, IDashDirection, IPlayerFinder
 
             Transform riderRoot = col.transform.root;
             if (ridableTrans.Contains(riderRoot)) continue;
+
+            // y좌표 차이 계산
+            float heightDiff = riderRoot.position.y - transform.position.y;
+
+            // PLAYER는 언제든 탑승 허용
+            bool isPlayer = riderRoot.CompareTag("Player");
+            // PUSHABLE은 위층에 있을 때만 탑승 허용
+            bool isPushable = riderRoot.gameObject.layer == LayerMask.NameToLayer("Pushable")
+                              && heightDiff >= tileSize * 0.5f
+                              && heightDiff <= tileSize * 1.5f;
+
+            if (!isPlayer && !isPushable)
+                continue; // 그 외 객체는 태우지 않음
+
+            // IRider 처리
             IRider riderHandler = riderRoot.GetComponent<IRider>();
-            if(riderHandler != null)
-            {
+            if (riderHandler != null)
                 riderHandler.OnStartRiding();
-            }
-            // Playermovement 비활
+
             PlayerMovement pm = riderRoot.GetComponentInChildren<PlayerMovement>();
-            if (pm != null || riderRoot.GetComponent<Rigidbody>() != null)
-            {
-                initLocalPos.Add(transform.InverseTransformPoint(riderRoot.position));
-                originParent.Add(riderRoot.parent);
-                ridableTrans.Add(riderRoot);
-                Rigidbody riderRb = riderRoot.GetComponent<Rigidbody>();
-                if (riderRb != null)
-                {
-                    riderRb.isKinematic = true;
-                    ridableRbs.Add(riderRb);
-                }
-                else
-                {
-                    ridableRbs.Add(null);
-                }
+            initLocalPos.Add(transform.InverseTransformPoint(riderRoot.position));
+            originParent.Add(riderRoot.parent);
+            ridableTrans.Add(riderRoot);
 
-                if (pm != null)
-                {
-                    pm.enabled = false;
-                    pMoveScript.Add(pm);
-                }
-                else
-                {
-                    pMoveScript.Add(null);
-                }
-                // 거북이를 부모로 설정
-                riderRoot.SetParent(transform);
+            Rigidbody riderRb = riderRoot.GetComponent<Rigidbody>();
+            if (riderRb != null)
+            {
+                riderRb.isKinematic = true;
+                ridableRbs.Add(riderRb);
+            }
+            else
+            {
+                ridableRbs.Add(null);
             }
 
-            //ridableStartPos.Add(col.transform.position);
+            if (pm != null)
+            {
+                pm.enabled = false;
+                pMoveScript.Add(pm);
+            }
+            else
+            {
+                pMoveScript.Add(null);
+            }
+
+            // 부모 설정 (기존 로직 그대로)
+            riderRoot.SetParent(transform);
         }
 
         // 터틀과 탑승 물체 동시 이동
