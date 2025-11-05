@@ -6183,6 +6183,7 @@ MonoBehaviour:
   - {fileID: 2145952276}
   - {fileID: 653432012}
   - {fileID: 1602406038}
+  - {fileID: 1301297606}
   pageSize: 8
   animalSlotText: "\uB3D9\uBB3C\uCE5C\uAD6C"
   decoSlotText: "\uC870\uACBD\uD488"
