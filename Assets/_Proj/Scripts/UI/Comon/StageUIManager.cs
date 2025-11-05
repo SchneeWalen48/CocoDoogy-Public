@@ -100,5 +100,6 @@ public class StageUIManager : MonoBehaviour
     void Close()
     {
         TreasurePanel.SetActive(false);
+        OptionOpenButton.gameObject.SetActive(true);
     }
 }
