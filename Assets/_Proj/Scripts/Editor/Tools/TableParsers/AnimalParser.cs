@@ -36,8 +36,8 @@ public static class AnimalParser
                 continue;
             }
 
-            Enum.TryParse(v[4], true, out AnimalType category);
-            Enum.TryParse(v[5], true, out AnimalTag tag);
+            Enum.TryParse(v[2], true, out AnimalType category);
+            Enum.TryParse(v[3], true, out AnimalTag tag);
             Enum.TryParse(v[6], true, out AnimalAcquire acquire);
 
             string rawName = v[1];
