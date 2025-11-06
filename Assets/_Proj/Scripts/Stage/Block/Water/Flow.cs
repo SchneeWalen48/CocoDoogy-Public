@@ -24,8 +24,8 @@ namespace Water
             {
                 Debug.LogWarning($"{gameObject.name}'s Layer is not 'Water'");
             }
-
-            MeshRenderer renderer = GetComponent<MeshRenderer>();
+            Debug.Log($"[{gameObject.name}] Awake() 시점 PushableMask 값: {pushableMask.value}");
+            MeshRenderer renderer = GetComponentInChildren<MeshRenderer>();
             if (renderer != null)
             {
                 waterMat = renderer.material;
@@ -35,6 +35,7 @@ namespace Water
         void Start()
         {
             SetFlowDir();
+            Debug.Log($"[{gameObject.name}] Start() 시점 PushableMask 값: {pushableMask.value}");
             if (flowCoroutine != null) StopCoroutine(flowCoroutine);
             flowCoroutine = StartCoroutine(FlowObjsCoroutine());
         }
@@ -48,11 +49,15 @@ namespace Water
         public void SetFlowDir()
         {
             // 부모의 Y축 회전값으로 흐름 방향을 계산
-            Quaternion parentRot = transform.parent.rotation;
+            Quaternion parentRot = transform.rotation;
             flowDir = parentRot * Vector3.forward;
             flowDir.y = 0f;
             flowDir.Normalize();
-            waterMat.SetVector("_FlowDir", new(transform.parent.rotation.x, transform.parent.rotation.y, transform.parent.rotation.z, transform.parent.rotation.w));
+            // KHJ NOTE : 컴포넌트가 root에 붙으므로 transform.rotation으로 변경
+            if (waterMat != null)
+            {
+                waterMat.SetVector("_FlowDir", new(parentRot.x, parentRot.y, parentRot.z, parentRot.w));
+            }
         }
 
         IEnumerator FlowObjsCoroutine()
