@@ -165,7 +165,7 @@ public class StageManager : MonoBehaviour
             if(block.blockType == BlockType.Treasure)
             {
                 var treasure = go.GetComponent<Treasure>();
-                OnQuitAction += treasure.OnQuitAction();
+                //OnQuitAction += treasure.OnQuitAction();
             }
             //GetComponent<Block>().Init(block);
             EnlistBlock(go.GetComponent<Block>());
@@ -189,7 +189,7 @@ public class StageManager : MonoBehaviour
             if (block is IEdgeColliderHandler handlerBlock)
             {
                 handlerBlock.Inject();
-                handlerBlock.Inspect();
+                //handlerBlock.Inspect();
             }
         }
     }
