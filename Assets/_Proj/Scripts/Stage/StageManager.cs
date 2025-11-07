@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -167,20 +166,23 @@ public class StageManager : MonoBehaviour
             if (BlockType.Hog <= block.blockType && block.blockType <= BlockType.Buffalo)
                 finders.Add(go.GetComponent<IPlayerFinder>());
 
-            //보물 블록 처리
-            if (block.blockType == BlockType.Treasure)
+            if (!isTest)
             {
-                var treasure = go.GetComponent<Treasure>();
+                //보물 블록 처리
+                if (block.blockType == BlockType.Treasure)
+                {
+                    var treasure = go.GetComponent<Treasure>();
 
-                // blockName으로 구분
-                if (block.blockName.Contains("1"))
-                    treasure.Init(data.treasure_01_id);
-                else if (block.blockName.Contains("2"))
-                    treasure.Init(data.treasure_02_id);
-                else if (block.blockName.Contains("3"))
-                    treasure.Init(data.treasure_03_id);
-                else
-                    Debug.LogWarning($"Treasure 블록 이름 인식 실패: {block.blockName}");
+                    // blockName으로 구분
+                    if (block.blockName.Contains("1"))
+                        treasure.Init(data.treasure_01_id);
+                    else if (block.blockName.Contains("2"))
+                        treasure.Init(data.treasure_02_id);
+                    else if (block.blockName.Contains("3"))
+                        treasure.Init(data.treasure_03_id);
+                    else
+                        Debug.LogWarning($"Treasure 블록 이름 인식 실패: {block.blockName}");
+                }
             }
             //GetComponent<Block>().Init(block);
             EnlistBlock(go.GetComponent<Block>());
