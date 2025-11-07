@@ -23,18 +23,18 @@ public class StageDetailInfo : MonoBehaviour
 
     public void ShowDetail(string id)
     {
-        currentStageId = id;
+        currentStageId = id; 
         var data = DataManager.Instance.Stage.GetData(id);
-        // 이미지
-        if (stageImage != null)
-            stageImage.sprite = DataManager.Instance.Stage.GetIcon(id);
+        var progress = PlayerProgressManager.Instance.GetStageProgress(id);
 
-        // 텍스트
-        if (stageName != null) stageName.text = data.stage_name;
-        if (stageDesc != null) stageDesc.text = data.stage_desc;
+        stageName.text = data.stage_name;
+        stageDesc.text = data.stage_desc;
 
-        // 보물 아이콘 상태 반영
-        UpdateTreasureDisplay(data);
+        for (int i = 0; i < 3; i++)
+        {
+            bool collected = progress.treasureCollected[i];
+            treasureIcons[i].sprite = collected ? collectedSprite : notCollectedSprite;
+        }
     }
 
     async void EnterStage()
@@ -54,24 +54,5 @@ public class StageDetailInfo : MonoBehaviour
     {
         currentStageId = null;
         gameObject.SetActive(false);
-    }
-
-    void UpdateTreasureDisplay(StageData data)
-    {
-        // StageManager.Instance가 실행 중인 스테이지에서만 접근 가능
-        // 로비 씬에서는 Firebase 데이터 기반으로도 가능
-        if (StageUIManager.Instance.stageManager != null)
-        {
-            treasureIcons[0].sprite = StageUIManager.Instance.stageManager.IsTreasureCollected(data.treasure_01_id) ? collectedSprite : notCollectedSprite;
-            treasureIcons[1].sprite = StageUIManager.Instance.stageManager.IsTreasureCollected(data.treasure_02_id) ? collectedSprite : notCollectedSprite;
-            treasureIcons[2].sprite = StageUIManager.Instance.stageManager.IsTreasureCollected(data.treasure_03_id) ? collectedSprite : notCollectedSprite;
-        }
-        else
-        {
-            // 추후 저장된 데이터에서 불러오는 로직 추가 가능 (ex: Firebase / PlayerPrefs)
-            treasureIcons[0].sprite = notCollectedSprite;
-            treasureIcons[1].sprite = notCollectedSprite;
-            treasureIcons[2].sprite = notCollectedSprite;
-        }
     }
 }

@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 3636953555233578680}
   - component: {fileID: 4696519465844009724}
   m_Layer: 5
-  m_Name: Star 1
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 8552479367706937373}
   - component: {fileID: 4233736353499629416}
   m_Layer: 5
-  m_Name: Star 3
+  m_Name: Image (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -496,7 +496,7 @@ GameObject:
   - component: {fileID: 521741035412211858}
   - component: {fileID: 8354616067160132618}
   m_Layer: 5
-  m_Name: Star 2
+  m_Name: Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -570,7 +570,7 @@ GameObject:
   - component: {fileID: 5006473254154752394}
   - component: {fileID: 2966138962016178350}
   m_Layer: 5
-  m_Name: StarGroup
+  m_Name: TreasureGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

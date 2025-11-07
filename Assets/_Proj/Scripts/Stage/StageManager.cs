@@ -45,8 +45,7 @@ public class StageManager : MonoBehaviour
 
     private List<IPlayerFinder> finders = new();
 
-
-    private HashSet<string> collectedTreasures = new();
+    private bool[] collectedTreasures = new bool[3];
 
     [SerializeField] BlockFactory factory;
 
@@ -116,10 +115,13 @@ public class StageManager : MonoBehaviour
 
         StageUIManager.Instance.stageName.text = data.stage_name;
 
+        // 스테이지 클리어 시 진행 데이터 저장
+        PlayerProgressManager.Instance.UpdateStageTreasure(currentStageId, collectedTreasures);
+
         StageUIManager.Instance.UpdateTreasureIcons(
-           IsTreasureCollected(data.treasure_01_id),
-           IsTreasureCollected(data.treasure_02_id),
-           IsTreasureCollected(data.treasure_03_id)
+            collectedTreasures[0],
+            collectedTreasures[1],
+            collectedTreasures[2]
        );
     }
 
@@ -239,21 +241,9 @@ public class StageManager : MonoBehaviour
             blockDictionary[target.gridPosition].Add(target);
     }
 
-    public void OnTreasureCollected(string treasureId)
+    public void OnTreasureCollected(int index)
     {
-        if (!collectedTreasures.Contains(treasureId))
-        {
-            collectedTreasures.Add(treasureId);
-            Debug.Log($"보물 획득: {treasureId}");
-        }
-    }
-
-    public bool IsTreasureCollected(string treasureId)
-    {
-        return collectedTreasures.Contains(treasureId);
-    }
-    public IEnumerable<string> GetCollectedTreasures()
-    {
-        return collectedTreasures;
+        if (index >= 0 && index < 3)
+            collectedTreasures[index] = true;
     }
 }
