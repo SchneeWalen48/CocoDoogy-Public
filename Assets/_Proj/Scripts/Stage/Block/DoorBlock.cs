@@ -26,7 +26,7 @@ public class DoorBlock : Block, ISignalReceiver
     {
         if (!initialized) return;
 
-        if (isPermanentlyOpen)
+        if (isPermanentlyOpen) // KHJ - Tower가 수정되면서 아마 더이상 호출되지 않을 것임
         {
             // KHJ - Tower는 한 번 열면 닫지 않음.
             Debug.Log($"[Door] 문은 영구적으로 열려 있는 상태임.");
