@@ -101,16 +101,16 @@ MonoBehaviour:
   tileSize: 1
   blockingMask:
     serializedVersion: 2
-    m_Bits: 17792
+    m_Bits: 83328
   groundMask:
     serializedVersion: 2
-    m_Bits: 769
+    m_Bits: 768
   slopeMask:
     serializedVersion: 2
     m_Bits: 16384
   throughLayer:
     serializedVersion: 2
-    m_Bits: 16
+    m_Bits: 2064
   requiredHoldtime: 0.9
   allowFall: 1
   allowSlope: 0
@@ -171,7 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 858025281195470718}
   - component: {fileID: 6274687427371344808}
-  m_Layer: 8
+  m_Layer: 16
   m_Name: BoxCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

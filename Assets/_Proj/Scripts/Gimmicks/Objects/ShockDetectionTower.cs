@@ -20,17 +20,17 @@ public class ShockDetectionTower : MonoBehaviour, ISignalSender, ISignalReceiver
     void Awake()
     {
         // 범위 안의 문 자동 탐색
-        var cols = Physics.OverlapSphere(transform.position, relayRadius, ~0);
-        foreach (var c in cols)
-        {
-            var receiver = c.GetComponentInParent<ISignalReceiver>();
-            if (receiver != null)
-            {
-                Receiver = receiver;
-                Debug.Log($"[Tower] {name}: 자동으로 가까이에 있는 {receiver} 검색");
-                break;
-            }
-        }
+        //var cols = Physics.OverlapSphere(transform.position, relayRadius, ~0);
+        //foreach (var c in cols)
+        //{
+        //    var receiver = c.GetComponentInParent<ISignalReceiver>();
+        //    if (receiver != null)
+        //    {
+        //        Receiver = receiver;
+        //        Debug.Log($"[Tower] {name}: 자동으로 가까이에 있는 {receiver} 검색");
+        //        break;
+        //    }
+        //}
     }
 
     // --- ISignalSender ---
@@ -69,18 +69,20 @@ public class ShockDetectionTower : MonoBehaviour, ISignalSender, ISignalReceiver
             Debug.Log($"[Tower] {name}: 쿨타임 중, 무시됨");
             return;
         }
-        if (Receiver == null) TryAutoConnect();
-        Debug.Log($"[Tower] {name}: 충격파 감지!");
 
-        if (Receiver is DoorBlock door)
-        {
-            door.OpenPermanently();
-        }
-        else
-        {
-            // 다른 타워로 신호 릴레이(Door 아닌 경우)
-            SendSignal();
-        }
+        GetComponent<ISignalSender>().SendSignal();
+        //if (Receiver == null) TryAutoConnect();
+        //Debug.Log($"[Tower] {name}: 충격파 감지!");
+
+        //if (Receiver is DoorBlock door)
+        //{
+        //    door.OpenPermanently();
+        //}
+        //else
+        //{
+        //    // 다른 타워로 신호 릴레이(Door 아닌 경우)
+        //    SendSignal();
+        //}
         // 쿨타임 진입
         StartCoroutine(CooldownTimer());
 
