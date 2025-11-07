@@ -11,6 +11,10 @@ public class StageInfo : MonoBehaviour
     public Transform detailParent;          // StageDetailPrefab 붙일 위치
     private List<GameObject> activeDetails = new List<GameObject>();
 
+    [Header("Treasure Icon Sprites")]
+    public Sprite collectedSprite;    // 로비 전용
+    public Sprite notCollectedSprite; // 로비 전용
+
     public void ShowStages(string chapterId)
     {
         ClearStages();
@@ -32,21 +36,21 @@ public class StageInfo : MonoBehaviour
         GameObject stageObj = Instantiate(StagePrefab, stageParent);
 
         var data = DataManager.Instance.Stage.GetData(id);
+        var progress = PlayerProgressManager.Instance.GetStageProgress(id);
 
-        // 버튼 텍스트
-        TextMeshProUGUI[] texts = stageObj.GetComponentsInChildren<TextMeshProUGUI>(true);
-        if (texts.Length > 0)
-            texts[0].text = data.stage_name;
+        // 텍스트
+        var text = stageObj.GetComponentInChildren<TextMeshProUGUI>();
+        if (text) text.text = data.stage_name;
 
-        // 별 표시 (예시)
-        Transform starGroup = stageObj.transform.Find("StarGroup");
-        if (starGroup)
+        // 보물 아이콘 그룹
+        Transform treasureGroup = stageObj.transform.Find("TreasureGroup");
+        if (treasureGroup)
         {
-            int stars = Random.Range(0, 4); // TODO: 임시로 작성해둔것 수정 필수
             for (int i = 0; i < 3; i++)
             {
-                Image star = starGroup.GetChild(i).GetComponent<Image>();
-                star.color = i < stars ? Color.yellow : Color.gray;
+                var icon = treasureGroup.GetChild(i).GetComponent<Image>();
+                bool collected = i < progress.treasureCollected.Length && progress.treasureCollected[i];
+                icon.sprite = collected ? collectedSprite : notCollectedSprite;
             }
         }
 
