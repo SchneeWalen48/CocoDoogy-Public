@@ -75,15 +75,14 @@ public class StageInfo : MonoBehaviour
 
         // 보물 아이콘 그룹
         Transform treasureGroup = stageObj.transform.Find("TreasureGroup");
-        //print($"보물아이콘그룹찾았지롱{treasureGroup.gameObject.name}");
         if (treasureGroup)
         {
+            int collectedCount = progress.GetCollectedCount();
+
             for (int i = 0; i < 3; i++)
             {
                 var icon = treasureGroup.GetChild(i).GetComponent<Image>();
-                bool collected = i < progress.treasureCollected.Length && progress.treasureCollected[i];
-                icon.sprite = collected ? collectedSprite : notCollectedSprite;
-                //print($"아이콘넣엇지롱 {icon.sprite.name}");
+                icon.sprite = i < collectedCount ? collectedSprite : notCollectedSprite;
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,14 +48,27 @@ public class PlayerProgressManager : MonoBehaviour
     public void UpdateStageTreasure(string stageId, bool[] newlyCollected)
     {
         var progress = GetStageProgress(stageId);
-        for (int i = 0; i < 3; i++)
+
+        int newCount = newlyCollected.Count(x => x);
+        int prevCount = progress.treasureCollected.Count(x => x);
+
+        // 더 많이 모았을 때만 갱신
+        if (newCount > prevCount)
         {
-            if (newlyCollected[i])
-                progress.treasureCollected[i] = true;
+            for (int i = 0; i < 3; i++)
+            {
+                if (newlyCollected[i])
+                    progress.treasureCollected[i] = true;
+            }
+
+            SaveProgress();
+            Debug.Log($"[PlayerProgressManager] Stage '{stageId}' 진행도 갱신됨 → {newCount}개 보물");
+            OnProgressUpdated?.Invoke();
         }
-        SaveProgress();
-        Debug.Log($"[PlayerProgressManager] OnProgressUpdated Invoke — stageId:{stageId}");
-        OnProgressUpdated?.Invoke();
+        else
+        {
+            Debug.Log($"[PlayerProgressManager] Stage '{stageId}' 진행도 갱신 안 함 (기존 {prevCount}, 새 {newCount})");
+        }
     }
 
     void SaveProgress()

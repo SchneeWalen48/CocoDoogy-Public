@@ -115,13 +115,26 @@ public class StageManager : MonoBehaviour
 
         StageUIManager.Instance.stageName.text = data.stage_name;
 
-        // 스테이지 클리어 시 진행 데이터 저장
-        PlayerProgressManager.Instance.UpdateStageTreasure(data.stage_id, collectedTreasures);
+        int collectedCount = collectedTreasures.Count(x => x);
+
+        var prev = PlayerProgressManager.Instance.GetStageProgress(data.stage_id);
+        int prevCount = prev.treasureCollected.Count(x => x);
+
+        // 이전보다 더 많이 모았을 때만 갱신
+        if (collectedCount > prevCount)
+        {
+            PlayerProgressManager.Instance.UpdateStageTreasure(data.stage_id, collectedTreasures);
+            Debug.Log($"[StageManager] 별 갱신됨 ({prevCount} → {collectedCount})");
+        }
+        else
+        {
+            Debug.Log($"[StageManager] 기존보다 별 개수가 적거나 같음 ({prevCount}), 갱신 안 함");
+        }
 
         StageUIManager.Instance.UpdateTreasureIcons(
-            collectedTreasures[0],
-            collectedTreasures[1],
-            collectedTreasures[2]
+            collectedCount >= 1,
+            collectedCount >= 2,
+            collectedCount >= 3
        );
     }
 
@@ -244,6 +257,19 @@ public class StageManager : MonoBehaviour
     public void OnTreasureCollected(int index)
     {
         if (index >= 0 && index < 3)
+        {
+            // 이미 먹은 보물이라면 무시
+            if (collectedTreasures[index]) return;
+
             collectedTreasures[index] = true;
+
+            // 보물 개수에 따라 별 단계 계산
+            int starCount = collectedTreasures.Count(x => x);
+            StageUIManager.Instance.UpdateTreasureIcons(
+                starCount >= 1,
+                starCount >= 2,
+                starCount >= 3
+            );
+        }
     }
 }

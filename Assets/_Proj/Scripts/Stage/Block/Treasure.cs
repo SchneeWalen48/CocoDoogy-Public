@@ -6,7 +6,18 @@ public class Treasure : MonoBehaviour
     public int treasureIndex;
     private string treasureId;
     private bool isCollected = false;
+    void Start()
+    {
+        var progress = PlayerProgressManager.Instance.GetStageProgress(StageUIManager.Instance.stageManager.currentStageId);
 
+        // 이미 먹은 보물은 회색 표시
+        if (progress.treasureCollected[treasureIndex])
+        {
+            // 시각적 표시
+            //GetComponent<Renderer>().material.color = Color.gray;
+            isCollected = true; // 다시 못먹게
+        }
+    }
     public void Init(string id)
     {
         treasureId = id;
