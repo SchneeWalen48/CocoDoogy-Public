@@ -29,13 +29,14 @@ public abstract class BaseLobbyCharacterBehaviour : MonoBehaviour, ILobbyInterac
     protected Transform[] waypoints;
 
     // Stuck
-    protected float stuckTimeA;
-    protected float stuckTimeB = 2;
+    public float StuckTimeA { get; set; }
+    public float StuckTimeB { get; set; }
 
-    public bool IsCMRoutineComplete { get; protected set; }
-    public bool IsCARoutineComplete { get; protected set; }
-    public bool IsCMInteractComplete { get; protected set; }
-    public bool IsCAInteractComplete { get; protected set; }
+    public bool IsEditMode { get; set; }
+    public bool IsCMRoutineComplete { get; set; }
+    public bool IsCARoutineComplete { get; set; }
+    public bool IsCMInteractComplete { get; set; }
+    public bool IsCAInteractComplete { get; set; }
 
     /// <summary>
     /// FSM 초기 상태를 각 자식들이 정의
@@ -48,32 +49,31 @@ public abstract class BaseLobbyCharacterBehaviour : MonoBehaviour, ILobbyInterac
     public LobbyCharacterBaseState ClickSate { get; protected set; }
     public LobbyCharacterBaseState DragState { get; protected set; }
     public LobbyCharacterBaseState EditState { get; protected set; }
+    public LobbyCharacterBaseState StuckState { get; protected set; }
 
     protected virtual void Awake()
     {
+        if (InLobbyManager.Instance.isEditMode)
+        {
+            gameObject.layer = LayerMask.NameToLayer("Editable");
+        }
+        else
+        {
+            gameObject.layer = LayerMask.NameToLayer("InLobbyObject");
+        }
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        agent.height = 1f;
-        // agent
         charAgent = new NavMeshAgentControl(agent, moveSpeed, angularSpeed, acceleration, moveRadius, trans);
-        // charAnim
         charAnim = new LobbyCharacterAnim(anim);
         MainCam = Camera.main;
-        //waitU = new WaitUntil(() => !agent.pathPending && agent.remainingDistance <= 0.5f);
         fsm = new LobbyCharacterFSM(null);
+        Register();
         InitStates();
     }
 
-    protected virtual void OnEnable()
-    {
-        Register();
-        YValue = transform.position.y;
-    }
+    protected virtual void OnEnable() {}
 
-    protected virtual void Start()
-    {
-        fsm.ChangeState(IdleState);
-    }
+    protected virtual void Start() {}
 
     protected virtual void Update()
     {
@@ -106,6 +106,7 @@ public abstract class BaseLobbyCharacterBehaviour : MonoBehaviour, ILobbyInterac
             default: throw new Exception("누구세요?");
         }
     }
+
     protected void StopMoving()
     {
         fsm.ChangeState(IdleState);
@@ -261,7 +262,7 @@ public abstract class BaseLobbyCharacterBehaviour : MonoBehaviour, ILobbyInterac
         InLobbyManager.Instance.RegisterLobbyChar(this);
         Debug.Log($"{this} 등록");
     }
-    
+
     /// <summary>
     /// ILobbyState, 오브젝트 삭제 시 취소
     /// </summary>
@@ -275,5 +276,25 @@ public abstract class BaseLobbyCharacterBehaviour : MonoBehaviour, ILobbyInterac
         if (gameObject.CompareTag("CocoDoogy") || gameObject.CompareTag("Master")) return;
         InLobbyManager.Instance.UnregisterLobbyChar(this);
         Debug.Log($"{this} 삭제");
+    }
+
+    /// <summary>
+    /// 처음 생성 시 초기화
+    /// </summary>
+    public virtual void Init()
+    {
+        agent.height = 1f;
+        YValue = transform.position.y;
+        Debug.Log($"{gameObject.name} yValue : {YValue}, agent height : {agent.height}");
+        IsEditMode = false;
+        StuckTimeB = 2f;
+    }
+
+    /// <summary>
+    /// Init() 후 초기화 어찌보면 Start와 비슷?
+    /// </summary>
+    public virtual void PostInit()
+    {
+        fsm.ChangeState(IdleState);
     }
 }

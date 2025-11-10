@@ -18,15 +18,15 @@ public class CocoDoogyBehaviour : BaseLobbyCharacterBehaviour
         ClickSate = new LCocoDoogyClickState(this, fsm, charAnim);
         DragState = new LCocoDoogyDragState(this, fsm);
         EditState = new LCocoDoogyEditState(this, fsm);
+        StuckState = new LCocoDoogyStuckState(this, fsm);
     }
 
     protected override void Awake()
     {
+        gameObject.tag = "CocoDoogy";
+        //gameObject.layer = LayerMask.NameToLayer("InLobbyObject");
         base.Awake();
-        agent.avoidancePriority = 99;
-        
     }
-
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -35,14 +35,11 @@ public class CocoDoogyBehaviour : BaseLobbyCharacterBehaviour
         // {
         //     waypoints[i] = InLobbyManager.Instance.cocoWaypoints[i];
         // }
-
     }
-
     protected override void Start()
     {
         base.Start();
     }
-
     protected override void Update()
     {
         base.Update();
@@ -157,22 +154,18 @@ public class CocoDoogyBehaviour : BaseLobbyCharacterBehaviour
     {
         
     }
-
     public override void OnCocoMasterEmotion()
     {
 
     }
-
     public override void OnLobbyBeginDrag(Vector3 position)
     {
         base.OnLobbyBeginDrag(position);
     }
-
     public override void OnLobbyDrag(Vector3 position)
     {
         base.OnLobbyDrag(position);
     }
-
     public override void OnLobbyEndDrag(Vector3 position)
     {
         base.OnLobbyEndDrag(position);
@@ -204,6 +197,15 @@ public class CocoDoogyBehaviour : BaseLobbyCharacterBehaviour
     public override void Unregister()
     {
         base.Unregister();
+    }
+    public override void Init()
+    {
+        base.Init();
+        agent.avoidancePriority = 60;
+    }
+    public override void PostInit()
+    {
+        base.PostInit();
     }
 
 }

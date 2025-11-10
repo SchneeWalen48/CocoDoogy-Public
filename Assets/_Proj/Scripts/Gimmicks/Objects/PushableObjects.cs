@@ -21,7 +21,7 @@ public abstract class PushableObjects : MonoBehaviour, IPushHandler, IRider
     protected bool isHoling = false;
     protected bool isFalling = false;
     protected bool isRiding = false;
-    public float requiredHoldtime = 0.9f;
+    public float requiredHoldtime = 0.6f;
     protected float currHold = 0f;
     protected Vector2Int holdDir;
 
@@ -37,7 +37,7 @@ public abstract class PushableObjects : MonoBehaviour, IPushHandler, IRider
     [Tooltip("충격파 맞은 오브젝트가 다시 반응하기까지 쿨타임")]
     public float immuneTime = 5f;
 
-    [Header("Shockwave Lift Override [If it doesn't have Shockwave.cs]")]
+    [Header("Shockwave Lift Override [오브젝트 별로 조정하고 싶다면 이 옵션을 활성화]")]
     public bool overrideLiftTiming = false;
     [Tooltip("재정의 시 사용되는 상승 시간")]
     public float overrideRiseSec = 0.5f;

@@ -20,7 +20,7 @@ public class PushableOrb : PushableObjects
 
     [Header("Orb Fall Detection")]
     public float probeUp = 0.1f;
-    public float probeDown = 0.1f;
+    [Min(0.6f)] public float probeDown = 0.6f;
     private bool wasGrounded;
 
 
@@ -70,6 +70,8 @@ public class PushableOrb : PushableObjects
     protected override void OnLanded()
     {
         isMoving = false;
+        isFalling = false;
+
         if (Time.time - lastShockwaveTime < orbCoolTime)
             return;
 
