@@ -64,19 +64,19 @@ MonoBehaviour:
   throughLayer:
     serializedVersion: 2
     m_Bits: 16
-  overrideLiftTiming: 0
-  overrideRiseSec: 0.5
-  overrideHangSec: 0.2
-  overrideFallSec: 0.5
-  requiredHoldtime: 0.9
+  requiredHoldtime: 0.4
   allowFall: 1
   allowSlope: 0
   immuneTime: 5
+  overrideLiftTiming: 1
+  overrideRiseSec: 0.5
+  overrideHangSec: 0.2
+  overrideFallSec: 0.5
   shockwave: {fileID: 3683261028050005787}
   shockPing: {fileID: 8611777253475136124}
   orbCoolTime: 6
   probeUp: 0.1
-  probeDown: 1.5
+  probeDown: 0.6
 --- !u!65 &5937561180784654500
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -121,7 +121,7 @@ MonoBehaviour:
     m_Bits: 55176
   riseSec: 0.5
   hangSec: 0.4
-  fallSec: 0.2
+  fallSec: 5
   affectSameFloorOnly: 0
   alsoAffectStackedAbove: 0
 --- !u!114 &8611777253475136124
