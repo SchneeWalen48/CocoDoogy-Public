@@ -4,21 +4,10 @@ using Unity.AI.Navigation;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-// Surface���� : ������ ���⿡ �� ���� �ְ����� ���߿� �����ϰڽ���.
-// [Serializable]
-// public class  NavMeshSaveData
-// {
-//     public List<NavMeshObjectData> nObj = new List<NavMeshObjectData>();
-// }
-// [Serializable]
-// public class NavMeshObjectData
-// {
-//     public string prefabName;
-//     public Vector3 position;
-//     public Quaternion rotation;
-//     public Vector3 scale;
-// }
-// //
+
+// 저장되어있는 동물 오브젝트, 데코 오브젝트, 집 오브젝트를 어떻게 분리할까
+
+
 public class InLobbyManager : MonoBehaviour
 {
     [SerializeField] GameObject plane;
@@ -35,6 +24,7 @@ public class InLobbyManager : MonoBehaviour
     public bool isEditMode { get; private set; } // 에딧컨트롤러에서 받아오기
     private int originalLayer; // 평상 시 레이어
     private int editableLayer; // 편집모드 시 레이어
+    //private bool oneForInit = false;
 
 
     public static InLobbyManager Instance { get; private set; }
@@ -49,7 +39,10 @@ public class InLobbyManager : MonoBehaviour
         }
         Instance = this;
 
-        planeSurface = plane.GetComponent<NavMeshSurface>();
+        if (planeSurface == null)
+        {
+            planeSurface = FindFirstObjectByType<NavMeshSurface>();
+        }
 
         if (editController == null) editController = FindFirstObjectByType<EditModeController>();
         isEditMode = false;
@@ -63,19 +56,21 @@ public class InLobbyManager : MonoBehaviour
     {
         planeSurface.BuildNavMesh();
 
-        // GameObject gObj = Instantiate(DataManager.Instance.mainChar.GetPrefab(99999), cocoWaypoints[0].position, Quaternion.identity);
-        // gObj.tag = "CocoDoogy";
-        // gObj.layer = LayerMask.NameToLayer("InLobbyObject");
-        // gObj.AddComponent<CocoDoogyBehaviour>();
+        GameObject gObj = Instantiate(DataManager.Instance.mainChar.GetPrefab(99999), cocoWaypoints[0].position, Quaternion.identity);
+        gObj.transform.localScale = new Vector3(4, 4, 4);
+        gObj.AddComponent<CocoDoogyBehaviour>();
+
+        GameObject gObj2 = Instantiate(DataManager.Instance.Animal.GetPrefab(30001), cocoWaypoints[1].position, Quaternion.identity);
+        gObj2.transform.localScale = new Vector3(4, 4, 4);
+        gObj2.AddComponent<AnimalBehaviour>();
+
+        foreach (var lC in lobbyCharacter)
+        {
+            lC.Init();
+            lC.PostInit();
+        }
         //coco = gObj.GetComponent<CocoDoogyBehaviour>();
         //coco.gameObject.SetActive(false);
-
-        // GameObject gObj2 = Instantiate(DataManager.Instance.mainChar.GetPrefab(99998), cocoWaypoints[5].position, Quaternion.identity);
-        // gObj2.AddComponent<MasterBehaviour>();
-        // gObj2.tag = "Master";
-        // gObj2.layer = LayerMask.NameToLayer("InLobbyObject");
-        // master = gObj2.GetComponent<MasterBehaviour>();
-        // master.gameObject.SetActive(false);
 
         //StartCoroutine(MainCharRoutineLoop());
 
@@ -87,6 +82,12 @@ public class InLobbyManager : MonoBehaviour
         //         lC.StartScene();
         //         Debug.Log($"{lC} StartScene");
         //     }
+        // }
+        // if (!oneForInit)
+        // {
+        //     초기화
+        //     oneForInit = true;
+        //     return;
         // }
     }
 
