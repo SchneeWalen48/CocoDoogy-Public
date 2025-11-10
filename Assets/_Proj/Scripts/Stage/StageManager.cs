@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UnityEditor.Overlays;
+using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [Serializable]
 public class StageClearInfo
@@ -46,8 +47,7 @@ public class StageManager : MonoBehaviour
 
     private List<IPlayerFinder> finders = new();
 
-
-    private HashSet<string> collectedTreasures = new();
+    private bool[] collectedTreasures = new bool[3];
 
     [SerializeField] BlockFactory factory;
 
@@ -90,7 +90,7 @@ public class StageManager : MonoBehaviour
         //TODO: 4. 시작점에 코코두기를 생성해줌.
         SpawnPlayer();
         //yield return null;
-        
+
         yield return null;
         //TODO: 5. 카메라 연출 시작
 
@@ -117,11 +117,27 @@ public class StageManager : MonoBehaviour
 
         StageUIManager.Instance.stageName.text = data.stage_name;
 
-        StageUIManager.Instance.UpdateTreasureIcons(
-           IsTreasureCollected(data.treasure_01_id),
-           IsTreasureCollected(data.treasure_02_id),
-           IsTreasureCollected(data.treasure_03_id)
-       );
+        int collectedCount = collectedTreasures.Count(x => x);
+
+        var prev = PlayerProgressManager.Instance.GetStageProgress(data.stage_id);
+        int prevCount = prev.treasureCollected.Count(x => x);
+
+        // 이전보다 더 많이 모았을 때만 갱신
+        if (collectedCount > prevCount)
+        {
+            PlayerProgressManager.Instance.UpdateStageTreasure(data.stage_id, collectedTreasures);
+            Debug.Log($"[StageManager] 별 갱신됨 ({prevCount} → {collectedCount})");
+        }
+        else
+        {
+            Debug.Log($"[StageManager] 기존보다 별 개수가 적거나 같음 ({prevCount}), 갱신 안 함");
+        }
+
+        UpdateTreasureIcons(
+             collectedCount >= 1,
+             collectedCount >= 2,
+             collectedCount >= 3
+        );
     }
 
     void SpawnPlayer()
@@ -151,15 +167,15 @@ public class StageManager : MonoBehaviour
         {
 
 
-            print($"[StageManager] {block.blockName}: {block.blockType} [{block.position.x}],[{block.position.y}],[{block.position.z}]");
+            //print($"[StageManager] {block.blockName}: {block.blockType} [{block.position.x}],[{block.position.y}],[{block.position.z}]");
             //여기서 팩토리가 들고 있는 프리팹으로 인스턴시에이트.
-            
+
             //생성 후 블록의 타입으로 컴포넌트 붙여주는 처리는 BlockFactory에서 담당.
             GameObject go = factory.CreateBlock(block);
             go.transform.SetParent(stageRoot, true);
             go.name = block.blockName;
 
-                    
+
             if (block.blockType == BlockType.Start)
                 startPoint = block.position;
             if (block.blockType == BlockType.End)
@@ -167,20 +183,23 @@ public class StageManager : MonoBehaviour
             if (BlockType.Hog <= block.blockType && block.blockType <= BlockType.Buffalo)
                 finders.Add(go.GetComponent<IPlayerFinder>());
 
-            //보물 블록 처리
-            if (block.blockType == BlockType.Treasure)
+            if (!isTest)
             {
-                var treasure = go.GetComponent<Treasure>();
+                //보물 블록 처리
+                if (block.blockType == BlockType.Treasure)
+                {
+                    var treasure = go.GetComponent<Treasure>();
 
-                // blockName으로 구분
-                if (block.blockName.Contains("1"))
-                    treasure.Init(data.treasure_01_id);
-                else if (block.blockName.Contains("2"))
-                    treasure.Init(data.treasure_02_id);
-                else if (block.blockName.Contains("3"))
-                    treasure.Init(data.treasure_03_id);
-                else
-                    Debug.LogWarning($"Treasure 블록 이름 인식 실패: {block.blockName}");
+                    // blockName으로 구분
+                    if (block.blockName.Contains("1"))
+                        treasure.Init(data.treasure_01_id);
+                    else if (block.blockName.Contains("2"))
+                        treasure.Init(data.treasure_02_id);
+                    else if (block.blockName.Contains("3"))
+                        treasure.Init(data.treasure_03_id);
+                    else
+                        Debug.LogWarning($"Treasure 블록 이름 인식 실패: {block.blockName}");
+                }
             }
             //GetComponent<Block>().Init(block);
             EnlistBlock(go.GetComponent<Block>());
@@ -237,21 +256,70 @@ public class StageManager : MonoBehaviour
             blockDictionary[target.gridPosition].Add(target);
     }
 
-    public void OnTreasureCollected(string treasureId)
+    public void OnTreasureCollected(int index)
     {
-        if (!collectedTreasures.Contains(treasureId))
+        if (index >= 0 && index < 3)
         {
-            collectedTreasures.Add(treasureId);
-            Debug.Log($"보물 획득: {treasureId}");
+            // 이미 먹은 보물이라면 무시
+            if (collectedTreasures[index]) return;
+
+            collectedTreasures[index] = true;
+
+            // 보물 개수에 따라 별 단계 계산
+            int starCount = collectedTreasures.Count(x => x);
+            UpdateTreasureIcons(
+                starCount >= 1,
+                starCount >= 2,
+                starCount >= 3
+            );
         }
     }
 
-    public bool IsTreasureCollected(string treasureId)
+    public void UpdateTreasureIcons(bool t1, bool t2, bool t3)
     {
-        return collectedTreasures.Contains(treasureId);
-    }
-    public IEnumerable<string> GetCollectedTreasures()
-    {
-        return collectedTreasures;
+
+        if (StageUIManager.Instance.star != null && StageUIManager.Instance.star.Length >= 3)
+        {
+            StageUIManager.Instance.star[0].sprite = t1 ? StageUIManager.Instance.collectedSprite : StageUIManager.Instance.notCollectedSprite;
+            StageUIManager.Instance.star[1].sprite = t2 ? StageUIManager.Instance.collectedSprite : StageUIManager.Instance.notCollectedSprite;
+            StageUIManager.Instance.star[2].sprite = t3 ? StageUIManager.Instance.collectedSprite : StageUIManager.Instance.notCollectedSprite;
+        }
+
+        // 보물 아이콘 슬롯 확인
+        if (StageUIManager.Instance.reward == null || StageUIManager.Instance.reward.Length < 3)
+            return;
+
+        // 스테이지 데이터 불러오기
+        var data = DataManager.Instance.Stage.GetMapNameData(currentStageId);
+        var treasure1 = DataManager.Instance.Treasure.GetData(data.treasure_01_id);
+        var treasure2 = DataManager.Instance.Treasure.GetData(data.treasure_02_id);
+        var treasure3 = DataManager.Instance.Treasure.GetData(data.treasure_03_id);
+        TreasureData[] treasures = { treasure1, treasure2, treasure3 };
+
+        bool[] collected = collectedTreasures;
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (treasures[i] == null) continue;
+
+            Image rewardIcon = StageUIManager.Instance.reward[i];
+            string codexId = treasures[i].view_codex_id;
+
+            // CodexProvider 통해 아이콘 불러오기
+            Sprite iconSprite = DataManager.Instance.Codex.GetCodexIcon(codexId);
+
+            if (iconSprite != null)
+            {
+                rewardIcon.sprite = iconSprite;
+            }
+            else
+            {
+                Debug.LogWarning($"[StageManager] Codex 아이콘 로드 실패: {codexId}");
+                rewardIcon.sprite = StageUIManager.Instance.notCollectedSprite;
+            }
+
+            // 회색 처리 (획득 안한 건)
+            rewardIcon.color = collected[i] ? Color.white : new Color(0.4f, 0.4f, 0.4f, 1f);
+        }
     }
 }

@@ -3,9 +3,21 @@ using UnityEngine;
 
 public class Treasure : MonoBehaviour
 {
+    public int treasureIndex;
     private string treasureId;
     private bool isCollected = false;
+    void Start()
+    {
+        var progress = PlayerProgressManager.Instance.GetStageProgress(StageUIManager.Instance.stageManager.currentStageId);
 
+        // 이미 먹은 보물은 회색 표시
+        if (progress.treasureCollected[treasureIndex])
+        {
+            // 시각적 표시
+            //GetComponent<Renderer>().material.color = Color.gray;
+            isCollected = true; // 다시 못먹게
+        }
+    }
     public void Init(string id)
     {
         treasureId = id;
@@ -28,24 +40,28 @@ public class Treasure : MonoBehaviour
             {
                 case TreasureType.deco:
                     var deco = DataManager.Instance.Deco.GetData(data.reward_id);
+                    StageUIManager.Instance.TreasureImage.sprite = DataManager.Instance.Deco.GetIcon(data.reward_id);
                     StageUIManager.Instance.TreasureName.text = deco.deco_name;
                     StageUIManager.Instance.TreasureDesc.text = deco.deco_desc;
                     TreasureUI(data);
                     break;
                 case TreasureType.costume:
                     var costume = DataManager.Instance.Costume.GetData(data.reward_id);
+                    StageUIManager.Instance.TreasureImage.sprite = DataManager.Instance.Costume.GetIcon(data.reward_id);
                     StageUIManager.Instance.TreasureName.text = costume.costume_name;
                     StageUIManager.Instance.TreasureDesc.text = costume.costume_desc;
                     TreasureUI(data);
                     break;
                 case TreasureType.artifact:
                     var artifact = DataManager.Instance.Artifact.GetData(data.reward_id);
+                    StageUIManager.Instance.TreasureImage.sprite = DataManager.Instance.Artifact.GetIcon(data.reward_id);
                     StageUIManager.Instance.TreasureName.text = artifact.artifact_name;
                     StageUIManager.Instance.TreasureDesc.text = artifact.artifact_name;
                     TreasureUI(data);
                     break;
                 case TreasureType.coin:
                 case TreasureType.cap:
+                    StageUIManager.Instance.TreasureImage.sprite = DataManager.Instance.Codex.GetCodexIcon(data.view_codex_id); ;
                     StageUIManager.Instance.TreasureName.text = "보물이지롱";
                     StageUIManager.Instance.TreasureDesc.text = "사실아니지롱";
                     TreasureUI(data);
@@ -59,14 +75,9 @@ public class Treasure : MonoBehaviour
             // 확인 버튼 클릭 시 호출되도록 이벤트 등록
             StageUIManager.Instance.OnTreasureConfirm = () => OnQuitAction(() =>
             {
-                // 획득 처리
-                StageUIManager.Instance.stageManager.OnTreasureCollected(treasureId);
-
-                // UI 닫기
+                StageUIManager.Instance.stageManager.OnTreasureCollected(treasureIndex);
                 StageUIManager.Instance.TreasurePanel.SetActive(false);
                 StageUIManager.Instance.OptionOpenButton.gameObject.SetActive(true);
-
-                // 플레이어 이동 복원
                 other.GetComponent<PlayerMovement>().enabled = true;
             });
         }
@@ -74,7 +85,6 @@ public class Treasure : MonoBehaviour
 
     private static void TreasureUI(TreasureData data)
     {
-        StageUIManager.Instance.TreasureImage.sprite = DataManager.Instance.Deco.GetIcon(data.reward_id);
         StageUIManager.Instance.TreasureType.text = data.treasureType.ToString();
         StageUIManager.Instance.TreasureCount.text = data.count.ToString();
         StageUIManager.Instance.CocoDoogyDesc.text = data.coco_coment;

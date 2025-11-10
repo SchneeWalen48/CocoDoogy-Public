@@ -190,7 +190,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 5291992017778968749, guid: c4c522c376ad1b745b54524b0a7cded8, type: 3}
   joystickPrefab: {fileID: 8076522967414642225, guid: e70ee23931c899d429b2f8a615b74827, type: 3}
   joystickRoot: {fileID: 484405798}
-  mapNameToLoad: WaterTest_4
+  mapNameToLoad: map_1_5
   blockPositions: []
   blocks: []
   currentStageId: 
@@ -1046,8 +1046,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC635\uC158\uCF1C\uAE30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cda9ae0ee2f7ee5489c39597f9a8a279, type: 2}
+  m_sharedMaterial: {fileID: -8834051726368977885, guid: cda9ae0ee2f7ee5489c39597f9a8a279, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1192,6 +1192,8 @@ MonoBehaviour:
   TreasureDesc: {fileID: 655073389}
   CocoDoogyImage: {fileID: 105974357}
   CocoDoogyDesc: {fileID: 1477821227}
+  collectedSprite: {fileID: 0}
+  notCollectedSprite: {fileID: 0}
 --- !u!4 &1272991174
 Transform:
   m_ObjectHideFlags: 0
@@ -1280,6 +1282,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 695767b0c49016240be248159dd38724, type: 2}
   - {fileID: 11400000, guid: 81b18c51fcd312e42881098e9fc2f2cf, type: 2}
   - {fileID: 11400000, guid: a1c6d05e3bc446c45819a5676c1cd62f, type: 2}
+  - {fileID: 11400000, guid: 0430b553c82111a4b93e4ba61ddb3b75, type: 2}
+  - {fileID: 11400000, guid: e08eac3b9548b1c47969937bd53ffefb, type: 2}
+  - {fileID: 11400000, guid: 281c3fd2628b5da488a709c636d7a10c, type: 2}
 --- !u!114 &1477821227 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4299389359643487108, guid: 675d10cc836f01f4aa4629eb9530edfe, type: 3}
@@ -1764,6 +1769,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 454690189}
     m_Modifications:
+    - target: {fileID: 774987429447566043, guid: e14d935333d07bf48b89c2a9d74f7168, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: cda9ae0ee2f7ee5489c39597f9a8a279, type: 2}
+    - target: {fileID: 774987429447566043, guid: e14d935333d07bf48b89c2a9d74f7168, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500261074333338270, guid: e14d935333d07bf48b89c2a9d74f7168, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: cda9ae0ee2f7ee5489c39597f9a8a279, type: 2}
+    - target: {fileID: 3500261074333338270, guid: e14d935333d07bf48b89c2a9d74f7168, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5108920150409765423, guid: e14d935333d07bf48b89c2a9d74f7168, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: cda9ae0ee2f7ee5489c39597f9a8a279, type: 2}
+    - target: {fileID: 5108920150409765423, guid: e14d935333d07bf48b89c2a9d74f7168, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6085800257018246282, guid: e14d935333d07bf48b89c2a9d74f7168, type: 3}
       propertyPath: m_Name
       value: OptionPanel
@@ -1953,6 +1982,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6969872746360590805, guid: 675d10cc836f01f4aa4629eb9530edfe, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: cda9ae0ee2f7ee5489c39597f9a8a279, type: 2}
+    - target: {fileID: 6969872746360590805, guid: 675d10cc836f01f4aa4629eb9530edfe, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7553719170157751875, guid: 675d10cc836f01f4aa4629eb9530edfe, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: cda9ae0ee2f7ee5489c39597f9a8a279, type: 2}
+    - target: {fileID: 7553719170157751875, guid: 675d10cc836f01f4aa4629eb9530edfe, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2062,6 +2107,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -50
       objectReference: {fileID: 0}
+    - target: {fileID: 6634118318287930598, guid: 67afe8ff9856ab84f8833f684f189198, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: cda9ae0ee2f7ee5489c39597f9a8a279, type: 2}
+    - target: {fileID: 6634118318287930598, guid: 67afe8ff9856ab84f8833f684f189198, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7453361144966758240, guid: 67afe8ff9856ab84f8833f684f189198, type: 3}
       propertyPath: m_Name
       value: ResultPanel
@@ -2149,6 +2202,14 @@ PrefabInstance:
     - target: {fileID: 8109054248799410065, guid: 67afe8ff9856ab84f8833f684f189198, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8563110518559724622, guid: 67afe8ff9856ab84f8833f684f189198, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: cda9ae0ee2f7ee5489c39597f9a8a279, type: 2}
+    - target: {fileID: 8563110518559724622, guid: 67afe8ff9856ab84f8833f684f189198, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
