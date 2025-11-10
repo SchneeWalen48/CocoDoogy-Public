@@ -10,8 +10,6 @@ public class Turret : MonoBehaviour
     public LayerMask occluderMask;
     public bool useOcclusion = true;
 
-    
-
     [Header("Visual Range")]
     [SerializeField] private RingRange ring;
     [Tooltip("감지중일 때 색상")]
@@ -24,12 +22,9 @@ public class Turret : MonoBehaviour
     private const float heightTolerance = 0.3f; // 층 오차 허용
     private bool doorShouldBeClosed; // 현재 문이 닫혀 있어야 하는지
 
-    private const float ConnectionSearchRadius = 60f;
-
     void Start()
     {
         myYLevel = transform.position.y - 0.5f; // tileHeight 1기준
-        AutoConnectReceiver();
         if (ring)
         {
             // 터렛이 움직이지 않는 고정 상태기 때문에 Start에서 한 번만 처리

@@ -16,11 +16,11 @@ public class PushableOrb : PushableObjects
     [Tooltip("Orb 자신이 충격파 발생시킬 수 있는 쿨타임")]
     public float orbCoolTime = 6f;
     private float lastShockwaveTime = -float.MaxValue;
-    private static Dictionary<int, float> floorCooldowns = new();
+    //private static Dictionary<int, float> floorCooldowns = new();
 
     [Header("Orb Fall Detection")]
     public float probeUp = 0.1f;
-    public float probeDown = 1.5f;
+    public float probeDown = 0.1f;
     private bool wasGrounded;
 
 
