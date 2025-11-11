@@ -934,7 +934,7 @@ GameObject:
   - component: {fileID: 5656443537539867432}
   - component: {fileID: 9135987055194098295}
   m_Layer: 5
-  m_Name: DailyWeekQuestSlot
+  m_Name: QuestSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
