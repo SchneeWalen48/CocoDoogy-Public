@@ -181,6 +181,13 @@ public class FirebaseManager : MonoBehaviour
 
 
     //Firebase Auth 관련 기능.
+
+    /// <summary>
+    /// 익명 로그인 기능 테스트용 함수.
+    /// </summary>
+    /// <param name="onSuccess"></param>
+    /// <param name="onFailure"></param>
+    /// <returns></returns>
     public async Task SignInAnonymouslyTest(Action<FirebaseUser> onSuccess, Action<FirebaseException> onFailure) => await SignInAnonymously(onSuccess, onFailure);
 
 
@@ -188,8 +195,8 @@ public class FirebaseManager : MonoBehaviour
     /// <summary>
     /// 익명 로그인 기능.
     /// </summary>
-    /// <param name="onSuccess">성공 시의 FirebaseUser를 매개변수로 삼아 실행시킬 콜백 함수</param>
-    /// <param name="onFailure">실패 시 catch되는 FirebaseException을 매개변수로 삼아 실행시킬 콜백 함수</param>
+    /// <param name="onSuccess">성공 시의 FirebaseUser를 매개변수로 삼아 호출할 콜백 함수</param>
+    /// <param name="onFailure">실패 발생되는 FirebaseException을 매개변수로 삼아 호출할 콜백 함수</param>
     /// <returns></returns>
     private async Task SignInAnonymously(Action<FirebaseUser> onSuccess, Action<FirebaseException> onFailure)
     {
@@ -235,7 +242,7 @@ public class FirebaseManager : MonoBehaviour
     /// <param name="onSuccess"></param>
     /// <param name="onFailure"></param>
     /// <returns></returns>
-    public async Task LinkAnonymousToGoogle(string idToken, string accessToken, Action<FirebaseUser> onSuccess, Action<FirebaseException> onFailure)
+    private async Task LinkAnonymousToGoogle(string idToken, string accessToken, Action<FirebaseUser> onSuccess, Action<FirebaseException> onFailure)
     {
         //인증의 현재 유저가 익명 유저가 아닐 경우 리턴
         if (!Auth.CurrentUser.IsAnonymous) return;
