@@ -200,6 +200,15 @@ public class StageManager : MonoBehaviour
                     else
                         Debug.LogWarning($"Treasure 블록 이름 인식 실패: {block.blockName}");
                 }
+                if (block.blockType == BlockType.Dialogue)
+                {
+                    var dialogue = go.GetComponent<Dialogue>();
+
+                    if (block.blockName.Contains("1"))
+                        dialogue.Init(data.start_talk);
+                    else if (block.blockName.Contains("2"))
+                        dialogue.Init(data.end_talk);
+                }
             }
             //GetComponent<Block>().Init(block);
             EnlistBlock(go.GetComponent<Block>());
