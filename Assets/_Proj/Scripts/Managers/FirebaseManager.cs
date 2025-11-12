@@ -16,6 +16,8 @@ public class FirebaseManager : MonoBehaviour
     private FirebaseAuth Auth { get; set; }
     private DatabaseReference MapDataRef => DB.RootReference.Child($"mapData");
     private DatabaseReference MapMetaRef => DB.RootReference.Child($"mapMeta");
+    private DatabaseReference UserDataRef => DB.RootReference.Child($"userData");
+    private DatabaseReference CurrentUserDataRef => UserDataRef.Child(Auth.CurrentUser.UserId);
 
     public StageManager stageManager;
 
@@ -76,7 +78,7 @@ public class FirebaseManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-
+    
     //삭제: 맵에디터에서만 사용하는 코드.
     //public async Task<List<string>> FetchMapNamesFromFirebase()
     //{
@@ -105,39 +107,6 @@ public class FirebaseManager : MonoBehaviour
 
     public async Task<MapData> LoadMapFromFirebase(string mapName, Action<string> callback = null)
     {
-        //var task = new TaskCompletionSource<MapData>();
-        //callback?.Invoke($"Looking for mapdata from DB by {mapName}...");
-
-        //MapDataRef.Child(mapName).GetValueAsync().ContinueWithOnMainThread(task => {
-
-        //    if (task.IsFaulted)
-        //    {
-        //        var e = task.Exception?.Flatten().InnerException;
-        //        {
-
-        //            callback?.Invoke(e?.Message);
-        //            Debug.LogError(e?.Message);
-        //        }
-        //    }
-        //    else if (task.IsCompleted)
-        //    {
-
-        //        var snapshot = task.Result;
-        //        if (snapshot.Exists)
-        //        {
-        //            callback?.Invoke($"{mapName} data Found!");
-        //            MapData data = JsonUtility.FromJson<MapData>(snapshot.GetRawJsonValue());
-        //            return data;
-        //        }
-        //        else
-        //        {
-        //            throw new Exception("No such map data exists.");
-        //        }
-        //    }
-
-
-        //} );
-        //return task.Task;
         #region 기존 방법.
         try
         {
@@ -179,7 +148,7 @@ public class FirebaseManager : MonoBehaviour
         selectStageID = id;
     }
 
-
+    #region Firebase Auth Functions
     //Firebase Auth 관련 기능.
 
     /// <summary>
@@ -205,6 +174,10 @@ public class FirebaseManager : MonoBehaviour
             var result = await Auth.SignInAnonymouslyAsync();
             //SaveUserData(result.User);
             onSuccess?.Invoke(result.User);
+
+            //이곳에 이 익명유저의 uid를 키로 하는 UserData 자식의 값을 가져오도록 함.
+            await FetchCurrentUserData();
+            //가져온 값이 존재하면 UserData.Local에 대입, 만약 없다면 UserData.Local을 new()해줌... 맞나?
         }
         catch (FirebaseException ex)
         {
@@ -258,4 +231,73 @@ public class FirebaseManager : MonoBehaviour
             onFailure?.Invoke(fe);
         }
     }
+
+    #endregion
+
+
+    #region Firebase Realtime DB Functions
+    //1. DB에서 UserData를 가져오는 처리.
+    public async Task FetchCurrentUserData()
+    {
+        if (Auth.CurrentUser == null || !Auth.CurrentUser.IsValid()) return;
+        try
+        {
+            DataSnapshot snapshot = await CurrentUserDataRef.GetValueAsync();
+            if (snapshot.Exists)
+            {
+                Debug.Log($"{Auth.CurrentUser.UserId}: 유저데이터 탐색 성공.");
+                UserData snapshotUserData = JsonUtility.FromJson<UserData>(snapshot.GetRawJsonValue());
+                Debug.Log($"유저데이터 Json->인스턴스 변환 성공.");
+                UserData.SetLocal(snapshotUserData);
+                Debug.Log($"UserData.Local로 저장 성공.");
+            }
+            else
+            {
+                Debug.Log($"{Auth.CurrentUser.UserId}: 유저데이터가 존재하지 않음.");
+                UserData newUser = new();
+                string userDataJson = JsonUtility.ToJson(newUser);
+                await CurrentUserDataRef.SetRawJsonValueAsync(userDataJson);
+                Debug.Log($"{Auth.CurrentUser.UserId}: 파이어베이스 DB에 유저데이터 저장함.");
+                UserData.SetLocal(newUser);
+                Debug.Log($"UserData.Local로 저장 성공.");
+            }
+        }
+        catch (FirebaseException fe)
+        {
+            Debug.LogError($"{Auth.CurrentUser.UserId}: 유저데이터 가져오는 도중 오류 발생함. {fe.Message}");
+        }
+    }
+
+    //2. DB에 로컬 유저데이터를 저장하는 처리
+    public async Task UpdateCurrentUserData() => await UpdateUserData(Auth.CurrentUser.UserId, UserData.Local);
+    
+        //if (Auth.CurrentUser == null || !Auth.CurrentUser.IsValid()) return;
+        //try
+        //{
+        //    string localDataJson = JsonUtility.ToJson(UserData.Local);
+        //    await CurrentUserDataRef.SetRawJsonValueAsync(localDataJson);
+        //    Debug.Log($"{Auth.CurrentUser.UserId}: 로컬 유저데이터 json으로 변환하여 DB에 저장함.");
+        //}
+        //catch (FirebaseException fe)
+        //{
+        //    Debug.LogError($"{Auth.CurrentUser.UserId}: 로컬 유저데이터 DB에 업로드 도중 오류 발생함. {fe.Message}");
+        //}
+    
+
+    public async Task UpdateUserData(string uid, UserData data)
+    {
+        //if (Auth.CurrentUser == null || !Auth.CurrentUser.IsValid()) return;
+        try
+        {
+            string userDataJson = JsonUtility.ToJson(data);
+            await UserDataRef.Child(uid).SetRawJsonValueAsync(userDataJson);
+            Debug.Log($"{uid}: {data.master.nickName}의 정보를 DB에 저장.");
+        }
+        catch (FirebaseException fe)
+        {
+            Debug.LogError($"{uid}: {data.master.nickName}의 정보 DB에 업로드 도중 오류 발생함. {fe.Message}");
+        }
+    }
+    #endregion
+
 }

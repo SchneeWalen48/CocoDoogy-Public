@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
     
 
 public interface IUserDataCategory<T> where T : class
 {
-    bool TryUpdateFirebase(T dataValue);
+    bool TryUpdateFirebase(T dataValue); // => 해야 하는 일: UserData.xxx 형태의 자료를 파이어베이스매니저가 받아, DB의 적절한 노드에 SetValueAsync()해줘야 함.
     
 }
 
@@ -41,25 +41,32 @@ public class UserData
     [Serializable]
     public class Master
     {
+        //유저의 닉네임
+        public string nickName;
 
         //유저가 여지껏 받은 모든 좋아요 개수.
         public int totalLikes;
 
-        //유저의 계정 생성일 타임스탬프
-        public DateTime registeredDate;
+        ////유저의 계정 생성일 타임스탬프
+        //public DateTime registeredDate;
+        public long createdAt;
 
-        //마지막 로그인 시간 타임스탬프
-        public DateTime lastLogin;
+        ////마지막 로그인 시간 타임스탬프
+        //public DateTime lastLogin;
+        public long lastLoginAt;
 
-        //마지막 활동 시간 타임스탬프 (하트비트 보내듯이 주기적으로 DB에 업데이트 필요.)
-        public DateTime lastActive;
+        ////마지막 활동 시간 타임스탬프 (하트비트 보내듯이 주기적으로 DB에 업데이트 필요.)
+        //public DateTime lastActive;
+        public long lastActiveTime;
 
         public Master()
         {
-            totalLikes = 0;
-            registeredDate = DateTime.Now;
-            lastLogin = DateTime.Now;
-            lastActive = DateTime.Now;
+            var now = DateTime.UtcNow;
+            nickName = "DebuggingName";
+            totalLikes = 12345;
+            createdAt = ((DateTimeOffset)now).ToUnixTimeSeconds();
+            lastLoginAt = ((DateTimeOffset)now).ToUnixTimeSeconds();
+            lastActiveTime = ((DateTimeOffset)now).ToUnixTimeSeconds();
         }
 
     }
@@ -99,11 +106,11 @@ public class UserData
     [Serializable]
     public class Inventory
     {
-        public Dictionary<int, int> keyValues;
+        public Dictionary<int, int> items = new();
 
         public Inventory()
         {
-            keyValues = new();
+            items.Add(10000, 2);
         }
     }
 
@@ -136,12 +143,14 @@ public class UserData
                 yAxisRotation = 0;
             }
         }
-
-        public Dictionary<int, List<PlaceInfo>> keyValues;
+        [SerializeField]
+        public Dictionary<int, List<PlaceInfo>> props = new() { };
 
         public Lobby()
         {
-            keyValues = new();
+            props.Add(1, new());
+            props[1].Add(new() { xPosition = 123, yPosition = 456, yAxisRotation = 789 });
+
         }
     }
 
@@ -153,11 +162,15 @@ public class UserData
     [Serializable]
     public class EventArchive
     {
-        public Dictionary<string, int> keyValues;
+        [SerializeField]
+        public Dictionary<string, int> eventList = new();
 
         public EventArchive()
         {
-            keyValues = new();
+            
+            //
+
+            eventList.Add("디버그시즌", 0);
         }
     }
 
@@ -168,7 +181,8 @@ public class UserData
     [Serializable]
     public class Friends
     {
-        public Dictionary<string, FriendInfo> keyValues;
+        [SerializeField]
+        public Dictionary<string, FriendInfo> friendList = new();
 
         /// <summary>
         /// <b>친구 상세정보</b>
@@ -178,21 +192,29 @@ public class UserData
         [Serializable]
         public class FriendInfo
         {
-            [Flags]
+            
             public enum FriendState
             {
-                NewRequest = 0, Friend, RequestSent = 1 << 1, RequestReceived = 1 << 2,
+                Friend, RequestSent, RequestReceived,
             }
 
             public FriendState state;
-            public DateTime requestTime;
+            public long requestTime;
 
+            
             public FriendInfo()
             {
+                var now = DateTime.UtcNow;
                 state = (FriendState)0;
-                requestTime = DateTime.Now;
+                requestTime = ((DateTimeOffset)now).ToUnixTimeSeconds();
             }
 
+        }
+
+        public Friends()
+        {
+            
+            friendList.Add("UID자리", new());
         }
     }
 
@@ -235,4 +257,13 @@ public class UserData
     //                     public bool[] treasureCollected = new bool[3]; // 각 보물별 개별 획득 여부
     //                     public int bestTreasureCount = 0;              // 지금까지 달성한 최대 별 개수
 
+
+    public static void SetLocal(UserData data) => Local = data;
+
+
+    public static async void OnLocalUserDataUpdate()
+    {
+        await FirebaseManager.Instance.UpdateCurrentUserData();
+    }
+    
 }
