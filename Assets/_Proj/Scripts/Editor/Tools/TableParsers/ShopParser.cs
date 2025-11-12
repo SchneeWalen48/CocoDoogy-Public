@@ -24,7 +24,7 @@ public static class ShopParser
 
             var v = line.Split(',');
 
-            if (v.Length < 9)
+            if (v.Length < 10)
             {
                 Debug.LogWarning($"[ShopParser] {i}행 데이터 부족 → 스킵");
                 continue;
@@ -42,6 +42,7 @@ public static class ShopParser
 
             Enum.TryParse(v[5], true, out ShopType type);
             Enum.TryParse(v[8], true, out ShopGroup group);
+            Enum.TryParse(v[9], true, out ShopCategory category);
 
             string rawName = v[1];
             string finalName = TextParser.Resolve(rawName, textDict);
@@ -56,7 +57,8 @@ public static class ShopParser
                 shop_type = type,
                 shop_price = price,
                 shop_stack = stack,
-                shop_group = group
+                shop_group = group,
+                shop_item_category = category
             });
         }
 
