@@ -165,20 +165,27 @@ public class UserData : IUserDataCategory
 
         public string ToValidFormat()
         {
-            StringBuilder sb = new();
+            string resultJson = string.Empty;
+            List<PlaceableStore.Placed> Wrapper = new();
+            PlaceableCategory validCategory = 0;
             foreach (var p in props)
             {
-                var validFomat = new PlaceableStore.Placed()
+                int idInt = int.Parse(p.Key);
+                if (10000 < idInt && idInt < 20000) validCategory = PlaceableCategory.Deco;
+                else if (30000 < idInt && idInt < 40000) validCategory = PlaceableCategory.Animal;
+                else if (40000 < idInt && idInt < 50000) validCategory = PlaceableCategory.Home;
+                else return null; //심각한 예외. 저장된 string의 카테고리가 처리 가능 범위를 벗어났음.
+                if (p.Value != null && p.Value.Count > 0)
                 {
-                    cat = Enum.Parse<PlaceableCategory>(p.Key)/*를 기준으로 몇번대부터 몇번대까지는 이enum으로, 또 몇번까지는 저 enum으로 바꿔줘*/,
-                    id = int.Parse(p.Key),
-                    pos = new(p.Value[0].xPosition, 0, p.Value[0].yPosition),
-                    rot = Quaternion.Euler(0, p.Value[0].yAxisRotation, 0)
-                };
-
-                sb.Append(JsonUtility.ToJson(validFomat));
+                    foreach (var pi in p.Value)
+                    {
+                        var validFormat = new PlaceableStore.Placed() { cat = validCategory, id = idInt, pos = new Vector3(pi.xPosition, 0f, pi.yPosition), rot = Quaternion.Euler(0, pi.yAxisRotation, 0f) };
+                        Wrapper.Add(validFormat);
+                    }
+                }
             }
-            return sb.ToString();
+                resultJson = JsonConvert.SerializeObject(Wrapper);
+            return resultJson;
         }
     }
 
