@@ -2,6 +2,7 @@
 using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Extensions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -116,7 +117,7 @@ public class FirebaseManager : MonoBehaviour
             if (snapshot.Exists)
             {
                 callback?.Invoke($"{mapName} data Found!");
-                MapData data = JsonUtility.FromJson<MapData>(snapshot.GetRawJsonValue());
+                MapData data = JsonConvert.DeserializeObject<MapData>(snapshot.GetRawJsonValue());
 
                 return data;
             }
@@ -204,7 +205,7 @@ public class FirebaseManager : MonoBehaviour
             lastLogin = DateTime.UtcNow.ToString("o")
         };
 
-        userRef.SetRawJsonValueAsync(JsonUtility.ToJson(userData));
+        userRef.SetRawJsonValueAsync(JsonConvert.SerializeObject(userData));
     }
 
     /// <summary>
@@ -246,7 +247,8 @@ public class FirebaseManager : MonoBehaviour
             if (snapshot.Exists)
             {
                 Debug.Log($"{Auth.CurrentUser.UserId}: 유저데이터 탐색 성공.");
-                UserData snapshotUserData = JsonUtility.FromJson<UserData>(snapshot.GetRawJsonValue());
+                //UserData snapshotUserData = JsonConvert.DeserializeObject<UserData>(snapshot.GetRawJsonValue());
+                UserData snapshotUserData = snapshot.GetRawJsonValue().FromJson<UserData>();
                 Debug.Log($"유저데이터 Json->인스턴스 변환 성공.");
                 UserData.SetLocal(snapshotUserData);
                 Debug.Log($"UserData.Local로 저장 성공.");
@@ -255,7 +257,8 @@ public class FirebaseManager : MonoBehaviour
             {
                 Debug.Log($"{Auth.CurrentUser.UserId}: 유저데이터가 존재하지 않음.");
                 UserData newUser = new();
-                string userDataJson = JsonUtility.ToJson(newUser);
+                //string userDataJson = JsonConvert.SerializeObject(newUser);
+                string userDataJson = newUser.ToJson();
                 await CurrentUserDataRef.SetRawJsonValueAsync(userDataJson);
                 Debug.Log($"{Auth.CurrentUser.UserId}: 파이어베이스 DB에 유저데이터 저장함.");
                 UserData.SetLocal(newUser);
@@ -268,34 +271,41 @@ public class FirebaseManager : MonoBehaviour
         }
     }
 
-    //2. DB에 로컬 유저데이터를 저장하는 처리
-    public async Task UpdateCurrentUserData() => await UpdateUserData(Auth.CurrentUser.UserId, UserData.Local);
+    //2. DB에 로컬 유저데이터를 저장하는 처리 (전체를 JSON으로)
+    public async Task UpdateLocalUserData() => await UpdateUserData(Auth.CurrentUser.UserId, UserData.Local);
     
-        //if (Auth.CurrentUser == null || !Auth.CurrentUser.IsValid()) return;
-        //try
-        //{
-        //    string localDataJson = JsonUtility.ToJson(UserData.Local);
-        //    await CurrentUserDataRef.SetRawJsonValueAsync(localDataJson);
-        //    Debug.Log($"{Auth.CurrentUser.UserId}: 로컬 유저데이터 json으로 변환하여 DB에 저장함.");
-        //}
-        //catch (FirebaseException fe)
-        //{
-        //    Debug.LogError($"{Auth.CurrentUser.UserId}: 로컬 유저데이터 DB에 업로드 도중 오류 발생함. {fe.Message}");
-        //}
-    
+        
+    //2-1. DB에 로컬 유저데이터의 한 카테고리만 저장하는 처리
+    public async Task UpdateLocalUserDataCategory(IUserDataCategory category) => await UpdateUserDataCategory(Auth.CurrentUser.UserId, category);
 
-    public async Task UpdateUserData(string uid, UserData data)
+    private async Task UpdateUserData(string uid, UserData data)
     {
         //if (Auth.CurrentUser == null || !Auth.CurrentUser.IsValid()) return;
         try
         {
-            string userDataJson = JsonUtility.ToJson(data);
+            string userDataJson = JsonConvert.SerializeObject(data);
             await UserDataRef.Child(uid).SetRawJsonValueAsync(userDataJson);
             Debug.Log($"{uid}: {data.master.nickName}의 정보를 DB에 저장.");
         }
         catch (FirebaseException fe)
         {
             Debug.LogError($"{uid}: {data.master.nickName}의 정보 DB에 업로드 도중 오류 발생함. {fe.Message}");
+        }
+    }
+    private async Task UpdateUserDataCategory(string uid, IUserDataCategory category)
+    {
+        //if (Auth.CurrentUser == null || !Auth.CurrentUser.IsValid()) return;
+
+        
+        try
+        {
+            string userDataJson = category.ToJson();
+            await UserDataRef.Child(uid).Child(category.GetType().ToString().ToLower()).SetRawJsonValueAsync(userDataJson);
+            Debug.Log($"{uid}: {category.GetType()}카테고리만 뽑아 DB에 저장.");
+        }
+        catch (FirebaseException fe)
+        {
+            Debug.LogError($"{uid}: {category.GetType()}카테고리만 뽑아 DB에 업로드 도중 오류 발생함. {fe.Message}");
         }
     }
     #endregion

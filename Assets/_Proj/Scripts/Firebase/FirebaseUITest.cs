@@ -33,13 +33,13 @@ public class FirebaseUITest : MonoBehaviour
                 if (int.TryParse(control_InputField.text, out int inventoryValue))
                 {
 
-                    if (UserData.Local.inventory.items.TryAdd(inventoryValue, 0))
+                    if (UserData.Local.inventory.items.TryAdd(control_InputField.text, 0))
                     {
-                        UserData.Local.inventory.items[inventoryValue]++;
+                        UserData.Local.inventory.items[control_InputField.text]++;
                     }
                     else
                     {
-                        UserData.Local.inventory.items[inventoryValue]++;
+                        UserData.Local.inventory.items[control_InputField.text]++;
                     }
                 }
                 else
@@ -53,13 +53,13 @@ public class FirebaseUITest : MonoBehaviour
                 if (int.TryParse(control_InputField.text, out int propValue))
                 {
 
-                    if (UserData.Local.lobby.props.TryAdd(propValue, new() { new() { xPosition = 1, yPosition = 2, yAxisRotation = 1 } }))
+                    if (UserData.Local.lobby.props.TryAdd(control_InputField.text, new() { new() { xPosition = 1, yPosition = 2, yAxisRotation = 1 } }))
                     {
                         
                     }
                     else
                     {
-                        UserData.Local.lobby.props[propValue][0] = new() { xPosition = int.MaxValue, yPosition = int.MaxValue, yAxisRotation = 270};
+                        UserData.Local.lobby.props[control_InputField.text][0] = new() { xPosition = int.MaxValue, yPosition = int.MaxValue, yAxisRotation = 270};
                     }
                 }
                 else
@@ -70,10 +70,12 @@ public class FirebaseUITest : MonoBehaviour
 
                 //이벤트기록주작
             case 2:
+                Debug.LogWarning("이벤트기록 조작은 미구현.");
                 break;
 
                 //친구추가주작
             case 3:
+                Debug.LogWarning("친구추가 조작은 미구현.");
                 break;
         }
     }

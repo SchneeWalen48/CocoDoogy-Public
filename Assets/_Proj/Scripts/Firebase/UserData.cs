@@ -1,13 +1,22 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-    
-
-public interface IUserDataCategory<T> where T : class
+public static class UserDataExtensions
 {
-    bool TryUpdateFirebase(T dataValue); // => 해야 하는 일: UserData.xxx 형태의 자료를 파이어베이스매니저가 받아, DB의 적절한 노드에 SetValueAsync()해줘야 함.
+    public static string ToJson(this IUserDataCategory category) => JsonConvert.SerializeObject(category);
+    public static T FromJson<T>(this string json) where T : IUserDataCategory => JsonConvert.DeserializeObject<T>(json);
+
+    public async static void Save(this IUserDataCategory category) => await FirebaseManager.Instance.UpdateLocalUserDataCategory(category);
+}
+
+
+
+public interface IUserDataCategory
+{
+    
     
 }
 
@@ -19,11 +28,10 @@ public interface IUserDataCategory<T> where T : class
 /// <br>[DB 루트 노드] -> [users] -> [(uid)] : [이 클래스의 JSON]</br>
 /// </summary>
 [Serializable]
-public class UserData
+public class UserData : IUserDataCategory
 //유저 데이터 관리용 클래스.    
 {
-    //로컬의 UserData. Firebase DB에서 받아오게 될 것임.
-    public static UserData Local { get; private set; }
+    
 
 
     
@@ -39,7 +47,7 @@ public class UserData
     /// </summary>
     //프로필 정보(유저 데이터 개요)
     [Serializable]
-    public class Master
+    public class Master : IUserDataCategory
     {
         //유저의 닉네임
         public string nickName;
@@ -62,12 +70,13 @@ public class UserData
         public Master()
         {
             var now = DateTime.UtcNow;
-            nickName = "DebuggingName";
-            totalLikes = 12345;
+            nickName = string.Empty;
+            totalLikes = 0;
             createdAt = ((DateTimeOffset)now).ToUnixTimeSeconds();
             lastLoginAt = ((DateTimeOffset)now).ToUnixTimeSeconds();
             lastActiveTime = ((DateTimeOffset)now).ToUnixTimeSeconds();
         }
+
 
     }
 
@@ -79,7 +88,7 @@ public class UserData
     /// <br>각각의 필드 값 = 해당 재화의 총량을 의미함.</br>
     /// </summary>
     [Serializable]
-    public class Wallet
+    public class Wallet : IUserDataCategory
     {
 
         //병뚜껑 (무료 재화)
@@ -104,13 +113,14 @@ public class UserData
     /// <br>1. keyValues (TKey: 아이템의 id, TValue: 해당 아이템의 소지 개수)</br>
     /// </summary>
     [Serializable]
-    public class Inventory
+    public class Inventory : IUserDataCategory
     {
-        public Dictionary<int, int> items = new();
+        [SerializeField]
+        public Dictionary<string, int> items = new();
 
         public Inventory()
         {
-            items.Add(10000, 2);
+            
         }
     }
 
@@ -120,7 +130,7 @@ public class UserData
     /// <br>1. keyValues (TKey: 장식물의 id, TValue: 그 장식물의 배치 정보 리스트)</br>
     /// </summary>
     [Serializable]
-    public class Lobby
+    public class Lobby : IUserDataCategory
     {
 
         /// <summary>
@@ -144,12 +154,10 @@ public class UserData
             }
         }
         [SerializeField]
-        public Dictionary<int, List<PlaceInfo>> props = new() { };
+        public Dictionary<string, List<PlaceInfo>> props = new();
 
         public Lobby()
         {
-            props.Add(1, new());
-            props[1].Add(new() { xPosition = 123, yPosition = 456, yAxisRotation = 789 });
 
         }
     }
@@ -160,7 +168,7 @@ public class UserData
     /// <br>1. keyValues (TKey: 장식물의 id, TValue: 그 장식물의 배치 정보 리스트)</br>
     /// </summary>
     [Serializable]
-    public class EventArchive
+    public class EventArchive : IUserDataCategory
     {
         [SerializeField]
         public Dictionary<string, int> eventList = new();
@@ -168,9 +176,6 @@ public class UserData
         public EventArchive()
         {
             
-            //
-
-            eventList.Add("디버그시즌", 0);
         }
     }
 
@@ -179,7 +184,7 @@ public class UserData
     /// <br>1. keyValues (TKey: 친구의 uid, TValue: 해당 친구의 친구목록 상태와 요청 시간)</br>
     /// </summary>
     [Serializable]
-    public class Friends
+    public class Friends : IUserDataCategory
     {
         [SerializeField]
         public Dictionary<string, FriendInfo> friendList = new();
@@ -213,14 +218,60 @@ public class UserData
 
         public Friends()
         {
-            
-            friendList.Add("UID자리", new());
+
         }
     }
 
+    [Serializable]
+    public class Codex : IUserDataCategory
+    {
+        
+
+        public Dictionary<string, HashSet<int>> categories = new();
+
+
+        public Codex()
+        {
+
+        }
+        public Dictionary<CodexType, HashSet<int>> LoadUnlocked()
+        {
+            var result = new Dictionary<CodexType, HashSet<int>>();
+
+            foreach (var categoryKV in categories)
+            {
+                if (Enum.TryParse<CodexType>(categoryKV.Key, out var resultEnum))
+                {
+                    result.Add(resultEnum, categoryKV.Value);
+                }
+                else
+                {
+                    Debug.LogWarning("?????머임");
+                }
+                
+            }
+            return result;
+
+        }
+
+
+
+
+        [Obsolete("아몰랑")]
+        public void SaveUnlocked()
+        {
+
+            // 여기서 Firebase로 업로드
+            string codexString = this.ToJson();
+            Debug.Log("[FirebaseCodexProgressStore] Codex progress saved (test)");
+        }
+    }
 
     #endregion
 
+
+    //로컬의 UserData. Firebase DB에서 받아오게 될 것임.
+    public static UserData Local { get; private set; }
 
 
     public Master master;
@@ -229,8 +280,9 @@ public class UserData
     public Lobby lobby;
     public EventArchive eventArchive;
     public Friends friends;
-
-
+    public Codex codex;
+    
+    
     public UserData()
     {
         master = new Master();
@@ -263,7 +315,9 @@ public class UserData
 
     public static async void OnLocalUserDataUpdate()
     {
-        await FirebaseManager.Instance.UpdateCurrentUserData();
+       
+        await FirebaseManager.Instance.UpdateLocalUserData();
+        
     }
     
 }
