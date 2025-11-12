@@ -24,6 +24,7 @@ public abstract class PushableObjects : MonoBehaviour, IPushHandler, IRider
     public float requiredHoldtime = 0.6f;
     protected float currHold = 0f;
     protected Vector2Int holdDir;
+    private const string STAGE_NAME = "Stage";
 
     public bool allowFall = true;
     public bool allowSlope = false;
@@ -34,10 +35,11 @@ public abstract class PushableObjects : MonoBehaviour, IPushHandler, IRider
     public bool IsFalling => isFalling;
 
     private static Dictionary<int, float> gloablShockImmunity = new();
+    [Header("Min : [Iron Balls'] Lift Rising Time + Hold + Fall + 0.2f")]
     [Tooltip("충격파 맞은 오브젝트가 다시 반응하기까지 쿨타임")]
     public float immuneTime = 5f;
 
-    [Header("Shockwave Lift Override [오브젝트 별로 조정하고 싶다면 이 옵션을 활성화]")]
+    [Header("Shockwave Lift Override [Activate this option to control each type]")]
     public bool overrideLiftTiming = false;
     [Tooltip("재정의 시 사용되는 상승 시간")]
     public float overrideRiseSec = 0.5f;
@@ -360,11 +362,46 @@ public abstract class PushableObjects : MonoBehaviour, IPushHandler, IRider
     public void OnStartRiding()
     {
         isRiding = true;
+        StartCoroutine(EstablishStackCoroutine());
         StartCoroutine(RidingCoroutine());
         isMoving = false;
         isHoling = false;
         currHold = 0f;
     }
+
+    // Stack Coroutine For Flow Water
+    IEnumerator EstablishStackCoroutine()
+    {
+        List<IRider> newRiders = new List<IRider>();
+
+        Vector3 halfExtents = boxCol.size * 0.5f;
+
+        // Rider 검사 영역을 현재 위치 + 1칸 위로 확장.
+        Vector3 center = transform.position + Vector3.up * (halfExtents.y + tileSize * 0.5f);
+        LayerMask riderMask = blockingMask & ~throughLayer;
+
+        Collider[] riderHits = Physics.OverlapBox(
+            center,
+            halfExtents * .9f,
+            transform.rotation,
+            riderMask);
+
+        foreach (var hit in riderHits)
+        {
+            // PlayerMovement는 OnStartRiding을 통해 자식으로 설정되지 않으므로, PushableObjects(Rider)만 확인
+            if (hit.gameObject != gameObject && hit.TryGetComponent<PushableObjects>(out var rider))
+            {
+                if (Mathf.Abs(rider.transform.position.y - (transform.position.y + tileSize)) < 0.05f)
+                {
+                    rider.OnStartRiding();
+                    rider.transform.SetParent(this.transform);
+                    newRiders.Add(rider);
+                }
+            }
+        }
+        yield break;
+    }
+
 
     IEnumerator RidingCoroutine()
     {
@@ -400,6 +437,26 @@ public abstract class PushableObjects : MonoBehaviour, IPushHandler, IRider
     public void OnStopRiding()
     {
         isRiding = false;
+        Transform p = transform.parent;
+
+        if (p == null)
+        {
+            StartCoroutine(CheckFall());
+            return;
+        }
+
+        // 부모가 IRider면 낙하 안 함 (즉, 다른 Pushable 위)
+        if (p.TryGetComponent<IRider>(out _))
+            return;
+
+        // 부모가 Stage면 낙하
+        if (p.name == STAGE_NAME)
+        {
+            StartCoroutine(CheckFall());
+            return;
+        }
+
+        // 그 외 예외 부모도 기본적으로 낙하 처리
         StartCoroutine(CheckFall());
     }
 
