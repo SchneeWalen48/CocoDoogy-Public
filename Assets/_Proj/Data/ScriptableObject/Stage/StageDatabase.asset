@@ -186,7 +186,7 @@ MonoBehaviour:
   - stage_id: stage_2_1
     stage_name: "\uC2A4\uD14C\uC774\uC9C0 1\uC774\uB984 \uD14C\uC2A4\uD2B8 \uC58D\uC58D"
     stage_img: Img/Stage/stage_2_1_main
-    stage_desc: "\"\uC2A4\uD14C\uC774\uC9C0 1\uC124\uBA85\uD14C\uC2A4\uD2B8 \u314E\u314E\u314E\u314E\u314E\u314E\u314E\u314E\""
+    stage_desc: "\"\uC2A4\uD14C\uC774\uC9C0 1\uC124\uBA85\uD14C\uC2A4\uD2B8 \uD7A3\uD7A3\uD7A3\uD7A3\uD7A3\uD7A3\u314E\uD7A3\uD7A3\u314E\uD7A3\""
     map_id: map_2_1
     start_cutscene: -1
     start_talk: -1
