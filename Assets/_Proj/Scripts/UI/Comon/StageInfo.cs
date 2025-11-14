@@ -8,6 +8,7 @@ public class StageInfo : MonoBehaviour
 {
     public GameObject StagePrefab;          // 버튼 프리팹
     public GameObject StageDetailPrefab;    // 상세창 프리팹
+    public GameObject SelectStageDimOverlay;
     public Transform stageParent;           // StagePrefab 붙일 위치
     public Transform detailParent;          // StageDetailPrefab 붙일 위치
 
@@ -154,6 +155,8 @@ public class StageInfo : MonoBehaviour
         StageDetailInfo detail = detailObj.GetComponent<StageDetailInfo>();
         if (detail != null)
             detail.ShowDetail(id);
+
+        SelectStageDimOverlay.SetActive(true);
     }
 
     void ClearStages()
