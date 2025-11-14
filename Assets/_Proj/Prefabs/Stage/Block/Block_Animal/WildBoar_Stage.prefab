@@ -908,7 +908,7 @@ MonoBehaviour:
   tileSize: 1
   blockingMask:
     serializedVersion: 2
-    m_Bits: 17024
+    m_Bits: 25216
   groundMask:
     serializedVersion: 2
     m_Bits: 131840
@@ -926,6 +926,7 @@ MonoBehaviour:
   overrideRiseSec: 0.5
   overrideHangSec: 0.2
   overrideFallSec: 0.5
+  flow: {fileID: 0}
   btnGroup: {fileID: 8979641072379291642}
   up: {fileID: 398772977987207836}
   down: {fileID: 7969498382675003730}
@@ -978,7 +979,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
