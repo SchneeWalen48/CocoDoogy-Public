@@ -323,7 +323,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 5291992017778968749, guid: c4c522c376ad1b745b54524b0a7cded8, type: 3}
   joystickPrefab: {fileID: 8076522967414642225, guid: e70ee23931c899d429b2f8a615b74827, type: 3}
   joystickRoot: {fileID: 484405798}
-  mapNameToLoad: DialgoueTest1
+  mapNameToLoad: map_1_1
   blockPositions: []
   blocks: []
   currentStageId: 
@@ -2806,8 +2806,9 @@ MonoBehaviour:
   DialogueSpeakerRight: {fileID: 469390754}
   DialogueNameText: {fileID: 469390753}
   DialogueText: {fileID: 469390751}
-  collectedSprite: {fileID: 21300000, guid: 072e279b9e7d849d4b14c61cc96cd90d, type: 3}
-  notCollectedSprite: {fileID: 21300000, guid: 741065579880b4e1c929ab49bd185620, type: 3}
+  collectedSprite: {fileID: 21300000, guid: 6cd2e4f7622ab468686a5d750551e633, type: 3}
+  notCollectedSprite: {fileID: 21300000, guid: 70a854518a76845a0a61a99a9f8d378d, type: 3}
+  CoCoDoogySprite: {fileID: 0}
 --- !u!4 &1272991174
 Transform:
   m_ObjectHideFlags: 0
