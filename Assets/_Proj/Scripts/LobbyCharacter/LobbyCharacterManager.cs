@@ -116,7 +116,7 @@ public class LobbyCharacterManager : MonoBehaviour
         }
 
         // 코코두기 안드로이드 거리 감지 및 상호작용 이벤트
-        // 1회성으로 만들어야함 업데이트이니 여러번 될 수 있음
+        // 1회성만 가능하게 만들어야함
         // if (coco.gameObject.activeSelf && master.gameObject.activeSelf)
         // {
         //     float dist = Vector3.Distance(coco.transform.position, master.transform.position);
@@ -164,7 +164,9 @@ public class LobbyCharacterManager : MonoBehaviour
     private void DeactivateChar(BaseLobbyCharacterBehaviour who)
     {
         who.gameObject.SetActive(false);
+        who.CocoMasterSetIsActive(false); // 루틴 컨트롤 위함
     }
+    
 
     // 로비 캐릭터들 등록 및 삭제
     public void RegisterLobbyChar(ILobbyState gObj)
