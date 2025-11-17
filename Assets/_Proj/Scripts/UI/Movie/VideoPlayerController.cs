@@ -88,7 +88,6 @@ public class VideoPlayerController : MonoBehaviour
         // player.audioOutputMode = VideoAudioOutputMode.AudioSource;
         // player.SetTargetAudioSource(0, cutsceneSource);
         // int count = player.audioTrackCount;
-        //Debug.Log($"오디오 트랙 카운트 : {count}"):
 
         Debug.Log("[Cutscene] Playing: " + url);
         player.Play();
