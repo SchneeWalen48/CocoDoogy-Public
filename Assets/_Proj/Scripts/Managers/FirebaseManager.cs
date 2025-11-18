@@ -21,6 +21,7 @@ public class FirebaseManager : MonoBehaviour
     private bool isGoogleReady;
     private FirebaseAuth Auth { get; set; }
     public bool IsSignedIn => Auth.CurrentUser != null;
+    public bool IsGuest => Auth.CurrentUser != null && Auth.CurrentUser.IsAnonymous;
     
     private DatabaseReference MapDataRef => DB.RootReference.Child($"mapData");
     private DatabaseReference MapMetaRef => DB.RootReference.Child($"mapMeta");
@@ -63,21 +64,24 @@ public class FirebaseManager : MonoBehaviour
             //추가: 파이어베이스 인증 기능 활용을 위해 현재 App에서 Firebase Authentication 어플리케이션을 가져옵니다.
             Auth = FirebaseAuth.GetAuth(App);
             IsInitialized = true;
+            Debug.Log($"IsInitialized == {IsInitialized}");
 
             //if (Auth.CurrentUser == null) await SignInAnonymously((x)=>Debug.Log("자동으로 익명로그인"));
-            if (Auth.CurrentUser != null )
+
+            Debug.Log($"FirebaseManager.Auth.CurrentUser == null? {Auth.CurrentUser == null}");
+            if (Auth.CurrentUser != null)
             {
-                //if (Auth.CurrentUser.IsAnonymous)
-                //await SignInAnonymously();
-                //else GoogleLogin();
+                
+                if (Auth.CurrentUser.IsAnonymous)
+                    await SignInAnonymously();
+                else await GoogleLogin();
 
                 //확인 결과 Auth.CurrentUser는 마지막 로그인 방법 그대로 남아있고, 추가로 로그인해줄 필요가 없었음.
-                await FetchCurrentUserData();
-                await SendHeartbeatAsync();
+
             }
 
             
-            Debug.Log($"[파이어베이스 인증]로컬에 남아있는 유저 아이디 : {Auth.CurrentUser.UserId}");
+            Debug.Log($"[파이어베이스 인증]로컬에 남아있는 유저 아이디 : {Auth.CurrentUser?.UserId}");
             //StartCoroutine(TestLog());
 
         }
@@ -244,8 +248,9 @@ public class FirebaseManager : MonoBehaviour
         }
     }
 
-    public async void GoogleLogin()
+    public async Task GoogleLogin()
     {
+        
         if (!isGoogleReady)
         {
             GoogleSignIn.Configuration = new GoogleSignInConfiguration
@@ -257,12 +262,12 @@ public class FirebaseManager : MonoBehaviour
 
             isGoogleReady = true;
         }
-        GoogleSignIn.Configuration = new GoogleSignInConfiguration
-        {
-            RequestIdToken = true,
-            WebClientId = GoogleAPI
-        };
-        GoogleSignIn.Configuration.RequestEmail = true;
+        //GoogleSignIn.Configuration = new GoogleSignInConfiguration
+        //{
+        //    RequestIdToken = true,
+        //    WebClientId = GoogleAPI
+        //};
+        //GoogleSignIn.Configuration.RequestEmail = true;
 
         Task<GoogleSignInUser> signIn = GoogleSignIn.DefaultInstance.SignIn();
 
@@ -298,15 +303,15 @@ public class FirebaseManager : MonoBehaviour
                     {
                         signInCompleted.SetResult(((Task<FirebaseUser>)authTask).Result);
                         Debug.Log("Success");
+                        FetchCurrentUserData();
 
-                        
                         //user = Auth.CurrentUser;
                         //Username.text = user.DisplayName;
                         //UserEmail.text = user.Email;
 
                         //StartCoroutine(LoadImage(CheckImageUrl(user.PhotoUrl.ToString())));
                     }
-                }).ContinueWith(async (x)=> { await FetchCurrentUserData(); });
+                });
             }
         });
     }
@@ -389,12 +394,14 @@ public class FirebaseManager : MonoBehaviour
             else
             {
                 Debug.Log($"{Auth.CurrentUser.UserId}: 유저데이터가 존재하지 않음.");
-                UserData newUser = new();
+
+                //추가: null병합-플레이 중 로그인을 할 수도 있으니 지금까지의 플레이 내용을 보존하면서 구글 연동이 되도록 함.
+                UserData newUser = UserData.Local != null ? UserData.Local : new();
                 //string userDataJson = JsonConvert.SerializeObject(newUser);
+                UserData.SetLocal(newUser);
                 string userDataJson = newUser.ToJson();
                 await CurrentUserDataRef.SetRawJsonValueAsync(userDataJson);
                 Debug.Log($"{Auth.CurrentUser.UserId}: 파이어베이스 DB에 유저데이터 저장함.");
-                UserData.SetLocal(newUser);
                 Debug.Log($"UserData.Local로 저장 성공.");
             }
         }
@@ -499,4 +506,7 @@ public class FirebaseManager : MonoBehaviour
             Debug.LogError($"{Auth.CurrentUser.UserId}: 하트비트 보내는 중 오류 발생");
         }
     }
+
+    public void SignOut() { UserData.Clear(); Auth.SignOut(); GoogleSignIn.DefaultInstance.SignOut(); }
+    
 }

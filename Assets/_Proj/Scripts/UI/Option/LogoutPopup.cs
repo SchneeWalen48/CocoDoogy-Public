@@ -18,6 +18,7 @@ public class LogoutPopup : MonoBehaviour
     public void CloseAndGotoTitle()
     {
         gameObject.SetActive(false);
+        FirebaseManager.Instance.SignOut();
         SceneManager.LoadScene("Title");
     }
 }

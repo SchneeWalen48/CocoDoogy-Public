@@ -14,10 +14,13 @@ public class TitleSceneManager : MonoBehaviour
     [SerializeField] private RectTransform titleLogo;
     [SerializeField] private TextMeshProUGUI proceedText;
     [SerializeField] private TextMeshProUGUI logMessage;
+    [SerializeField] private CanvasGroup loginMethods;
 
     public float logoFadeTime = 2f;
     public float logoWaitTime = 1f;
     public float logoMoveDuration = 3f;
+    public float loginMethodsFadeTime = 1f;
+
     void Start()
     {
         StartCoroutine(IntroCoroutine());
@@ -28,6 +31,7 @@ public class TitleSceneManager : MonoBehaviour
     
     IEnumerator IntroCoroutine()
     {
+        yield return new WaitUntil(()=>FirebaseManager.Instance != null && FirebaseManager.Instance.IsInitialized);
         while (titleBackground.color.r < Color.white.r)
         {
             titleBackground.color += Color.white * (Time.deltaTime * 1 / logoFadeTime);
@@ -50,10 +54,32 @@ public class TitleSceneManager : MonoBehaviour
         titleLogo.anchoredPosition = logoTargetPos;
         titleLogo.GetComponent<Image>().color = Color.white;
 
-        if (FirebaseManager.Instance.IsSignedIn)
+        if (!FirebaseManager.Instance.IsSignedIn)
+        {
+            StartCoroutine(LoginMethodsCoroutine());
+        }
         StartCoroutine(SceneTransitCoroutine());
-        yield return ProceedTextBlinkCoroutine();
+        StartCoroutine(ProceedTextBlinkCoroutine());
 
+    }
+    IEnumerator LoginMethodsCoroutine()
+    {
+        loginMethods.alpha = 0;
+        float coroutineDur = 0;
+        while (coroutineDur < loginMethodsFadeTime)
+        {
+            loginMethods.alpha += (1 / loginMethodsFadeTime) * Time.deltaTime;
+            coroutineDur += Time.deltaTime;
+            yield return null;
+        }
+        loginMethods.alpha = 1;
+        loginMethods.interactable = true;
+
+        //FirebaseManager.Instance.IsSignedIn을 기다림.
+        yield return new WaitUntil(() => FirebaseManager.Instance.IsSignedIn);
+        loginMethods.alpha = 0;
+        loginMethods.interactable = false;
+        loginMethods.gameObject.SetActive(false);
     }
 
     //잠시 닫아둠: 씬 전환 코루틴은 구글로그인 기능 구현 후 부활 예정.
@@ -61,22 +87,24 @@ public class TitleSceneManager : MonoBehaviour
     {
         var touch = Touchscreen.current;
         yield return new WaitWhile(() => UserData.Local == null);
-        while (true)
+        yield return new WaitUntil(() =>
         {
-            if (touch.press.isPressed)
+            foreach (var touch in Touchscreen.current.touches)
             {
-                //TODO: 튜토리얼 씬 구성 후, UserData.Local.passedTutorials를 제대로 대입해주어야 함.
-                //모든 튜토리얼을 끝냈을 때만 메인을 직접 로드.
-                //if (UserData.Local.passedTutorials >= 2)
-                SceneManager.LoadScene("Main");
+                if (touch.press.isPressed)
+                    return true;
+            }
+            return false;
+        });
+
+        //TODO: 튜토리얼 씬 구성 후, UserData.Local.passedTutorials를 제대로 대입해주어야 함.
+        //모든 튜토리얼을 끝냈을 때만 메인을 직접 로드.
+        //if (UserData.Local.passedTutorials >= 2)
+        SceneManager.LoadScene("Main");
                 //모든 튜토리얼을 끝내지 못했다면 튜토리얼로 로드.
                 //else if (UserData.Local.passedTutorials < 2)
 
                 //SceneManager.LoadScene("Tutorial");
-                yield break;
-            }
-            yield return null;
-        }
     }
 
     //잠시 닫아둠: 씬 전환 코루틴과 동일한 이유.
@@ -123,5 +151,7 @@ public class TitleSceneManager : MonoBehaviour
         logMessage.text = msg;
     }
 
-    
+    public async void OnGuestLoginClick() => await FirebaseManager.Instance.SignInAnonymously();
+
+    public async void OnGoogleLoginClick() => await FirebaseManager.Instance.GoogleLogin();
 }

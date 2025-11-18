@@ -579,7 +579,10 @@ public class UserData : IUserData
     //                     public int bestTreasureCount = 0;              // 지금까지 달성한 최대 별 개수
 
 
-    public static void SetLocal(UserData data) { Local = data;
+    public static void Clear() => Local = null;
+    public static void SetLocal(UserData data)
+    { 
+        Local = data;
         data.preferences.ApplyAll();
     }
 
