@@ -90,13 +90,14 @@ public class StageManager : MonoBehaviour
         LinkSignals();
 
         //가림막치워주기
-
+        camControl.FindWayPoint();
+        yield return camControl.StartCoroutine(camControl.CameraWalking(5f));
         if (isTest)
         {
             var dataTest = DataManager.Instance.Stage.GetMapNameData(mapNameToLoad);
 
-            if (dataTest.start_talk != "-1")
-                DialogueManager.Instance.NewDialogueMethod(dataTest.start_talk);
+            //if (dataTest.start_talk != "-1")
+            //    DialogueManager.Instance.NewDialogueMethod(dataTest.start_talk);
 
             SpawnPlayer();
 
@@ -111,8 +112,7 @@ public class StageManager : MonoBehaviour
         }
         //TODO: 3. 가져온 맵 정보로 모든 블록이 생성되고 연결까지 끝나면 가리고 있던 부분을 치워줌.
 
-        camControl.FindWayPoint();
-        yield return camControl.StartCoroutine(camControl.CameraWalking(5f));
+       
 
         //Todo : 컷씬 지난후 대화가 있다면 여기서 실행
         if (data.start_talk != "-1")
