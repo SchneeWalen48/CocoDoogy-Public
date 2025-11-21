@@ -111,6 +111,10 @@ public class SFXPlayer : AudioPlayerControl
     {
         base.SetVolumeNormal();
     }
+    public override void SetVolumeZero()
+    {
+        base.SetVolumeZero();
+    }
 
     private void NewDestroy(GameObject gObj, float length)
     {

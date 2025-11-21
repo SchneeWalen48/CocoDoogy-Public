@@ -121,5 +121,9 @@ public class BGMPlayer : AudioPlayerControl
     {
         base.SetVolumeNormal();
     }
+    public override void SetVolumeZero()
+    {
+        base.SetVolumeZero();
+    }
 }
 

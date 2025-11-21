@@ -163,6 +163,8 @@ public class AudioManager : MonoBehaviour, IAudioGroupSetting
     }
 
     // 오디오 그룹 제어
+    public void EnterChapterPanel() => AudioGroupController.SetVolumeOneORZero(true);
+    public void ExitChapterOrStagePanel() => AudioGroupController.SetVolumeOneORZero(false);
     public void EnterDialogue() => AudioGroupController.SetDialogueState(true);
     public void ExitDialogue() => AudioGroupController.SetDialogueState(false);
 
