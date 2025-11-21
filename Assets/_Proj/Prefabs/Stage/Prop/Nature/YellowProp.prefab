@@ -182,8 +182,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8438001153276011027}
   - component: {fileID: 3961727177083725679}
-  - component: {fileID: -7616252024342063408}
-  m_Layer: 9
+  - component: {fileID: 2239861867888029413}
+  m_Layer: 0
   m_Name: YellowProp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-7616252024342063408
+--- !u!114 &2239861867888029413
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -274,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 2620587764074976973}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

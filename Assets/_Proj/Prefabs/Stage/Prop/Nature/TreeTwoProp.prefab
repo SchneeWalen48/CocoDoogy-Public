@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8069284663996250485}
   - component: {fileID: 4270823532229784518}
-  - component: {fileID: 488442291620413322}
-  m_Layer: 9
+  - component: {fileID: -8376549221842316653}
+  m_Layer: 0
   m_Name: TreeTwoProp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &488442291620413322
+--- !u!114 &-8376549221842316653
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,7 +104,7 @@ Transform:
   m_GameObject: {fileID: 6790241950372775351}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 0.8, y: 0.7, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -125,8 +125,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6127783987150056837}
   - component: {fileID: 7493858381397086339}
-  - component: {fileID: 5827660094792671096}
-  m_Layer: 9
+  - component: {fileID: -9090287330682144872}
+  m_Layer: 0
   m_Name: VendingProp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ Transform:
   m_GameObject: {fileID: 8889921870803411323}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -170,7 +170,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2, z: 2}
   m_Center: {x: 0, y: 1.5, z: 0}
---- !u!114 &5827660094792671096
+--- !u!114 &-9090287330682144872
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

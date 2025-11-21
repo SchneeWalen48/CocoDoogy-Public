@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 12331178231535758}
   - component: {fileID: 8018167284350997038}
-  - component: {fileID: -6643005960976344097}
-  m_Layer: 9
+  - component: {fileID: -5437344897200039068}
+  m_Layer: 0
   m_Name: BusProp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 3, z: 10}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &-6643005960976344097
+--- !u!114 &-5437344897200039068
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,7 +104,7 @@ Transform:
   m_GameObject: {fileID: 2443941516769071067}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

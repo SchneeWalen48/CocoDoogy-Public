@@ -182,8 +182,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5917484983586490808}
   - component: {fileID: 2713077516174031363}
-  - component: {fileID: 4838137479111557922}
-  m_Layer: 9
+  - component: {fileID: -9184194996867017443}
+  m_Layer: 0
   m_Name: WheatProp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4838137479111557922
+--- !u!114 &-9184194996867017443
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -274,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 5233545104029258777}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

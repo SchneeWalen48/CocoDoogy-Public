@@ -198,7 +198,7 @@ Transform:
   m_GameObject: {fileID: 4437976129064397103}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -330,8 +330,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1488146808731988968}
   - component: {fileID: 8351747717147274831}
-  - component: {fileID: 2569436264121516427}
-  m_Layer: 9
+  - component: {fileID: 2630090006585186602}
+  m_Layer: 0
   m_Name: GrassFlowerProp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2569436264121516427
+--- !u!114 &2630090006585186602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

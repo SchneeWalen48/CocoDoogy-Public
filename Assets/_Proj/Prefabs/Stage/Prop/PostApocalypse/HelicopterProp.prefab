@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3909593669999061903}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -124,8 +124,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2195636034340265129}
   - component: {fileID: 6643446365758073417}
-  - component: {fileID: -6325806056308831135}
-  m_Layer: 9
+  - component: {fileID: -2639055701741110119}
+  m_Layer: 0
   m_Name: HelicopterProp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-6325806056308831135
+--- !u!114 &-2639055701741110119
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

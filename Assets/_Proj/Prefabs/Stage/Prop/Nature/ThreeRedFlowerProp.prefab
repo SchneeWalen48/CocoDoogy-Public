@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4174655290609108978}
   - component: {fileID: 4456922864757493883}
-  - component: {fileID: -2788212895948268695}
-  m_Layer: 9
+  - component: {fileID: -3163703281111691641}
+  m_Layer: 0
   m_Name: ThreeRedFlowerProp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-2788212895948268695
+--- !u!114 &-3163703281111691641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,7 +188,7 @@ Transform:
   m_GameObject: {fileID: 1321042514650895621}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
