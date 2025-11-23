@@ -511,7 +511,7 @@ public class UserData : IUserData
                         categories.Add(type.ToString().ToLower(), new HashSet<int>());
                     }
                     values.Add(itemId);
-                    
+                    this.Save();
                 }
                 //false 대입 시의 동작.. 코덱스 해금 상태 해제? 지금은 필요가 없음.
             }
