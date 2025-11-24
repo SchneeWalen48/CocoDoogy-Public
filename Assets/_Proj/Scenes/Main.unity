@@ -14701,7 +14701,6 @@ MonoBehaviour:
   plane: {fileID: 560317841}
   editController: {fileID: 444961667}
   interactDistance: 10
-  IsInitMode: 1
 --- !u!4 &1479412857
 Transform:
   m_ObjectHideFlags: 0
@@ -14853,6 +14852,63 @@ LODGroup:
     renderers:
     - renderer: {fileID: 1483059595}
   m_Enabled: 1
+--- !u!1001 &1489458506
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4382328406863015415, guid: 2affa5d4224112642a93f17578807cfb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382328406863015415, guid: 2affa5d4224112642a93f17578807cfb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382328406863015415, guid: 2affa5d4224112642a93f17578807cfb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382328406863015415, guid: 2affa5d4224112642a93f17578807cfb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.976878
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382328406863015415, guid: 2affa5d4224112642a93f17578807cfb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382328406863015415, guid: 2affa5d4224112642a93f17578807cfb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.2137976
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382328406863015415, guid: 2affa5d4224112642a93f17578807cfb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382328406863015415, guid: 2affa5d4224112642a93f17578807cfb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382328406863015415, guid: 2affa5d4224112642a93f17578807cfb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -24.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382328406863015415, guid: 2affa5d4224112642a93f17578807cfb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8243238339644565382, guid: 2affa5d4224112642a93f17578807cfb, type: 3}
+      propertyPath: m_Name
+      value: BirdSpawnBox
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2affa5d4224112642a93f17578807cfb, type: 3}
 --- !u!1 &1504078649
 GameObject:
   m_ObjectHideFlags: 0
@@ -27025,3 +27081,4 @@ SceneRoots:
   - {fileID: 91121838}
   - {fileID: 1949062597}
   - {fileID: 1689381739}
+  - {fileID: 1489458506}
