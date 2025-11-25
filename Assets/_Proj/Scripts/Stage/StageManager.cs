@@ -121,12 +121,15 @@ public class StageManager : MonoBehaviour, IStageManager
         camControl.FindWayPoint();
         yield return camControl.StartCoroutine(camControl.CameraWalking(1.25f));
 
+        // KHJ - NOTE : 컷씬 후 다이얼로그가 나올 경우, Joystick 잠금을 위해서는 Joystick을 사용하는 플레이어가 먼저 생성돼야하므로 if(data.start_talk != "-1")...와 SpawnPlayer()의 순서를 변경합니다.
+        // 순서 변경이 불가한 경우 DialogueManager.cs의 Update()에 주석처리 된 부분을 켜주면 됨.
+        //TODO: 4. 시작점에 코코두기를 생성해줌.
+        SpawnPlayer();
 
         //Todo : 컷씬 지난후 대화가 있다면 여기서 실행
         if (data.start_talk != "-1")
             DialogueManager.Instance.NewDialogueMethod(data.start_talk);
-        //TODO: 4. 시작점에 코코두기를 생성해줌.
-        SpawnPlayer();
+        
         //yield return null;
 
         yield return null;
