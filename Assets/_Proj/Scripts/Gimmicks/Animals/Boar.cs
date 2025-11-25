@@ -75,7 +75,7 @@ public class Boar : PushableObjects, IDashDirection, IPlayerFinder
     void DetectPlayer()
     {
         if (playerTrans == null) return;
-        if (isMoving || isFalling)
+        if (isMoving || isFalling || isCooldown)
         {
             if (btnGroup.activeSelf)
             {
