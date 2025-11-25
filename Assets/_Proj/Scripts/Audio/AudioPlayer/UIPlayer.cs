@@ -18,7 +18,7 @@ public class UIPlayer : AudioPlayerControl
         activeSources.Add(currentSource);
         currentSource.outputAudioMixerGroup = group;
         currentSource.loop = false;
-        currentSource.volume = 0.7f;
+        currentSource.volume = 0.34f;
     }
 
     public void PlayAudio(AudioClip clip)
