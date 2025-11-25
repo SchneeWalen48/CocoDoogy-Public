@@ -4,6 +4,7 @@ using UnityEngine;
 public class AnimalBehaviour : BaseLobbyCharacterBehaviour
 {
     public Transform TargetDeco { get; set; }
+    [SerializeField] AnimalType animalType;
     
     protected override void InitStates()
     {
@@ -24,7 +25,7 @@ public class AnimalBehaviour : BaseLobbyCharacterBehaviour
     protected override void OnEnable()
     {
         base.OnEnable();
-        if (!LobbyCharacterManager.Instance.IsInitMode) agent.avoidancePriority = Random.Range(70, 90);
+        if (!LobbyCharacterManager.Instance.IsInitMode) agent.avoidancePriority = Random.Range(50, 70);
     }
     protected override void Start()
     {
@@ -36,13 +37,13 @@ public class AnimalBehaviour : BaseLobbyCharacterBehaviour
     }
 
     // 코코두기 상호작용
-    public void EndAnimalInteractState()
+    public override void ChangeStateToIdleState()
     {
-        fsm.ChangeState(IdleState);
+        base.ChangeStateToIdleState();
     }
-    public void ChangeAnimalInteractState()
+    public override void ChangeStateToInteractState()
     {
-        fsm.ChangeState(InteractState);
+        base.ChangeStateToInteractState();
     }
 
     // 인터페이스 영역
