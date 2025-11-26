@@ -299,7 +299,7 @@ MonoBehaviour:
     stage_name: "2-1. \uB2EC\uBE5B\uC758 \uAC15\uAC00(1)"
     stage_img: Img/Stage/stage_2_1
     stage_desc: "\"\uB2EC\uBE5B\uC774 \uD750\uB974\uB294 \uAC15\uAC00\uC785\uB2C8\uB2E4.\\n\uC794\uC794\uD55C
-      \uBB3C\uACB0\uC774 \uBC24\uBE5B\uC744 \uBE44\uCDA5\uB2C8\uB2E4.\""
+      \uBB3C\uACB0\uC5D0 \uBC24\uBE5B\uC774 \uBE44\uCE69\uB2C8\uB2E4.\""
     map_id: map_2_1
     start_cutscene: -1
     start_talk: -1
@@ -343,7 +343,7 @@ MonoBehaviour:
     dialogue_box_9: -1
     stage_bgm: Sound/Bgm/Casual2
   - stage_id: stage_2_3
-    stage_name: "2-3. \uC870\uC6A9\uD55C \uAC15\uAC00\uC758 \uC190\uB2D8"
+    stage_name: "2-3. \uAC15\uAC00\uC758 \uC190\uB2D8"
     stage_img: Img/Stage/stage_2_2
     stage_desc: "\"\uACE0\uC694\uD55C \uBB3C\uACB0\uC774 \uC77C\uB801\uC774\uB294
       \uAC15\uAC00\uC785\uB2C8\uB2E4.\\n\uC794\uC794\uD55C \uD750\uB984 \uC18D\uC5D0
@@ -462,9 +462,9 @@ MonoBehaviour:
   - stage_id: stage_2_8
     stage_name: "2-8. \uB2EC\uBE5B\uC758 \uCDA4"
     stage_img: Img/Stage/stage_2_5
-    stage_desc: "\"\uB2EC\uBE5B\uC5D0 \uBC18\uC0AC\uB41C \uBB3C\uACB0\uC774 \uD750\uB974\uB294
-      \uAC15\uC758 \uB05D \uC9C0\uC810\uC785\uB2C8\uB2E4.\\n\uACE0\uC694\uD55C \uBE5B\uC774
-      \uBB3C \uC704\uC5D0 \uD37C\uC838 \uC788\uC2B5\uB2C8\uB2E4.\""
+    stage_desc: "\"\uAC15\uC758 \uBB3C\uAE38\uC774 \uC790\uC5F0\uC2A4\uB7FD\uAC8C
+      \uC774\uC5B4\uC9C0\uB294 \uC9C0\uC810\uC785\uB2C8\uB2E4.\\n\uBC14\uC704\uD2C8
+      \uC0AC\uC774\uB85C \uC794\uBB3C\uACB0\uC774 \uD758\uB7EC\uAC11\uB2C8\uB2E4.\""
     map_id: map_2_8
     start_cutscene: -1
     start_talk: -1
@@ -486,9 +486,9 @@ MonoBehaviour:
   - stage_id: stage_2_9
     stage_name: "2-9 \uD14C\uC2A4\uD2B8\uC6A9\uC58D\uC58D"
     stage_img: Img/Stage/stage_2_5
-    stage_desc: "\u201C\uB2EC\uBE5B\uC5D0 \uBC18\uC0AC\uB41C \uBB3C\uACB0\uC774 \uD750\uB974\uB294
+    stage_desc: "\"\uB2EC\uBE5B\uC5D0 \uBC18\uC0AC\uB41C \uBB3C\uACB0\uC774 \uD750\uB974\uB294
       \uAC15\uC758 \uB05D \uC9C0\uC810\uC785\uB2C8\uB2E4.\\n\uACE0\uC694\uD55C \uBE5B\uC774
-      \uBB3C \uC704\uC5D0 \uD37C\uC838 \uC788\uC2B5\uB2C8\uB2E4.\u201D"
+      \uBB3C \uC704\uC5D0 \uD37C\uC838 \uC788\uC2B5\uB2C8\uB2E4.\""
     map_id: map_2_9
     start_cutscene: -1
     start_talk: -1
@@ -510,9 +510,9 @@ MonoBehaviour:
   - stage_id: stage_2_10
     stage_name: "2-10 \uD14C\uC2A4\uD2B8\uC6A9\uC58D\uC58D"
     stage_img: Img/Stage/stage_2_5
-    stage_desc: "\u201C\uB2EC\uBE5B\uC5D0 \uBC18\uC0AC\uB41C \uBB3C\uACB0\uC774 \uD750\uB974\uB294
-      \uAC15\uC758 \uB05D \uC9C0\uC810\uC785\uB2C8\uB2E4.\\n\uACE0\uC694\uD55C \uBE5B\uC774
-      \uBB3C \uC704\uC5D0 \uD37C\uC838 \uC788\uC2B5\uB2C8\uB2E4.\u201D"
+    stage_desc: "\"\uAC15\uAC00\uAC00 \uC774\uC5B4\uC9C0\uB294 \uC9C0\uC810\uC5D0
+      \uC124\uCE58\uB41C \uCCA0\uBB38\uC785\uB2C8\uB2E4.\\n\uC794\uC794\uD55C \uBB3C\uC18C\uB9AC
+      \uB108\uBA38\uB85C \uAE08\uC18D\uC774 \uD76C\uBBF8\uD558\uAC8C \uC6B8\uB9BD\uB2C8\uB2E4.\""
     map_id: map_2_10
     start_cutscene: -1
     start_talk: -1
@@ -533,8 +533,9 @@ MonoBehaviour:
     stage_bgm: Sound/Bgm/Casual2
   - stage_id: stage_3_1
     stage_name: "3-1 \uD14C\uC2A4\uD2B8\uC6A9\uC58D\uC58D"
-    stage_img: Img/Stage/stage_3_1_main
-    stage_desc: "\"\uC2A4\uD14C\uC774\uC9C01 \uC124\uBA85 \uD6DD\""
+    stage_img: Img/Stage/stage_3_1
+    stage_desc: "\"\uC808\uBCBD \uC0B0\uC758 \uAC70\uCE5C \uB3CC\uAE38\uC785\uB2C8\uB2E4.\\n\uBD80\uC11C\uC9C4
+      \uB3CC\uBB34\uB354\uAE30\uAC00 \uAE38\uAC00\uC5D0 \uD769\uC5B4\uC838 \uC788\uC2B5\uB2C8\uB2E4.\""
     map_id: map_3_1
     start_cutscene: -1
     start_talk: -1
@@ -555,8 +556,10 @@ MonoBehaviour:
     stage_bgm: Sound/Bgm/Casual9
   - stage_id: stage_3_2
     stage_name: "3-2 \uD14C\uC2A4\uD2B8\uC6A9\uC58D\uC58D"
-    stage_img: Img/Stage/stage_3_1_main
-    stage_desc: "\"\uC2A4\uD14C\uC774\uC9C02 \uC124\uBA85 \uD6DD\""
+    stage_img: Img/Stage/stage_3_1
+    stage_desc: "\"\uC0B0\uC73C\uB85C \uC774\uC5B4\uC9C0\uB294 \uB3CC\uAE38\uC785\uB2C8\uB2E4.\\n\uAC70\uCE5C
+      \uB3CC\uAE38\uC774 \uB4A4\uCABD\uC73C\uB85C \uAE38\uAC8C \uC774\uC5B4\uC838
+      \uC788\uC2B5\uB2C8\uB2E4.\""
     map_id: map_3_2
     start_cutscene: -1
     start_talk: -1
@@ -577,8 +580,10 @@ MonoBehaviour:
     stage_bgm: Sound/Bgm/Casual9
   - stage_id: stage_3_3
     stage_name: "3-3 \uD14C\uC2A4\uD2B8\uC6A9\uC58D\uC58D"
-    stage_img: Img/Stage/stage_3_1_main
-    stage_desc: "\"\uC2A4\uD14C\uC774\uC9C03 \uC124\uBA85 \uD6DD\""
+    stage_img: Img/Stage/stage_3_2
+    stage_desc: "\"\uACBD\uC0AC\uAC00 \uC870\uAE08\uC529 \uAC00\uD314\uB77C\uC9C0\uB294
+      \uC0B0\uAE38\uC785\uB2C8\uB2E4.\\n\uC791\uC740 \uB3CC\uBA69\uC774\uB4E4\uC774
+      \uBC1C\uBC11\uC5D0\uC11C \uAD74\uB7EC \uB5A8\uC5B4\uC9D1\uB2C8\uB2E4.\""
     map_id: map_3_3
     start_cutscene: -1
     start_talk: -1
@@ -599,8 +604,10 @@ MonoBehaviour:
     stage_bgm: Sound/Bgm/Casual9
   - stage_id: stage_3_4
     stage_name: "3-4 \uD14C\uC2A4\uD2B8\uC6A9\uC58D\uC58D"
-    stage_img: Img/Stage/stage_3_1_main
-    stage_desc: "\"\uC2A4\uD14C\uC774\uC9C04 \uC124\uBA85 \uD6DD\""
+    stage_img: Img/Stage/stage_3_2
+    stage_desc: "\"\uC881\uC544\uC9C4 \uC0B0\uAE38\uC774 \uC774\uC5B4\uC9C0\uB294
+      \uAD6C\uAC04\uC785\uB2C8\uB2E4.\\n\uBC1C\uC744 \uC798\uBABB \uB514\uB514\uBA74
+      \uBBF8\uB044\uB7EC\uC9C8 \uB4EF\uD55C \uB290\uB08C\uC774 \uB4ED\uB2C8\uB2E4.\""
     map_id: map_3_4
     start_cutscene: -1
     start_talk: -1
@@ -621,8 +628,10 @@ MonoBehaviour:
     stage_bgm: Sound/Bgm/Casual9
   - stage_id: stage_3_5
     stage_name: "3-5 \uD14C\uC2A4\uD2B8\uC6A9\uC58D\uC58D"
-    stage_img: Img/Stage/stage_3_1_main
-    stage_desc: "\"\uC2A4\uD14C\uC774\uC9C05 \uC124\uBA85 \uD6DD\""
+    stage_img: Img/Stage/stage_3_2
+    stage_desc: "\"\uC9C0\uD615\uC774 \uC57D\uAC04 \uB192\uC544\uC9C4 \uAD6C\uAC04\uC5D0
+      \uC704\uCE58\uD55C \uB4F1\uC0B0\uB85C\uC785\uB2C8\uB2E4.\\n\uBA40\uB9AC\uC11C
+      \uD76C\uBBF8\uD558\uAC8C \uC0C8\uC18C\uB9AC\uAC00 \uB4E4\uB824\uC635\uB2C8\uB2E4.\""
     map_id: map_3_5
     start_cutscene: -1
     start_talk: -1
@@ -643,8 +652,10 @@ MonoBehaviour:
     stage_bgm: Sound/Bgm/Casual9
   - stage_id: stage_3_6
     stage_name: "3-6 \uD14C\uC2A4\uD2B8\uC6A9\uC58D\uC58D"
-    stage_img: Img/Stage/stage_3_1_main
-    stage_desc: "\"\uC2A4\uD14C\uC774\uC9C06 \uC124\uBA85 \uD6DD\""
+    stage_img: Img/Stage/stage_3_3
+    stage_desc: "\"\uAC70\uCE5C \uBC14\uC704\uB4E4\uC774 \uAE38\uC744 \uC774\uB8E8\uB294
+      \uAD6C\uAC04\uC785\uB2C8\uB2E4.\\n\uC704\uD5D8\uD55C \uBC14\uC704\uB4E4\uC774
+      \uC8FC\uBCC0\uC744 \uAC10\uC2F8\uACE0 \uC788\uC2B5\uB2C8\uB2E4.\""
     map_id: map_3_6
     start_cutscene: -1
     start_talk: -1
@@ -665,8 +676,9 @@ MonoBehaviour:
     stage_bgm: Sound/Bgm/Casual9
   - stage_id: stage_3_7
     stage_name: "3-7 \uD14C\uC2A4\uD2B8\uC6A9\uC58D\uC58D"
-    stage_img: Img/Stage/stage_3_1_main
-    stage_desc: "\"\uC2A4\uD14C\uC774\uC9C07 \uC124\uBA85 \uD6DD\""
+    stage_img: Img/Stage/stage_3_3
+    stage_desc: "\"\uC815\uC0C1\uC73C\uB85C \uAC00\uAE4C\uC6CC\uC9C0\uB294 \uC9C0\uC810\uC785\uB2C8\uB2E4.\\n\uBC1C\uC544\uB798\uB85C
+      \uB0AE\uAC8C \uC790\uB780 \uD480\uB4E4\uC774 \uD754\uB4E4\uB9BD\uB2C8\uB2E4.\""
     map_id: map_3_7
     start_cutscene: -1
     start_talk: -1
@@ -687,8 +699,10 @@ MonoBehaviour:
     stage_bgm: Sound/Bgm/Casual9
   - stage_id: stage_3_8
     stage_name: "3-8 \uD14C\uC2A4\uD2B8\uC6A9\uC58D\uC58D"
-    stage_img: Img/Stage/stage_3_1_main
-    stage_desc: "\"\uC2A4\uD14C\uC774\uC9C08 \uC124\uBA85 \uD6DD\""
+    stage_img: Img/Stage/stage_3_4
+    stage_desc: "\"\uC808\uBCBD \uC0B0 \uC815\uC0C1\uC5D0 \uAC70\uC758 \uB3C4\uB2EC\uD55C
+      \uC9C0\uC810\uC785\uB2C8\uB2E4.\\n\uBA40\uB9AC \uC544\uB798\uB85C \uAC15\uACFC
+      \uD3D0\uD5C8\uAC00 \uD76C\uBBF8\uD558\uAC8C \uBCF4\uC785\uB2C8\uB2E4.\""
     map_id: map_3_8
     start_cutscene: -1
     start_talk: -1
@@ -709,11 +723,13 @@ MonoBehaviour:
     stage_bgm: Sound/Bgm/Casual9
   - stage_id: stage_3_9
     stage_name: "3-9 \uD14C\uC2A4\uD2B8\uC6A9\uC58D\uC58D"
-    stage_img: Img/Stage/stage_3_1_main
-    stage_desc: "\"\uC2A4\uD14C\uC774\uC9C09 \uC124\uBA85 \uD6DD\""
+    stage_img: Img/Stage/stage_3_4
+    stage_desc: "\"\uC808\uBCBD \uC0B0\uC758 \uAF2D\uB300\uAE30\uC785\uB2C8\uB2E4.\\n\uC544\uB798\uC5D0\uB294
+      \uBD80\uC11C\uC9C4 \uBCD1\uAE30\uB85C\uBD07\uB4E4\uC774 \uC5B4\uC9C0\uB7FD\uAC8C
+      \uD769\uC5B4\uC838 \uC788\uC2B5\uB2C8\uB2E4.\""
     map_id: map_3_9
     start_cutscene: -1
-    start_talk: -1
+    start_talk: dialogue_3_9_0
     end_talk: -1
     end_cutscene: -1
     treasure_01_id: treasure_3_9_1
@@ -731,11 +747,13 @@ MonoBehaviour:
     stage_bgm: Sound/Bgm/Casual9
   - stage_id: stage_3_10
     stage_name: "3-10 \uD14C\uC2A4\uD2B8\uC6A9\uC58D\uC58D"
-    stage_img: Img/Stage/stage_3_1_main
-    stage_desc: "\"\uC2A4\uD14C\uC774\uC9C010 \uC124\uBA85 \uD6DD\""
+    stage_img: Img/Stage/stage_3_4
+    stage_desc: "\"\uC808\uBCBD \uC544\uB798\uB85C \uB0B4\uB824\uAC00\uB294 \uC9C0\uC810\uC785\uB2C8\uB2E4.\\n\uCDA9\uACA9
+      \uAC10\uC9C0\uD0D1\uACFC \uBD80\uC11C\uC9C4 \uBCD1\uAE30\uB85C\uBD07\uB4E4\uC774
+      \uC8FC\uBCC0\uC5D0 \uD769\uC5B4\uC838 \uC788\uC2B5\uB2C8\uB2E4.\""
     map_id: map_3_10
     start_cutscene: -1
-    start_talk: -1
+    start_talk: dialogue_3_10_0
     end_talk: -1
     end_cutscene: -1
     treasure_01_id: treasure_3_10_1
