@@ -20,6 +20,11 @@ public class PlayerPush : MonoBehaviour, IMoveStrategy
     //LSH추가
     public bool isPushing => currPushHandler != null;
 
+    private readonly static Vector3[] fourDirVector3 = new Vector3[4]
+    {
+        Vector3.forward, Vector3.right, Vector3.back, Vector3.left
+    };
+    
     public (Vector3, Vector3) Execute(Vector3 moveDir, Rigidbody rb, PlayerMovement player)
     {
         if (currCooltime > 0f)
@@ -41,7 +46,30 @@ public class PlayerPush : MonoBehaviour, IMoveStrategy
             return (Vector3.zero, Vector3.zero);
         }
 
+        //4방향 스냅이 되어있지 않다면 이동방향 그대로 리턴
+        //그리고 밀기 시도 리셋
+        
+            if (
+            !(
+            (Mathf.Approximately(Vector3.Angle(moveDir, fourDirVector3[0]), 0f)) ||
+            (Mathf.Approximately(Vector3.Angle(moveDir, fourDirVector3[1]), 0f)) ||
+            (Mathf.Approximately(Vector3.Angle(moveDir, fourDirVector3[2]), 0f)) ||
+            (Mathf.Approximately(Vector3.Angle(moveDir, fourDirVector3[3]), 0f))
+            )
+            )
+        {
+            if (currPushHandler != null)
+            {
+                currPushHandler.StopPushAttempt();
+                currPushHandler = null;
+            }
+            return (moveDir, Vector3.zero);
+        }
+        
+
         //먼저 4방향으로 고정 -> 조이스틱 미세한 각도 떨림으로 인한 홀드-리셋 방지
+        
+        
         Vector2Int dir4 = player.To4Dir(moveDir); // up/right/left/down 중 하나로 스냅
         Vector3 dirCard = new Vector3(dir4.x, 0f, dir4.y); // 이걸로 캐스트/푸시 둘 다 수행
         Vector3 dirN = dirCard; // 이미 정규화됨 (x/z는 -1,0,1이라서)
