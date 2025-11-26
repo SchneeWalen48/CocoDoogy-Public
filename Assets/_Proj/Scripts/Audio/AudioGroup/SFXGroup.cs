@@ -11,7 +11,7 @@ public class SFXGroup : BaseAudioGroup
 
     public void PlaySFX(AudioClip clip, bool loop, bool pooled, Vector3? pos = null)
     {
-        player.PlayAudio(clip, group, loop, pooled, pos);
+        player.PlayAudio(clip, loop, pooled, pos);
     }
 
     // IAudioController 영역
@@ -21,7 +21,7 @@ public class SFXGroup : BaseAudioGroup
         group = AudioManager.AudioGroupProvider.GetGroup(AudioType.SFX);
         Debug.Log($"SFXGroup : {group}");
         audioPool = new AudioPool(transform, group, poolSize);
-        player = new SFXPlayer(mixer, transform, audioPool);
+        player = new SFXPlayer(mixer, group, transform, audioPool);
     }
     public override void PostInit() { }
     public override void PlayPlayer()

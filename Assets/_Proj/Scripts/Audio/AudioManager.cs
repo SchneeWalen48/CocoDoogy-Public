@@ -44,6 +44,7 @@ public class AudioManager : MonoBehaviour, IAudioGroupSetting
 
     private Dictionary<AudioType, AudioMixerGroup> groupMap;
     private AudioLibraryProvider libraryProvider;
+    public AudioLibraryProvider LibraryProvider => libraryProvider;
     private AudioVolumeHandler volumeHandler;
     private BaseAudioGroup[] audioGroups;
     private SceneAudio sAudio;
