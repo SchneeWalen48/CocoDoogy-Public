@@ -81,3 +81,102 @@ dialogue_1_10_10,5,right,hog,Sad,"그럼 얼른 가야겠네.!\n소중한 걸 �
 dialogue_1_10_10,6,right,hog,Happy,"대신 종종 나랑도 놀아줘야 해.!\n너도 이제 내 친구니까!",0.04,sfx_none,null
 dialogue_1_10_10,7,left,coco,Happy,"응! 당연하지, 친구! 다음에 또 놀자!",0.04,sfx_none,null
 dialogue_1_10_11,8,right,hog,Happy,"다음에는 내가 너의 보금자리로 놀러가주마!",0.04,sfx_none,null
+dialogue_3_1_1,0,left,coco,Neutral,"안녕! 혹시 이 산에서 지내고 있어?",0.04,sfx_none,null
+dialogue_3_1_1,1,right,buffalo,Neutral,"…",0.04,sfx_none,null
+dialogue_3_1_1,2,left,coco,Neutral,"나 집으로 돌아가야 하거든! 여기서 내려가는 길 알고 있어?",0.04,sfx_none,null
+dialogue_3_1_1,3,left,coco,Neutral,"저기…",0.04,sfx_none,null
+dialogue_3_1_1,4,right,buffalo,Angry,"(발굽을 땅에 내리 찍는다.)",0.04,sfx_none,null
+dialogue_3_1_1,5,right,buffalo,Angry,"왜 이런 위험한 산까지 기어 올라온 거지? 돌아가.",0.04,sfx_none,null
+dialogue_3_1_1,6,left,coco,Surprised,"뭐어?",0.04,sfx_none,null
+dialogue_3_1_2,0,left,coco,Neutral,"길이 막혀있는데 어떻게 지나가지…?",0.04,sfx_none,null
+dialogue_3_1_2,1,left,coco,Sad,"내가 미는 걸로 한계야…",0.04,sfx_none,null
+dialogue_3_1_2,2,right,buffalo,Neutral,"그러게 내가 여기 위험한 곳이라고 했잖아.",0.04,sfx_none,null
+dialogue_3_1_2,3,right,buffalo,Neutral,"한 번만 도와줄 테니까 물체가 공중에 떠 있을 때 어서 나와.",0.04,sfx_none,null
+dialogue_3_1_2,4,left,coco,Happy,"와! 너 정말 정말 강하구나!",0.04,sfx_none,null
+dialogue_3_1_2,5,right,buffalo,Neutral,"나한테서 멀어지면 내가 도와주지 못해. 알겠어?",0.04,sfx_none,null
+dialogue_3_1_2,6,left,coco,Happy,"응, 알겠어!",0.04,sfx_none,null
+dialogue_3_2_1,0,right,buffalo,Angry,"…따라오지 마!",0.04,sfx_none,null
+dialogue_3_2_1,1,left,coco,Surprised,"뭐어? 무작정 따라가지 말라는 게 어딨어?",0.04,sfx_none,null
+dialogue_3_2_1,2,right,buffalo,Neutral,"난 이 산을 나가는 방법 따위 몰라. 너가 알아서 찾아야 돼.",0.04,sfx_none,null
+dialogue_3_2_1,3,left,coco,Neutral,"그치만 나는 너가 필요해! 너가 없으면 이 산을 나갈 수 가 없어!",0.04,sfx_none,null
+dialogue_3_2_1,4,right,buffalo,Neutral,"나는 산 꼭대기로 돌아가던 중이야. 그런데도 따라오겠다고?",0.04,sfx_none,null
+dialogue_3_2_1,5,left,coco,Happy,"으음, 높은 곳에서 보면 나가는 길이 좀 보일 것 같아!",0.04,sfx_none,null
+dialogue_3_2_1,6,right,buffalo,Neutral,"아니. 너는 당장 여기서 나가야 해. 꼭대기까지 갈 시간 따위 없어.",0.04,sfx_none,null
+dialogue_3_2_1,7,left,coco,Surprised,"왜?",0.04,sfx_none,null
+dialogue_3_2_1,8,right,buffalo,Neutral,"너, 이 산에 대해 전혀 모르는구나?",0.04,sfx_none,null
+dialogue_3_3_1,0,right,buffalo,Neutral,"이 산엔 무서운 괴담이 있어.",0.04,sfx_none,null
+dialogue_3_3_1,1,left,coco,Surprised,"무서운 괴담이라니? 어떤 건데?",0.04,sfx_none,null
+dialogue_3_3_1,2,right,buffalo,Neutral,"이 산에서는 바람 타고 '띵…띵…'하는 소리가 계속 나거든.",0.04,sfx_none,null
+dialogue_3_3_1,3,right,buffalo,Neutral,"(바람 소리 사이로, 금속이 부딪히는 듯한 미세한 소리를 듣는다.",0.04,sfx_none,null
+dialogue_3_3_1,4,right,buffalo,Surprised,"…! 들려? 이 소리가 사람도 동물도 잡아먹는,",0.04,sfx_none,null
+dialogue_3_3_1,5,right,buffalo,Surprised,"거인처럼 큰 짐승이 내는 소리라는 괴담이 있어.",0.04,sfx_none,null
+dialogue_3_3_1,6,left,coco,Surprised,"…!",0.04,sfx_none,null
+dialogue_3_4_1,0,left,coco,Surprised,"거, 거인 짐승이 진짜 있는 거야?",0.04,sfx_none,null
+dialogue_3_4_1,1,right,buffalo,Neutral,"그래. 이 소리로 희생양의 궁금증을 자아내고, 가까이 오기만을 기다려.",0.04,sfx_none,null
+dialogue_3_4_1,2,right,buffalo,Neutral,"그리고 그 희생양이 가까이 오면…",0.04,sfx_none,null
+dialogue_3_4_1,3,right,buffalo,Neutral,"(쿵! 하고 크게 발굽을 찍는 소리)",0.04,sfx_none,null
+dialogue_3_4_1,4,right,buffalo,Angry,"쿵! 소리를 내며 희생양을 먹어 치운대.",0.04,sfx_none,null
+dialogue_3_4_1,5,right,buffalo,Neutral,"그래서 이 산은 원래 함부로 올라오면 안 돼.",0.04,sfx_none,null
+dialogue_3_4_1,6,right,buffalo,Neutral,"만약 이 산에 발을 들이더라도 하루 빨리 나가야 하지.",0.04,sfx_none,null
+dialogue_3_4_1,7,left,coco,Surprised,"으악! 진짜 무섭잖아!",0.04,sfx_none,null
+dialogue_3_4_1,8,right,buffalo,Neutral,"역시, 너도 그렇지? 그러니 그만 따라와.",0.04,sfx_none,null
+dialogue_3_5_1,0,left,coco,Neutral,"있지… 나, 그 거대한 짐승 만나보고 싶어.",0.04,sfx_none,null
+dialogue_3_5_1,1,left,coco,Sad,"그 짐승도 혼자 있을 것 같고…",0.04,sfx_none,null
+dialogue_3_5_1,2,left,coco,Sad,"그 자리에서 계속 가족을 부르며 기다리고 있는 걸지도 모르잖아.",0.04,sfx_none,null
+dialogue_3_5_1,3,right,buffalo,Neutral,"그 짐승'도'?",0.04,sfx_none,null
+dialogue_3_5_1,4,left,coco,Neutral,"아! 아냐, 아무것도 아니야! 아무튼… 난 널 계속 따라가고 싶어.",0.04,sfx_none,null
+dialogue_3_5_1,5,left,coco,Happy,"그리고… 너랑 방금 만났는데, 금방 헤어지는 건 더더욱 싫어!",0.04,sfx_none,null
+dialogue_3_5_1,6,right,buffalo,Neutral,"…날 따라와도 짐승은 못 만나.",0.04,sfx_none,null
+dialogue_3_5_1,7,right,buffalo,Neutral,"괴담은 괴담일 뿐. 정말 있을지 없을지 모르지.",0.04,sfx_none,null
+dialogue_3_6_1,0,left,coco,Surprised,"윗쪽 길이 막혀있어… 여기를 어떻게 지나가야 하지?",0.04,sfx_none,null
+dialogue_3_6_1,1,right,buffalo,Neutral,"거기는 내 힘이 안 닿아! 그러게 내가 나한테서 멀어지지 말라고 했잖아.",0.04,sfx_none,null
+dialogue_3_6_2,0,left,coco,Surprised,"?! 저 거대한 건 뭐야? 저게 바로 짐승이야?!",0.04,sfx_none,null
+dialogue_3_6_2,1,right,buffalo,Neutral,"저건 그냥 커다란 공일 뿐이야.",0.04,sfx_none,null
+dialogue_3_6_2,2,left,coco,Happy,"아, 공이구나! 나 저렇게 커다란 공은 처음 봐. 저걸로 놀면 재밌겠다!",0.04,sfx_none,null
+dialogue_3_6_2,3,right,buffalo,Happy,"확실히 네가 저 철구를 띄우면 재밌게네.",0.04,sfx_none,null
+dialogue_3_6_2,4,left,coco,Surprised,"…! 으악, 너무 무거워서 안 띄워져!",0.04,sfx_none,null
+dialogue_3_6_2,5,right,buffalo,Neutral,"…잠시만.",0.04,sfx_none,null
+dialogue_3_7_1,0,right,buffalo,Neutral,"다른 종자들은 제대로 잘 알지도 못하면서 단지 무섭다는 이유로 피하곤 하지.",0.04,sfx_none,null
+dialogue_3_7_1,1,right,buffalo,Sad,"강한 놈들은 오래 외로워.",0.04,sfx_none,null
+dialogue_3_7_1,2,left,coco,Surprised,"종자? 종자가 뭐야?",0.04,sfx_none,null
+dialogue_3_7_1,3,right,buffalo,Happy,"순수한 건지, 바보인 건지…",0.04,sfx_none,null
+dialogue_3_7_2,0,left,coco,Neutral,"버팔로야! 나 너랑 비슷한 종자를 알고 있어. 다들 겁나서 피하고 싫어하는 존재.",0.04,sfx_none,null
+dialogue_3_7_2,1,left,coco,Neutral,"다들 그가 엄청 무시무시하다고 생각해.. 하지만 무시무시는 무슨!",0.04,sfx_none,null
+dialogue_3_7_2,2,left,coco,Neutral,"그건 다들 몰라서 그래. 겉모습만 보고서… 그랑 말해본 적도 없으면서.",0.04,sfx_none,null
+dialogue_3_7_2,3,left,coco,Happy,"그래서… 너랑 좀 비슷해 보여.",0.04,sfx_none,null
+dialogue_3_7_2,4,right,buffalo,Neutral,"…별 소리.",0.04,sfx_none,null
+dialogue_3_8_1,0,right,buffalo,Neutral,"가면서 내 얘기를 하나 해줄게.",0.04,sfx_none,null
+dialogue_3_8_1,1,right,buffalo,Neutral,"나는 그와 친구였어. 우리 둘은 외로운 세상 속 하나 뿐인 친구였지.",0.04,sfx_none,null
+dialogue_3_8_1,2,right,buffalo,Sad,"그러나 그는 결국 외로움을 견디지 못하고 저들 속에 섞였어.",0.04,sfx_none,null
+dialogue_3_8_1,3,left,coco,Surprised,"저들 속…?",0.04,sfx_none,null
+dialogue_3_8_2,0,right,buffalo,Neutral,"자, 도착했어. 여기가 꼭대기야.",0.04,sfx_none,null
+dialogue_3_9_0,0,right,buffalo,Sad,"내가 말한 괴담의 정체야.",0.04,sfx_none,null
+dialogue_3_9_0,1,left,coco,Sad,"…저들 중 하나가 네 친구였다는 거지…?",0.04,sfx_none,null
+dialogue_3_9_0,2,right,buffalo,Sad,"응. 그렇지",0.04,sfx_none,null
+dialogue_3_9_1,0,right,buffalo,Neutral,"자, 어때? 길이 보여?",0.04,sfx_none,null
+dialogue_3_9_1,1,left,coco,Neutral,"절벽 아래 저 문을 지나가면, 그 밑으로 이어지는 길이 있는 것 같아.",0.04,sfx_none,null
+dialogue_3_9_1,2,left,coco,Neutral,"절벽 밑으로 내려가서 병기 안드로이드 잔해들 사이로 지나가야겠어.",0.04,sfx_none,null
+dialogue_3_9_1,3,right,buffalo,Neutral,"뭐? 그건 불가능해.",0.04,sfx_none,null
+dialogue_3_9_1,4,left,coco,Surprised,"불가능이 어딨어?",0.04,sfx_none,null
+dialogue_3_9_1,5,right,buffalo,Sad,"…네가 아직 불가능을 맞닥뜨리지 못해서 그래.",0.04,sfx_none,null
+dialogue_3_10_0,0,right,buffalo,Neutral,"절벽 아래로 내려가는 길목에 있는 저 문, 보이지? 저 문은 절대 열리지 않아.",0.04,sfx_none,null
+dialogue_3_10_0,1,left,coco,Happy,"절대라고? 그럴리가! 방법은 어떻게든 있을 거야!",0.04,sfx_none,null
+dialogue_3_10_0,2,right,buffalo,Happy,"넌, 정말… 끝없이 해맑기만 하구나.",0.04,sfx_none,null
+dialogue_3_10_1,0,right,buffalo,Neutral,"내가 무턱대고 불가능하다고 하는 게 아니야. 저기 보이는 충격 감지탑 있지?",0.04,sfx_none,null
+dialogue_3_10_1,1,right,buffalo,Neutral,"예전이 근처엔 대피소가 있었어. 폭탄에 가까운 강한 충격이 감지되면 저 문이 열리고, 대피소로 이어지는 길이 드러나곤 했지",0.04,sfx_none,null
+dialogue_3_10_1,2,right,buffalo,Neutral,"하지만 우리 힘으로 그런 충격을 만들 수 있을 리가 없잖아.",0.04,sfx_none,null
+dialogue_3_10_1,3,right,buffalo,Sad,"그래서 난 지금까지 저 문을 열어본 적이 없어.",0.04,sfx_none,null
+dialogue_3_10_1,4,left,coco,Surprised,"충격… 그렇다면. 버팔로! 네 발굽으로 세게 구르면 문이 열릴 수도 있지 않을까?!",0.04,sfx_none,null
+dialogue_3_10_1,5,right,buffalo,Angry,"그걸 내가 시도 안 해봤겠냐! 어떻게 해도 문은 꿈쩍도 안 하더라.",0.04,sfx_none,null
+dialogue_3_10_1,6,right,buffalo,Neutral,"그래서 나는 저 아래로 가본 적이 없어. 난 이 산에만 줄곧 있었거든.",0.04,sfx_none,null
+dialogue_3_10_1,7,left,coco,Sad,"…그래도 말이야.",0.04,sfx_none,null
+dialogue_3_10_1,8,left,coco,Happy,"…나. 너에게 산 바깥의 세상을 꼭 보여주고 싶어!",0.04,sfx_none,null
+dialogue_3_10_2,0,left,coco,Happy,"와! 우리가 해냈어!",0.04,sfx_none,null
+dialogue_3_10_2,1,right,buffalo,Happy,"내가 이 절벽 아래에 내려오다니… 여기가 이렇게 생겼었구나…",0.04,sfx_none,null
+dialogue_3_10_2,2,left,coco,Surprised,"어어? 버팔로야! 너 혹시 울려고 하는 건 아니지?!",0.04,sfx_none,null
+dialogue_3_10_2,3,right,buffalo,Angry,"시끄러워!",0.04,sfx_none,null
+dialogue_3_10_2,4,right,buffalo,Happy,"…이상하게 가슴이 두근거려. 갑자기 내 앞에 새로운 길이 열린 느낌이야. 너 덕분이야.",0.04,sfx_none,null
+dialogue_3_10_2,5,left,coco,Happy,"별 소리를! 네가 너의 소중한 친구를 보여줬으니까…",0.04,sfx_none,null
+dialogue_3_10_2,6,left,coco,Happy,"나도 내 소중한 존재를 너에게 꼭 소개해주고 싶어!",0.04,sfx_none,null
+dialogue_3_10_2,7,right,buffalo,Happy,"그래. 나도 기대되네. 아, 근데 나를 찾으러 이 산에 와도 난 없을지도 몰라. 여기저기 다니느라 바쁠 예정이거든.",0.04,sfx_none,null
+dialogue_3_10_2,8,left,coco,Happy,"응! 내가 너를 찾으러 갈게! 너 발굽 소리가 워낙 커서, 어디 있어도 금방 알아챌 것 같아.",0.04,sfx_none,null
