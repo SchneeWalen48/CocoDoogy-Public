@@ -200,6 +200,10 @@ public class DialogueManager : MonoBehaviour
             {
                 // 다음 화자가 오른쪽 → 흐리게 표시
                 StageUIManager.Instance.DialogueSpeakerRight.gameObject.SetActive(true);
+                if (nextData != null)
+                {
+                    StageUIManager.Instance.DialogueSpeakerRight.sprite = GetEmotionSprite(nextData.speaker_id, $"Talk_portrait/{nextData.speaker_id}_{nextData.emotion}_{nextData.speaker_position}"); 
+                }
                 StageUIManager.Instance.DialogueSpeakerRight.color = new Color(1, 1, 1, 0.2f);
             }
         }
@@ -223,6 +227,10 @@ public class DialogueManager : MonoBehaviour
             else
             {
                 StageUIManager.Instance.DialogueSpeakerLeft.gameObject.SetActive(true);
+                if (nextData != null)
+                {
+                    StageUIManager.Instance.DialogueSpeakerLeft.sprite = GetEmotionSprite(nextData.speaker_id, $"Talk_portrait/{nextData.speaker_id}_{nextData.emotion}_{nextData.speaker_position}");
+                }
                 StageUIManager.Instance.DialogueSpeakerLeft.color = new Color(1, 1, 1, 0.2f);
             }
         }
