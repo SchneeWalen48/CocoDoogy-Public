@@ -19,6 +19,7 @@ public class PlayerPush : MonoBehaviour, IMoveStrategy
 
     //LSH추가
     public bool isPushing => currPushHandler != null;
+    private Vector3 lastDirN = Vector3.forward; // 기즈모용 변수
 
     public (Vector3, Vector3) Execute(Vector3 moveDir, Rigidbody rb, PlayerMovement player)
     {
@@ -45,7 +46,7 @@ public class PlayerPush : MonoBehaviour, IMoveStrategy
         Vector2Int dir4 = player.To4Dir(moveDir); // up/right/left/down 중 하나로 스냅
         Vector3 dirCard = new Vector3(dir4.x, 0f, dir4.y); // 이걸로 캐스트/푸시 둘 다 수행
         Vector3 dirN = dirCard; // 이미 정규화됨 (x/z는 -1,0,1이라서)
-
+        lastDirN = dirN; // 기즈모용
         //NOTE: 강욱 - 1107 : 플레이어의 입장에서 보면, 스피어캐스트(레이캐스트)를 뿌려야 하는 위치는 다음과 같습니다.
         //(플레이어의 로직상 위치(transform.position))보다 위로 0.5, 앞으로(dirN) 1.0지점을 원점으로 하여, 위쪽의 블록과 뒤쪽의 블록까지 감지되도록 해야 합니다.
         //스피어캐스트 말고 레이캐스트 2번으로 끝내면 좋을 것같은데...
@@ -55,8 +56,9 @@ public class PlayerPush : MonoBehaviour, IMoveStrategy
 
         // 앞 1칸 두께 있게 훑기 (레이어 제한 없이 -> IPushHandler로 필터)
         Vector3 halfExtents = new(.2f, .4f, .2f);
-        float maxDist = tileSize * 1.5f;
-        float front = Mathf.Max(0.1f, frontOffset);
+        float front = Mathf.Max(0.9f, frontOffset); // KHJ - frontOffset은 밀기 위한 감지거리에 영향을 미치고 가변적일 수 있기 때문에, Max값으로 1번 인자를 갖기 위해서 0.9f로 변경
+        // front를 앞으로 뺀 이유는 수직 검사를 하되 내 머리 위는 검사대상에서 빼기 위해서임
+        float maxDist = tileSize * .8f; // front가 앞으로 나갔기 때문에 2칸 검사만 하기 위해 거리 줄임
 
         Vector3 origin = rb.position + Vector3.up * .8f + dirN * front;
 
@@ -136,4 +138,30 @@ public class PlayerPush : MonoBehaviour, IMoveStrategy
         // 이동은 원래대로
         return (moveDir, Vector3.zero);
     }
+
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        Vector3 playerCenter = transform.position + Vector3.up * .8f;
+
+        Vector3 debugDir = lastDirN; // 4방향 스냅된 값을 넣어서 기즈모에도 반영
+
+        Vector3 halfExtents = new(.2f, .4f, .2f);
+        float maxDist = tileSize * 0.8f;
+        float front = Mathf.Max(0.9f, frontOffset);
+
+        Vector3 origin = playerCenter + debugDir * front;
+
+        // BoxCast 시작점
+        Gizmos.DrawWireCube(origin, halfExtents * 2);
+
+        // BoxCast 방향선
+        Gizmos.DrawLine(origin, origin + debugDir * maxDist);
+
+        // BoxCast 끝부분
+        Gizmos.DrawWireCube(origin + debugDir * maxDist, halfExtents * 2);
+    }
+#endif
 }
