@@ -83,7 +83,7 @@ MonoBehaviour:
   orbLandLayer:
     serializedVersion: 2
     m_Bits: 33664
-  ringDuration: 0.605
+  ringDuration: 1.214
 --- !u!65 &5937561180784654500
 BoxCollider:
   m_ObjectHideFlags: 0
