@@ -48,10 +48,11 @@ public class Boar : PushableObjects, IDashDirection, IPlayerFinder
         base.Awake();
 
         // 버튼 그룹의 방향 버튼에 돌진 로직 연결
-        up.onClick.AddListener(() => { GetDirection(new Vector2Int(0, 1)); btnGroup.SetActive(false); });
-        down.onClick.AddListener(() => { GetDirection(new Vector2Int(0, -1)); btnGroup.SetActive(false); });
-        left.onClick.AddListener(() => { GetDirection(new Vector2Int(-1, 0)); btnGroup.SetActive(false); });
-        right.onClick.AddListener(() => { GetDirection(new Vector2Int(1, 0)); btnGroup.SetActive(false); });
+        // LSH 추가 1127 ETCEvent.Invoke... => 소리
+        up.onClick.AddListener(() => { ETCEvent.InvokeCocoInteractSoundInGame(); GetDirection(new Vector2Int(0, 1)); btnGroup.SetActive(false); });
+        down.onClick.AddListener(() => { ETCEvent.InvokeCocoInteractSoundInGame(); GetDirection(new Vector2Int(0, -1)); btnGroup.SetActive(false); });
+        left.onClick.AddListener(() => { ETCEvent.InvokeCocoInteractSoundInGame(); GetDirection(new Vector2Int(-1, 0)); btnGroup.SetActive(false); });
+        right.onClick.AddListener(() => { ETCEvent.InvokeCocoInteractSoundInGame(); GetDirection(new Vector2Int(1, 0)); btnGroup.SetActive(false); });
 
         //btnGroup.SetActive(false);
 
@@ -617,17 +618,6 @@ public class Boar : PushableObjects, IDashDirection, IPlayerFinder
          Debug.Log($"[Boar.HasGround] 위치 {worldPos}에서 바닥 검사 결과: {hasGround}");
         return hasGround;
     }
-
-    //void OnTriggerEnter(Collider other)
-    //{
-    //    Vector3 moveDir = Vector3.up * 0.5f;
-    //    Vector3 currPos = transform.position;
-    //    Vector3 nextPos = currPos + moveDir * tileSize;
-
-
-    //    StartCoroutine(DashMoveTo(nextPos, moveDir));
-
-    //}
 
 #if UNITY_EDITOR
     void OnDrawGizmos()
