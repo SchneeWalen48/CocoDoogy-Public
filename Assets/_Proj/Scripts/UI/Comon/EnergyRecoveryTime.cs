@@ -6,22 +6,54 @@ using UnityEngine;
 public class EnergyRecoveryTime : MonoBehaviour
 {
     public TextMeshProUGUI energyRecoveryTime;
+    private bool isRunning = false;
 
-    void Awake()
+    void OnEnable()
     {
-        EnergyRecoverTime();
+        StartRecoveryTimer();
     }
 
-    void EnergyRecoverTime()
+    void OnDisable()
     {
-        if (UserData.Local.goods[GoodsType.energy] > 5) return;
+        StopAllCoroutines();
+        isRunning = false;
+    }
 
-        long time = UserData.Local.master.lastEnergyTime;
+    void StartRecoveryTimer()
+    {
+        if (isRunning) return;
+        StartCoroutine(CoUpdateEnergyTimer());
+        isRunning = true;
+    }
 
-        DateTimeOffset dto = new DateTimeOffset(time, TimeSpan.Zero);
-        print($"{dto} --> Unix Seconds: {dto.ToUnixTimeSeconds()}");
+    IEnumerator CoUpdateEnergyTimer()
+    {
+        while (true)
+        {
+            int currentEnergy = UserData.Local.goods[GoodsType.energy];
 
+            if (currentEnergy >= 5)
+            {
+                isRunning = false;
+                energyRecoveryTime.gameObject.SetActive(false);
+                yield break;
+            }
 
+            long lastEnergyTime = UserData.Local.master.lastEnergyTime;
+            DateTimeOffset lastOffset = DateTimeOffset.FromUnixTimeSeconds(lastEnergyTime);
 
+            TimeSpan elapsed = DateTimeOffset.UtcNow - lastOffset;
+            int recoverSeconds = 1800; //
+
+            // 다음 1개 회복까지 남은 시간
+            int remainSec = recoverSeconds - (int)elapsed.TotalSeconds;
+
+            int min = remainSec / 60;
+            int sec = remainSec % 60;
+
+            energyRecoveryTime.text = $"{min:00}:{sec:00}";
+
+            yield return new WaitForSeconds(1f);
+        }
     }
 }
