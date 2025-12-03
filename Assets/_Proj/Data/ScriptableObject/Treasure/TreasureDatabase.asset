@@ -78,8 +78,8 @@ MonoBehaviour:
     reward_id: 50004
     count: 1
     view_codex_id: codex_artifact_toyrobot
-    coco_coment: "\"\uC774 \uC7A5\uB09C\uAC10\uB3C4 \uCE5C\uAD6C\uB97C \uAE30\uB2E4\uB9AC\uACE0
-      \uC788\uC5C8\uB358 \uAC78\uAE4C\u2026\""
+    coco_coment: "\"\uC774 \uC7A5\uB09C\uAC10\uB3C4 \uCE5C\uAD6C\uB97C \uAE30\uB2E4\uB9AC\uACE0\n\uC788\uC5C8\uB358
+      \uAC78\uAE4C\u2026\""
   - treasure_id: treasure_1_4_3
     treasureType: 2
     reward_id: 10011
@@ -160,8 +160,8 @@ MonoBehaviour:
     reward_id: 50008
     count: 1
     view_codex_id: codex_artifact_baseball
-    coco_coment: "\"\uC8FC\uC778\uC5D0\uAC8C\uB3C4 \uAC00\uC838\uAC00\uC11C \uAC19\uC774
-      \uB180\uC790\uACE0 \uD574\uC57C\uC9C0!\""
+    coco_coment: "\"\uC8FC\uC778\uC5D0\uAC8C\uB3C4 \uAC00\uC838\uAC00\uC11C \uAC19\uC774\n\uB180\uC790\uACE0
+      \uD574\uC57C\uC9C0!\""
   - treasure_id: treasure_1_9_1
     treasureType: 1
     reward_id: 110002
@@ -198,7 +198,7 @@ MonoBehaviour:
     count: 1
     view_codex_id: codex_artifact_leafcrown
     coco_coment: "\"\uB098\uB294 \uBA67\uB3FC\uC9C0\uB97C '\uC232\uC758 \uC655'\uC774\uB77C\uACE0
-      \uBD80\uB974\uC9C0. \uADF8\uB294 \uADF8\uB9CC\uD07C \uBA4B\uC788\uC73C\uB2C8\uAE4C!\""
+      \uBD80\uB974\uC9C0.\n\uADF8\uB294 \uADF8\uB9CC\uD07C \uBA4B\uC788\uC73C\uB2C8\uAE4C!\""
   - treasure_id: treasure_2_1_1
     treasureType: 1
     reward_id: 110002
@@ -210,8 +210,8 @@ MonoBehaviour:
     reward_id: 50012
     count: 1
     view_codex_id: codex_artifact_shellnecklace
-    coco_coment: "\"\uC774 \uC791\uC740 \uC870\uAC1C\uB4E4\uC774 \uBAA8\uC5EC \uBCF4\uC11D\uBCF4\uB2E4
-      \uB354 \uBC18\uC9DD\uC5EC!\""
+    coco_coment: "\"\uC774 \uC791\uC740 \uC870\uAC1C\uB4E4\uC774 \uBAA8\uC5EC \uBCF4\uC11D\uBCF4\uB2E4\n\uB354
+      \uBC18\uC9DD\uC5EC!\""
   - treasure_id: treasure_2_1_3
     treasureType: 3
     reward_id: 20002
@@ -229,8 +229,8 @@ MonoBehaviour:
     reward_id: 50011
     count: 1
     view_codex_id: codex_artifact_woodenboard
-    coco_coment: "\"\uBB3C \uC704\uAC00 \uC774\uB807\uAC8C \uD3B8\uC548\uD55C \uACF3\uC77C
-      \uC904\uC740 \uBAB0\uB790\uC5B4!\""
+    coco_coment: "\"\uBB3C \uC704\uAC00 \uC774\uB807\uAC8C \uD3B8\uC548\uD55C \uACF3\uC77C\n\uC904\uC740
+      \uBAB0\uB790\uC5B4!\""
   - treasure_id: treasure_2_2_3
     treasureType: 1
     reward_id: 110002
@@ -273,8 +273,8 @@ MonoBehaviour:
     reward_id: 50014
     count: 1
     view_codex_id: codex_artifact_tube
-    coco_coment: "\"\uC774\uAC78 \uD0C0\uBA74 \uB098\uB3C4 \uBB3C\uC5D0 \uB465\uB465
-      \uB730 \uC218 \uC788\uC744\uAE4C?\""
+    coco_coment: "\"\uC774\uAC78 \uD0C0\uBA74 \uB098\uB3C4 \uBB3C\uC5D0 \uB465\uB465\n\uB730
+      \uC218 \uC788\uC744\uAE4C?\""
   - treasure_id: treasure_2_5_1
     treasureType: 1
     reward_id: 110002
@@ -326,7 +326,7 @@ MonoBehaviour:
     reward_id: 50018
     count: 1
     view_codex_id: codex_artifact_seaweed
-    coco_coment: "\"\uBB54\uAC00 \uC7AC\uBC0C\uC5B4 \uBCF4\uC5EC. \uB098\uB3C4 \uD568\uAED8
+    coco_coment: "\"\uBB54\uAC00 \uC7AC\uBC0C\uC5B4 \uBCF4\uC5EC.\n\uB098\uB3C4 \uD568\uAED8
       \uB180\uACE0 \uC2F6\uB2E4\u2026\""
   - treasure_id: treasure_2_7_3
     treasureType: 2
@@ -515,8 +515,7 @@ MonoBehaviour:
     reward_id: 50027
     count: 1
     view_codex_id: codex_artifact_umbrella
-    coco_coment: "\"\uC774\uB807\uAC8C \uB354\uC6B4 \uB0A0\uC5D0\uB294 \uB2F9\uC5F0\uD788
-      \uBB3C\uB180\uC774\uC9C0!\""
+    coco_coment: "\"\uC774\uB807\uAC8C \uB354\uC6B4 \uB0A0\uC5D0\uB294 \uB2F9\uC5F0\uD788\n\uBB3C\uB180\uC774\uC9C0!\""
   - treasure_id: treasure_3_7_3
     treasureType: 2
     reward_id: 10016
@@ -553,7 +552,7 @@ MonoBehaviour:
     count: 1
     view_codex_id: codex_artifact_jointring
     coco_coment: "\"\uBC84\uD314\uB85C\uAC00 \uBD84\uBA85 \uC783\uC5B4\uBC84\uB838\uB2E4\uACE0
-      \uD588\uC5C8\uB294\uB370, \uB0B4\uAC00 \uCC3E\uC544\uC11C \uB2E4\uD589\uC774\uC57C!\""
+      \uD588\uC5C8\uB294\uB370,\n\uB0B4\uAC00 \uCC3E\uC544\uC11C \uB2E4\uD589\uC774\uC57C!\""
   - treasure_id: treasure_3_9_3
     treasureType: 2
     reward_id: 10005
@@ -572,7 +571,7 @@ MonoBehaviour:
     count: 1
     view_codex_id: codex_artifact_pipe
     coco_coment: "\"\uC18C\uB9AC\uAC00 \uB4E4\uB9B0\uB2E4\uB294 \uAC83\uB9CC\uC73C\uB85C
-      \uC774\uB807\uAC8C \uC548\uC2EC\uB41C \uAC74 \uCC98\uC74C\uC774\uC57C!\""
+      \uC774\uB807\uAC8C\n\uC548\uC2EC\uB41C \uAC74 \uCC98\uC74C\uC774\uC57C!\""
   - treasure_id: treasure_3_10_3
     treasureType: 1
     reward_id: 110003
