@@ -61,11 +61,6 @@ public class LCocoDoogyMoveState : LobbyCharacterBaseState
             owner.StopAllCoroutines();
             agent.ResetPath();
         }
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
-        {
-            //fsm.ChangeState(new LCocoDoogyInteractState(owner, fsm, waypoints));
-            //fsm.ChangeState();
-        }
         // 이동 중 멈춤 감지
         if (!agent.isStopped && agent.velocity.sqrMagnitude < 0.01f)
         {

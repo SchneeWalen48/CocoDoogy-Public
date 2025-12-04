@@ -37,12 +37,6 @@ public class LMasterMoveState : LobbyCharacterBaseState
     {
         if (owner.gameObject.IsDestroyed()) owner.StopAllCoroutines();
         
-        // 코코두기 상호작용
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
-        {
-            //fsm.ChangeState(new LCocoDoogyInteractState(owner, fsm, waypoints));
-            //fsm.ChangeState();
-        }
         // 이동 중 멈춤 감지
         if (!agent.isStopped && agent.velocity.sqrMagnitude < 0.01f)
         {
