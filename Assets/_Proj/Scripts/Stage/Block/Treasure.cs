@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NUnit.Framework.Internal;
+using System;
 using UnityEngine;
 using UnityEngine.Splines;
 using static UnityEngine.ParticleSystem;
@@ -13,36 +14,65 @@ public class Treasure : MonoBehaviour
     private string treasureId;
     private bool isCollected = false;
     private SpriteRenderer sprite;
+    private int _glowColorID;
+    private int _baseColorID;
 
+    // KHJ - NOTE : 기존에는 aftifact타입이면 무조건 particle을 켜주게 되어 있었으나 기획팀 요청으로 파티클은 모두 끄고 sprite의 Color(Shader)를 변경해야 해서 전체적으로 수정함
     void Start()
     {
-        var progress = UserData.Local.progress.scores.TryGetValue(StageUIManager.Instance.stageManager.currentStageId, out var value) ? value : new();
+        _baseColorID = Shader.PropertyToID("_BaseColor");
+        _glowColorID = Shader.PropertyToID("_GlowColor");
 
+        var progress = UserData.Local.progress.scores.TryGetValue(StageUIManager.Instance.stageManager.currentStageId, out var value) ? value : new();
+        
         sprite = GetComponentInChildren<SpriteRenderer>();
-        // 이미 먹은 보물은 회색 표시
-        if (treasureIndex == 0 && progress.star_1_rewarded)
+
+        // 획득 상태 확인 및 처리
+        bool isAlreadyCollected = (treasureIndex == 0 && progress.star_1_rewarded) ||
+                                  (treasureIndex == 1 && progress.star_2_rewarded) ||
+                                  (treasureIndex == 2 && progress.star_3_rewarded);
+
+        if (isAlreadyCollected)
         {
-            // 시각적 표시
-            sprite.color = Color.gray;
-            //isCollected = true; // 다시 못먹게
+            // 획득 시 시각 효과(회색 처리, 파티클 끄기)
+            SetCollectedVisuals();
         }
-        if (treasureIndex == 1 && progress.star_2_rewarded)
-        {
-            sprite.color = Color.gray;
-        }
-        if (treasureIndex == 2 && progress.star_3_rewarded)
-        {
-            sprite.color = Color.gray;
-        }
-        //보물 data에서 view_codex_id로 codexData 접근해서 이미지 가져오기-보류, 파티클색깔 편하게 변경
+
+        // 보물 타입별 초기화
         var treasureData = DataManager.Instance.Treasure.GetData(treasureId);
+
+        // 아티팩트 파티클은 '획득하지 않은 상태'일 때만 활성화해야 함.
         if (treasureData.treasureType == TreasureType.artifact)
         {
-            //var data = DataManager.Instance.Codex.GetCodexIcon(treasureData.view_codex_id);
-            //sprite.sprite = data;
-            particle.SetActive(false);
-            artifactParticleSystem.SetActive(true);
+            // 획득하지 않았을 때만 artifactParticleSystem을 켜고, 일반 파티클은 끄기
+            if (!isAlreadyCollected)
+            {
+                particle.SetActive(false);
+                artifactParticleSystem.SetActive(true);
+            }
+            else
+            {
+                // 이미 획득했다면 SetCollectedVisuals에서 처리하지만, 혹시 모를 경우를 대비하여 모두 꺼주기
+                particle.SetActive(false);
+                artifactParticleSystem.SetActive(false);
+            }
         }
+        // artifact가 아닌 다른 타입의 보물은 일반 particle이 켜져 있어야 하므로 별도로 처리X
+    }
+
+    private void SetCollectedVisuals()
+    {
+        // 파티클 끄기
+        if (particle != null) particle.SetActive(false);
+        if (artifactParticleSystem != null) artifactParticleSystem.SetActive(false);
+
+        // 셰이더 색상 변경
+        if (sprite != null)
+        {
+            //sprite.material.SetColor(_baseColorID, new Color(0.5f, 0.5f, 0.5f, 1f));
+            sprite.material.SetColor(_glowColorID, new Color(0.6f, 0.6f, 0.6f, 1f)); 
+        }
+        // isCollected = true; 
     }
 
     public void Init(string id)
@@ -105,7 +135,8 @@ public class Treasure : MonoBehaviour
                 StageUIManager.Instance.OptionOpenButton.gameObject.SetActive(true);
                 joystick.IsLocked = false;
                 other.GetComponent<PlayerMovement>().enabled = true;
-                sprite.color = new Color(1, 1, 1, 0);
+                //sprite.color = new Color(1, 1, 1, 0);
+                sprite.gameObject.SetActive(false);
                 particle.SetActive(false);
                 artifactParticleSystem.SetActive(false);
                 StageUIManager.Instance.stageGetTreasureCount++;
