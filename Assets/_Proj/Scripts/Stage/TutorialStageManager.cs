@@ -140,6 +140,7 @@ public class TutorialStageManager : MonoBehaviour, IStageManager
         //6. 연출 종료 시부터 게임 시작.
 
 
+        StageUIManager.Instance.OptionOpenButton.gameObject.SetActive(true);
 
         //튜토리얼 스테이지 전용: 파이어베이스매니저가 불러올 맵데이터, 스테이지데이터 초기화.
         FirebaseManager.Instance.currentMapData = null;
