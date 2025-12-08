@@ -723,6 +723,10 @@ PrefabInstance:
       propertyPath: dimOverlay
       value: 
       objectReference: {fileID: 54818905}
+    - target: {fileID: 642287866348264164, guid: cc9eae4fae7d0dd4a861cd68da132a37, type: 3}
+      propertyPath: cashGoodsIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 8e97c92310637744781f5952082c2b73, type: 3}
     - target: {fileID: 663224348324094754, guid: cc9eae4fae7d0dd4a861cd68da132a37, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
