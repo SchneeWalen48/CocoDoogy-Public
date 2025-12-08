@@ -217,7 +217,7 @@ MonoBehaviour:
     shop_price: 1000
     shop_stock: 1
     shop_group: 0
-    shop_item_category: 7
+    shop_item_category: 6
   - shop_id: 80020
     shop_name: "\uBCBD\uB09C\uB85C"
     shop_icon: Icons/Deco/icon_deco_fireplace
@@ -258,7 +258,7 @@ MonoBehaviour:
     shop_price: 2000
     shop_stock: 5
     shop_group: 1
-    shop_item_category: 4
+    shop_item_category: 3
   - shop_id: 80024
     shop_name: "\uCF54\uC2A4\uD2AC \uD14C\uC2A4\uD2B8 2"
     shop_icon: Icons/Shop/icon_cowboy_hat
@@ -318,7 +318,7 @@ MonoBehaviour:
     shop_price: 2000
     shop_stock: 5
     shop_group: 1
-    shop_item_category: 2
+    shop_item_category: 3
   - shop_id: 80030
     shop_name: "\uCF54\uC2A4\uD2AC \uD14C\uC2A4\uD2B8 4"
     shop_icon: Icons/Shop/icon_cowboy_hat
@@ -348,7 +348,7 @@ MonoBehaviour:
     shop_price: 2000
     shop_stock: 5
     shop_group: 1
-    shop_item_category: 2
+    shop_item_category: 1
   - shop_id: 80033
     shop_name: "\uCF54\uC2A4\uD2AC \uD14C\uC2A4\uD2B8 5"
     shop_icon: Icons/Shop/icon_cowboy_hat
