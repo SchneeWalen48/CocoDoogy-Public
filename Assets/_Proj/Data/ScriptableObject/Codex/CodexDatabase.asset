@@ -504,17 +504,16 @@ MonoBehaviour:
     codex_type: 4
     item_id: 110002
     codex_lore: "\uC138\uC0C1\uC774 \uBA78\uB9DD\uD558\uACE0 \uC0AC\uB78C\uB4E4\uC774
-      \uD654\uD3D0\n\uB300\uC6A9\uC73C\uB85C \uC0AC\uC6A9\uD558\uAE30 \uC2DC\uC791\uD588\uC2B5\uB2C8\uB2E4."
+      \uD654\uD3D0\n\uB300\uC6A9\uC73C\uB85C \uC0AC\uC6A9\uD558\uAE30 \uC2DC\uC791\uD588\uB2E4."
     codex_display: System/icon_cap
     codex_icon: System/icon_cap
     codex_name: "\uBCD1\uB69C\uAED1"
   - codex_id: codex_artifact_coin
     codex_type: 4
     item_id: 110003
-    codex_lore: "\uC608\uC804\uC5D0\uB294 \uC774\uAC70\uB85C \uBB3C\uAC74\uC744 \uC0AC\uACE0
-      \uD314\uC558\uB2E4\uB124\uC694? \uBCD1\uB69C\uAED1\uC774 \uC788\uB294\uB370!
-      \uADF8\uB798\uB3C4 \uC790\uD310\uAE30 \uAC19\uC740 \uACF3\uC5D0 \uC0AC\uC6A9\uD560
-      \uC218 \uC788\uC744\uAC70\uC5D0\uC694"
+    codex_lore: "\uC608\uC804\uC5D0\uB294 \uCF54\uC778\uC73C\uB85C \uBB3C\uAC74\uC744
+      \uC0AC\uACE0\n\uD314\uC558\uB2E4. \uC790\uD310\uAE30 \uAC19\uC740 \uACF3\uC5D0\n\uC0AC\uC6A9\uD560
+      \uC218 \uC788\uB2E4."
     codex_display: System/icon_coin
     codex_icon: System/icon_coin
     codex_name: "\uC720\uB8CC \uCF54\uC778"
