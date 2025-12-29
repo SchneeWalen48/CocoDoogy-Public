@@ -1,4 +1,5 @@
 # 코코두기 [기업협약 프로젝트]
+![CocoDoogy Img](https://github.com/user-attachments/assets/67e5c563-42a1-46b3-be0c-827df09dee81)
 
 <br>
 
