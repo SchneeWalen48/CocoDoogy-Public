@@ -1,13 +1,10 @@
 <div align="center">
 
-# 🎮 CoCoDoogy  
+# 🎮 CocoDoogy  
 ### 소코반 규칙을 기반으로 한 3D 모바일 퍼즐 게임
-
-<br>
-
 <a href="https://youtu.be/tYxrHUkVdto">
-  <img width="60" height="60" alt="Youtube_logo"
-    src="" />
+  <img width="100" height="100" alt="Youtube_logo"
+    src="https://github.com/user-attachments/assets/2aa6f449-7ffa-4dd2-9086-232f5499456f" />
 </a>
 
 <br><br>
@@ -15,19 +12,19 @@
 <table>
   <tr>
     <td align="center" width="33%">
-      <img alt="Play_img" src="" width="100%" />
+      <img alt="Play_img" src="https://github.com/user-attachments/assets/dd34c8ad-a9d2-4054-9770-303827f1ca54" width="100%" />
       <br/>
       <b>퍼즐 플레이</b>
     </td>
     <td align="center" width="33%">
-      <img alt="Env_img" src="" width="100%" />
+      <img alt="Env_img" src="https://github.com/user-attachments/assets/1d9420ef-6cd9-45b8-8d9c-3cdee9d1de95" width="100%" />
       <br/>
-      <b>환경 기믹</b>
+      <b>기믹</b>
     </td>
     <td align="center" width="33%">
-      <img alt="UI_img" src="" width="100%" />
+      <img alt="UI_img" src="https://github.com/user-attachments/assets/1101aa67-0672-49a3-81bf-6977f11d6ee3" width="100%" />
       <br/>
-      <b>UI & 카메라</b>
+      <b>도움말</b>
     </td>
   </tr>
 </table>
@@ -47,33 +44,33 @@
 
 - [게임 소개](#-게임-소개)
 - [주요 구현 시스템](#-주요-구현-시스템)
-  - [조이스틱 & 플레이어 이동](#-조이스틱--플레이어-이동)
+  - [조이스틱 & 플레이어 이동](#-조이스틱과-플레이어-이동)
   - [PushableObjects 시스템](#-pushableobjects-시스템)
-  - [환경 기믹 (멧돼지 / 거북이 / 흐르는 물)](#-환경-기믹-멧돼지--거북이--흐르는-물)
-  - [충격파 & 시그널 기믹](#-충격파--시그널-기믹)
-  - [보물 & UI 연동](#-보물--ui-연동)
+  - [공통 환경 시스템](#-공통-환경-시스템)
+  - [환경 기믹 (멧돼지 / 거북이 / 버팔로 / 흐르는 물)](#-환경-기믹)
+  - [충격파 & 시그널 기믹](#shock-signal)
+  - [보물 & 스테이지 UI](#-보물과-스테이지-UI)
+  - [도움말](#-도움말)
   - [카메라 시스템](#-카메라-시스템)
-  - [빌드 버전 자동 관리](#-빌드-버전-자동-관리)
-- [기술 스택](#-기술-스택)
-- [설계 포인트](#-설계-포인트)
-- [개발자](#-개발자)
-
+  - [빌드 버전 자동화](#-빌드-버전-자동화)
+- [기술 스택](#tech-stack)
+- [설계 포인트](#point)
+- [개발자](#developer)
+  
 <br><br>
 
 ---
 
 ## 🎯 게임 소개
 
-**CocoDoogy(코코두기)**는  
-소코반 규칙을 기반으로 한 **그리드 퍼즐 게임**으로, 플레이어 이동과 다양한 환경·상호작용 기믹을 결합한 **3D 모바일 퍼즐 게임**입니다.
+**CocoDoogy(코코두기)**는 소코반 규칙을 기반으로 한 **그리드 퍼즐 게임**으로, 플레이어 이동과 다양한 환경·상호작용 기믹을 결합한 **3D 모바일 퍼즐 게임**입니다.
 
 - 플랫폼: Android  
 - 개발 엔진: Unity 6  
 - 개발 기간: 2025.10.16 ~ 2025.12.09  
 - 프로젝트 성격: 기업협약 팀 프로젝트 (개발 6명 / 기획 4명)
 
-> 본 README에는 팀 프로젝트 중 저는 **퍼즐 규칙 시스템, 플레이어 이동, 환경 기믹 아키텍처를 전담 설계·구현**했습니다.
-> 아래는 담당 파트 내용입니다.
+> 본 README에는 팀 프로젝트 중 제가 맡은 **퍼즐 규칙 시스템, 플레이어 이동, 환경 기믹 아키텍처를 전담 설계·구현**파트가 정리되어 있습니다.
 
 <br><br>
 
@@ -81,7 +78,7 @@
 
 ## 💻 주요 구현 시스템
 
-### 🎮 플레이어 & 입력 시스템
+### 🎮 조이스틱과 플레이어 이동
 
 #### [`Joystick.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Player/Joystick.cs)
 💡 **모바일 환경을 고려한 가상 조이스틱 입력 및 카메라 제어 시스템**
@@ -131,7 +128,7 @@
 
 ---
 
-### 📦 PushableObjects 시스템 (퍼즐 핵심)
+### 📦 PushableObjects 시스템
 
 #### [`PushableObjects.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/PushableObjects.cs)
 💡 **코코두기 퍼즐에서 이동·낙하·적층·충격 반응을 통합 관리하는 핵심 추상 클래스**
@@ -209,7 +206,7 @@
 
 ---
 
-### 🌊 환경 시스템 (공통)
+### 🌊 공통 환경 시스템
 
 #### [`Shockwave.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Shockwave.cs)
 💡 **여러 기믹에서 재사용되는 충격파(리프트) 환경 시스템**
@@ -239,7 +236,7 @@
 
 ---
 
-### 🐾 환경 기믹 오브젝트
+### 🐾 환경 기믹
 
 #### [`Boar.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Animals/Boar.cs)
 💡 **입력 방향 기반 체인 밀기 + 타일 단위 돌진형 기믹**
@@ -284,8 +281,6 @@
 
 ---
 
-### 🌊 Flow(흐르는 물) 환경 기믹
-
 #### [`Flow.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Stage/Block/Water/Flow.cs)
 💡 **물 타일 위 오브젝트를 주기적으로 이동시키는 환경 기믹**
 
@@ -301,7 +296,8 @@
 
 ---
 
-### 🛰️ 충격 감지 & 시그널 시스템
+<a id="shock-signal"></a>
+### 🛰️ 충격파와 시그널 기믹
 
 #### [`ShockDetectionTower.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/ShockDetectionTower.cs)
 💡 **충격파 감지 및 시그널 릴레이를 담당하는 감지탑**
@@ -363,7 +359,7 @@
 
 ---
 
-### 💎 보물 & UI 시스템
+### 💎 보물과 스테이지 UI
 
 #### [`Treasure.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Stage/Block/Treasure.cs)
 💡 **스테이지 보물 획득 처리 및 UI 흐름을 제어하는 보물 오브젝트 로직**
@@ -379,6 +375,19 @@
 
 <br>
 
+#### [`StageTitleInfo.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/UI/Option/StageTitleInfo.cs)
+#### [`StageTitleIngame.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/UI/Option/StageTitleIngame.cs)
+💡 **선택된 스테이지 정보를 UI에 표시하는 타이틀 컴포넌트**
+
+- **주요 기능**
+  - 스테이지 진입/인게임 화면에 현재 스테이지 정보를 표시하는 UI
+
+<br>
+
+---
+
+### 🧭 도움말
+
 #### [`GameInfoPopup.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/UI/Option/GameInfoPopup.cs)
 💡 **매뉴얼 데이터를 기반으로 도움말 UI를 동적으로 구성하는 팝업 시스템**
 
@@ -391,18 +400,6 @@
   - `BuildTabsFromCSV()`: 매뉴얼 데이터 목록을 기반으로 탭 버튼 생성
   - `LoadManual(int manualId)`: 선택된 매뉴얼 데이터 UI 반영
 
-<br>
-
----
-
-### 🧭 스테이지 UI
-
-#### [`StageTitleInfo.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/UI/Option/StageTitleInfo.cs)
-#### [`StageTitleIngame.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/UI/Option/StageTitleIngame.cs)
-💡 **선택된 스테이지 정보를 UI에 표시하는 타이틀 컴포넌트**
-
-- **주요 기능**
-  - 스테이지 진입/인게임 화면에 현재 스테이지 정보를 표시하는 UI
 
 <br>
 
@@ -427,7 +424,7 @@
 
 ---
 
-### 🔁 빌드 자동화
+### 🔁 빌드 버전 자동화
 
 #### [`AutoVersionIncrement.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Editor/AutoVersionIncrement.cs)
 💡 **빌드 시점마다 게임 버전을 자동 증가시키는 Editor 스크립트**
@@ -443,6 +440,7 @@
 
 ---
 
+<a id="tech-stack"></a>
 ## 🛠️ 기술 스택
 
 - **Language :** C#  
@@ -453,10 +451,10 @@
 
 ---
 
+<a id="point"></a>
 ## ⚙️ 설계 포인트
-
 🐶 **Strategy/Interface 기반 설계로 기믹 간 결합도 최소화**  
-🐶 **퍼즐 규칙의 일관성과 안정성을 우선**
+🐶 **퍼즐 규칙의 일관성과 안정성을 우선**  
 🐶 **모바일 환경을 고려한 입력 / 카메라 / UI 흐름 설계**  
 🐶 **환경·충격·시그널·UI 시스템을 명확히 역할 분리**  
 
@@ -464,9 +462,9 @@
 
 ---
 
-<div align="center">
-
+<a id="developer"></a>
 ## 👨‍💻 개발자
+<div align="center">
 
 **김현지**
 
