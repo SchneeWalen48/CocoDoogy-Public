@@ -40,35 +40,50 @@
 
 ---
 
-## 📋 목차
+## 📋 Table of Contents
 
-- [게임 소개](#-게임-소개)
-- [주요 구현 시스템](#-주요-구현-시스템)
-  - [조이스틱 & 플레이어 이동](#-조이스틱과-플레이어-이동)
-  - [PushableObjects 시스템](#-pushableobjects-시스템)
-  - [공통 환경 시스템](#-공통-환경-시스템)
-  - [환경 기믹 (멧돼지 / 거북이 / 버팔로 / 흐르는 물)](#-환경-기믹)
-  - [충격파 & 시그널 기믹](#shock-signal)
-  - [보물 & 스테이지 UI](#-보물과-스테이지-UI)
-  - [도움말](#-도움말)
-  - [카메라 시스템](#-카메라-시스템)
-  - [빌드 버전 자동화](#-빌드-버전-자동화)
-- [기술 스택](#tech-stack)
-- [설계 포인트](#point)
-- [개발자](#developer)
+- [Tech Stack](#tech-stack)
+- [Overview](#overview)
+- [Architecture](#architecture)
+- [Core Systems](#core-systems)
+  - [Player Movement & Input](#player-movement--input)
+  - [PushableObjects (Puzzle Rule Core)](#pushableobjects-puzzle-rule-core)
+  - [Animal Friends System & Environment](#animal-friends-system--environment)
+  - [Signal System](#signal-system)
+- [Shared Environment Systems](#shared-systems)
+  - [Shockwave System](#shockwave)
+  - [Range Visualization](#ringrange)
+- [Supporting Systems](#support-systems)
+  - [Game Info System](#info-system)
+  - [Camera & Player Experience](#camera--ux)
+  - [Treasure & Stage UI](#treasure--stage-ui)
+  - [Build & Tooling](#tooling)
+- [Developer](#developer)
   
 <br><br>
 
 ---
 
-## 🎯 게임 소개
+<a id="tech-stack"></a>
+## 🛠️ 기술 스택
 
-<strong>CocoDoogy(코코두기)</strong>는 소코반 규칙을 기반으로 한 **그리드 퍼즐 게임**으로, 플레이어 이동과 다양한 환경·상호작용 기믹을 결합한 **3D 모바일 퍼즐 게임**입니다.
+- **Language :** C#  
+- **Engine :** Unity 6
+- **Version Control :** GitHub (Fork 기반 협업)
+
+<br>
+
+---
+
+<a id="overview"></a>
+## 🎯 Overview
+
+<strong>CocoDoogy(코코두기)</strong>는 소코반 규칙을 기반으로 한 **그리드 퍼즐 게임**으로, 플레이어 이동과 다양한 환경·상호작용 기믹을 결합해 퍼즐 규칙을 확장한 **3D 모바일 퍼즐 게임**입니다.
 
 - 플랫폼: Android  
-- 개발 엔진: Unity 6  
+- 개발 엔진: Unity 6
 - 개발 기간: 2025.10.16 ~ 2025.12.09  
-- 프로젝트 성격: 기업협약 팀 프로젝트 (개발 6명 / 기획 4명)
+- 프로젝트 형태: 기업협약 팀 프로젝트 (개발 6명 / 기획 4명)
 
 > 본 README에는 팀 프로젝트 중 제가 맡은 **퍼즐 규칙 시스템, 플레이어 이동, 환경 기믹 아키텍처를 전담 설계·구현**파트가 정리되어 있습니다.
 
@@ -76,135 +91,167 @@
 
 ---
 
-## 💻 주요 구현 시스템
+<a id="point"></a>
+## ⚙️ Design Notes
+- **Strategy/Interface 기반 설계로 기믹 간 결합도 최소화**  
+- **퍼즐 규칙의 일관성과 안정성을 최우선으로 유지**  
+- **모바일 환경을 고려한 입력 / 카메라 / UI 흐름 설계**  
+- **환경·충격·시그널·UI 시스템의 책임 명확화**  
 
-### 🎮 조이스틱과 플레이어 이동
+<br><br>
 
-#### [`Joystick.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Player/Joystick.cs)
-💡 **모바일 환경을 고려한 가상 조이스틱 입력 및 카메라 제어 시스템**
+---
+<a id="architecture"></a>
+### 전체 아키텍처
 
-- **주요 기능**
-  - 터치 개수에 따른 입력 모드 분기
-    - 1손가락: 플레이어 이동
-    - 2손가락: 카메라 둘러보기(Look Around) 모드
-  - UI 위 터치 입력 차단
-  - 입력 각도 기반 방향 스냅 보정
-  - 방향 입력에 따른 UI 하이라이트 표시
+#### 📂 Source Entry
+- [`/Assets/_Proj/Scripts`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts)
 
-- **주요 메서드**
-  - `Drag(PointerEventData eventData)` / `Drag(Vector2 pos)`: 조이스틱 입력 처리
-  - `SnapDirection(Vector2 inputVector, bool enhanceFourDir)`: 입력 방향 스냅
+<img width="1348" height="952" alt="doogy whole architecture" src="https://github.com/user-attachments/assets/14a72f3f-993e-4fda-972a-65b4f572cc0c" />
 
-<br>
+### Pushables 플로우 차트
+<img width="642" height="1610" alt="doogy pushables flow chart" src="https://github.com/user-attachments/assets/e7cd9806-93b0-4c0d-85bb-d4c3d8967295" />
 
-#### [`PlayerMovement.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Player/PlayerMovement.cs)
-💡 **Rigidbody 기반 플레이어 이동 컨트롤러 (Strategy Pattern 적용)**
 
-- **주요 기능**
-  - 조이스틱 입력을 월드 방향을 전환
-  - Rigidbody 기반 이동 및 회전
-  - 퍼즐 상황별 이동 보정을 전략(IMoveStrategy)으로 분리
-  - 카메라 조작 중 이동 차단
-  - 상호작용 후 이동 잠금 처리
-  - 탑승(IRider) 상태에 따른 입력 제어
-
-- **주요 메서드**
-  - `FixedUpdate()`: 이동 파이프라인 실행
-  - `LockMove(float duration)`: 이동 잠금
-  - `To4Dir(Vector3 dir)`: 4방향 변환
-  - `OnStartRiding()` / `OnStopRiding()`: 탑승 상태에 따른 이동 활성/비활성 처리
+### 시그널 시스템 아키텍처
+<img width="874" height="626" alt="doogy signal system architecture" src="https://github.com/user-attachments/assets/c5491c19-4713-4d13-ac0b-6a5a94d259dd" />
+<a id="key-systems"></a>
 
 <br>
-
-#### [`IMoveStrategy.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/IMoveStrategy.cs)
-💡 **플레이어 이동 보정 로직을 분리하기 위한 전략 인터페이스**
-
-- **주요 기능**
-  - PlayerMovement와 이동 규칙 간 결합도 최소화
-  - 밀기, 경사, 스텝 등 퍼즐 상황별 이동 규칙을 전략 단위로 분리
-
-- **주요 메서드**
-  - `Execute(Vector3 moveDir, ...)`: 이동 방향 및 보정 오프셋 반환
 
 ---
 
-### 📦 PushableObjects 시스템
+<a id="core-systems"></a>
+## 🏅 Core Systems
 
-#### [`PushableObjects.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/PushableObjects.cs)
-💡 **코코두기 퍼즐에서 이동·낙하·적층·충격 반응을 통합 관리하는 핵심 추상 클래스**
+#### 🔗 Detailed Design & Flow
+<a href="노션 링크 나중에 첨부"><img with = "50" height="50" alt="notion icon" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1570106347/noticon/hx52ypkqqdzjdvd8iaid.svg" /> 노션 기술문서 링크</a>
+
+<a id="player-movement--input"></a>
+### 🎮 Player Movement & Input
+
+#### 📂 Code Reference
+- [`/Scripts/Player`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Player)
+
+💡 **모바일 환경을 고려한 입력·이동 시스템으로, 플레이어 조작과 퍼즐 규칙 간 결합도를 최소화하도록 설계**
 
 - **주요 기능**
-  - 퍼즐 오브젝트의 이동, 낙하, 적층, 충격 반응을 **공통 규칙**으로 처리
-  - Push / Flow / Shockwave 등 다양한 환경에서도 **동일한 이동 규칙 유지**
-  - 타일 단위 이동 및 적층(탑승) 구조 관리
-  - 충격파에 의한 Lift 처리
-  - Flow(물) 환경에서 체인 적층 유지 여부를 감시하고 조건 불충족 시 자동 해제
+  - 가상 조이스틱 기반 입력 처리
+    - 터치 개수에 따른 입력 모드 분기
+      - 1손가락: 플레이어 이동
+      - 2손가락: 카메라 둘러보기(Look Around) 모드
+    - UI 위 터치 입력 차단 및 입력 각도 기반 방향 스냅
+  - Rigidbody 기반 이동 파이프라인 구성
+  - 퍼즐 상황별 이동 보정을 Strategy 패턴으로 분리
+  - 카메라 조작, 상호작용, 탑승(IRider) 상태에 따른 입력 제어
 
-- **주요 메서드**
-  - `TryPush(Vector2Int dir, ...)`: 이동 시도
-  - `MoveTo(Vector3 target, ...)`: 실제 이동 처리
-  - `CheckFall()`: 낙하 및 착지 처리
-  - `WaveLift(float rise, float hold, float fall)`: 충격 반응 처리
+<br>
+
+---
+
+<a id="pushableobjects-puzzle-rule-core"></a>
+### 📦 PushableObjects (Puzzle Rule Core)
+
+#### 📂 Code Reference
+- [`/Scripts/Gimmicks/Objects`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects)
+
+💡 **코코두기 퍼즐에서 모든 이동 규칙을 단일 파이프라인으로 관리하는 핵심 규칙 시스템**
+
+- **주요 기능**
+  - 이동·낙하·적층·충격 반응을 **공통 규칙**으로 처리
+  - 플레이어·동물·환경 등 다양한 환경에서도 **동일한 이동 규칙 유지**
+  - 규칙 우회 이동 방지로 퍼즐 안정성 확보
 
 <br>
 
 #### [`IPushHandler.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/IPushHandler.cs)
 💡 **플레이어 입력과 퍼즐 규칙을 분리하기 위한 인터페이스**
 
-**주요 기능**
-- 플레이어는 “밀기 시도”만 전달
-- 실제 이동 규칙은 PushableObjects가 전담
+  - 플레이어는 “밀기 시도”만 전달
+  - 실제 이동 판단과 실행은 PushableObjects가 전담
 
 <br>
 
 #### [`IRider.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/IRider.cs)
-💡 **적층(탑승) 구조를 처리하기 위한 인터페이스**
+💡 **탑승(적층) 구조를 처리하기 위한 인터페이스**
 
-- **주요 기능**
-  - 이동 중 상단 오브젝트를 함께 이동시키기 위한 동기화 처리
-
-- **주요 메서드**
-  - `OnStartRiding()` / `OnStopRiding()`
+  - 상단 오브젝트를 함께 이동시키기 위한 동기화 처리
+  - 이동 규칙을 변경하지 않고 적층 퍼즐 구현 가능
 
 <br>
 
 #### [`PushableBox.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/PushableBox.cs)
 💡 **기본 밀기 퍼즐 오브젝트**
 
-- **주요 기능**
-  - PushableObjects의 기본 이동 규칙만을 사용하는 기준 퍼즐 오브젝트
+  - PushableObjects의 기본 이동 규칙만을 그대로 따르는 최소 구현체
 
 <br>
 
 #### [`PushableOrb.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/PushableOrb.cs)
-💡 **착지 시 충격파를 발생시키고 감지탑으로 신호를 전달하는 확장 PushableObject**
+💡 **이동 규칙은 유지하면서, 착지 이벤트를 퍼즐 트리거로 확장한 오브젝트**
 
-- **주요 기능**
-  - 낙하 착지 시 충격파를 발생시켜 주변 퍼즐 오브젝트에 영향
-  - 충격 이벤트를 감지탑으로 전달하는 퍼즐 핵심 트리거
-
-- **주요 메서드**
-  - `FixedUpdate()`: SphereCast로 착지 여부 감지
-  - `OnLanded()`: 착지 완료 시 충격파 발생 조건 검사
-  - `TryFireShockwave()`: 쿨타임 및 상태 검사 후 충격파 실행
-  - `IsImmuneToWaveLift()`: Orb 자신에 대한 Lift 면역 판정
+  - 낙하 착지 시 충격파를 발생시키는 특수 퍼즐 요소
+  - 충격 이벤트를 감지탑 및 문으로 전달
+  - 기존 이동 규칙을 수정하지 않고 퍼즐 흐름 확장
 
 <br>
 
 ---
 
-#### [`ShockPing.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/ShockPing.cs)
-💡 **충격파 발생 시 반경 내 감지탑으로 신호를 전달하는 중계 컴포넌트**
+<a id="animal-friends-system--environment"></a>
+### 🐾 Animal Friends System & Environment
+
+#### 📂 Code Reference
+- [`/Scripts/Gimmicks/Animals`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Animals)
+- [`/Scripts/Stage/Block/Water](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Stage/Block/Water)
+
+💡 **퍼즐 규칙을 직접 변경하지 않고, 플레이어의 이동 방식과 퍼즐 흐름을 확장하는 상호작용 기반 기믹 시스템**
 
 - **주요 기능**
-  - 충격파 기준 반경 내 감지탑을 탐색하여 신호 전달
+  - PushableObjects의 이동 규칙을 그대로 사용
+  - 규칙을 바꾸지 않고, 규칙을 사용하는 방식만 확장하는 설계
+  - 각 동물은 서로 다른 상호작용을 제공하지만, 동일한 이동 규칙 파이프라인을 공유
 
-- **주요 메서드**
-  - `PingTowers(Vector3 origin)`: 반경 내 감지탑에 충격 신호 전달
+<br>
+
+#### 🐗 Boar
+💡 **직선 돌진을 통해 퍼즐 오브젝트 체인을 이동시키는 돌진·충돌형 기믹**
+
+  - 입력 방향으로 돌진하며 전방 퍼즐 오브젝트 체인을 밀어냄
+  - 수평 체인과 적층 구조를 함께 고려한 퍼즐 상호작용 제공
+  - 이동 규칙은 PushableObjects에 위임
+
+<br>
+
+#### 🐢 Turtle
+💡 **빙판 규칙 기반 연속 이동 + 탑승 구조를 결합한 이동 보조 기믹**
+
+  - 장애물에 부딪힐 때까지 자동 이동하는 슬라이드 퍼즐 기믹
+  - 이동 중 상단 오브젝트를 함께 이동시키는 탑승 구조 제공
+
+<br>
+
+#### 🐃 Buffalo
+💡 **충격파를 통해 퍼즐 상태 변화를 유도하는 고정형 환경 기믹**
+
+  - 플레이어 상호작용을 트리거로 충격파를 발생
+  - 쿨타임 기반 재사용 제한으로 퍼즐 흐름 제어
 
 <br>
 
 ---
+
+#### 🌊 Flow Water (Environment)
+💡 **물 타일 위 오브젝트의 주기적인 이동을 유도하는 환경 보조 기믹**
+
+  - 물 타일 위에 놓인 퍼즐 오브젝트를 주기적으로 이동
+  - 이동 대상 및 방향 결정은 공통 규칙으로 처리
+  - 실제 이동 방식은 전략 패턴으로 분리하여 확장성 확보
+
+<br>
+
+---
+
 
 ### 🌊 공통 환경 시스템
 
@@ -222,6 +269,19 @@
 
 <br>
 
+#### [`ShockPing.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/ShockPing.cs)
+💡 **충격파 발생 시 반경 내 감지탑으로 신호를 전달하는 중계 컴포넌트**
+
+- **주요 기능**
+  - 충격파 기준 반경 내 감지탑을 탐색하여 신호 전달
+
+- **주요 메서드**
+  - `PingTowers(Vector3 origin)`: 반경 내 감지탑에 충격 신호 전달
+
+<br>
+
+---
+
 #### [`RingRange.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Animals/RingRange.cs)
 💡 **범위(원형/부채꼴) 시각화를 위한 공용 링 렌더링 컴포넌트**
 
@@ -234,65 +294,6 @@
 
 <br>
 
----
-
-### 🐾 환경 기믹
-
-#### [`Boar.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Animals/Boar.cs)
-💡 **입력 방향 기반 체인 밀기 + 타일 단위 돌진형 기믹**
-
--- **주요 기능**
-  - 입력 방향으로 돌진하며 전방 퍼즐 오브젝트 체인을 밀어내는 기믹
-  - 수평 체인과 적층 구조를 함께 고려한 퍼즐 상호작용 처리
-
-- **주요 메서드**
-  - `DashCoroutine(Vector3 moveDir, Vector2Int dashDir)`: 돌진 루프(전방 검사, 체인 수집, 밀기, 낙하 처리)
-  - `CollectVerticalStack(Vector3 baseWorldPos, float yFloor)`: 충돌 지점의 수직 스택 수집
-  - `CollectChain(Vector3 headWorldPos, Vector2Int dir, ...)`: 수평 체인(스택 묶음) 수집
-
-<br>
-
-#### [`Turtle.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Animals/Turtle.cs)
-💡 **빙판 규칙 기반 연속 이동 + 탑승 기믹**
-
-- **주요 기능**
-  - 장애물에 부딪힐 때까지 자동 이동하는 슬라이드 퍼즐 기믹
-  - 이동 중 상단 오브젝트를 함께 이동시키는 탑승 구조 처리
-
-- **주요 메서드**
-  - `GetDirection(Vector2Int dir)`: 이동 방향 입력 처리
-  - `CalculateSlideTarget(Vector3 dir)`: 장애물 충돌 지점까지 슬라이드 목표 위치 계산
-  - `MoveSlideCoroutine(Vector3 dir, Vector3 startPos, Vector3 endPos)`: 슬라이드 이동 및 탑승 동기화
-
-<br>
-
-#### [`Buffalo.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Animals/Buffalo.cs)
-💡 **충격파를 발생시키는 고정형 환경 기믹**
-
-- **주요 기능**
-  - 플레이어 상호작용을 트리거로 충격파를 발생시키는 대형 기믹
-  - 쿨타임 기반 재사용 제한 처리
-
-- **주요 메서드**
-  - `Interact()`: 상호작용 시작(충격파 코루틴 + 쿨타임 코루틴)
-  - `WaveRunCoroutine()`: 충격파 실행 흐름
-
-<br>
-
----
-
-#### [`Flow.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Stage/Block/Water/Flow.cs)
-💡 **물 타일 위 오브젝트를 주기적으로 이동시키는 환경 기믹**
-
-- **주요 기능**
-  - 물 타일 위에 놓인 퍼즐 오브젝트를 주기적으로 이동
-  - 이동 대상 및 방향 결정은 공통 규칙으로 처리
-  - 실제 이동 방식은 전략(`IFlowStrategy`)으로 분리
-
-- **주요 메서드**
-  - `FlowObjsCoroutine()`: 물 타일 위 오브젝트 이동 처리
-
-<br>
 
 ---
 
@@ -437,28 +438,6 @@
   - `OnPreprocessBuild(BuildReport report)`: 빌드 전 버전 갱신
 
 <br>
-
----
-
-<a id="tech-stack"></a>
-## 🛠️ 기술 스택
-
-- **Language :** C#  
-- **Engine :** Unity 6  
-- **Version Control :** GitHub (Fork 기반 협업)
-
-<br>
-
----
-
-<a id="point"></a>
-## ⚙️ 설계 포인트
-🐶 **Strategy/Interface 기반 설계로 기믹 간 결합도 최소화**  
-🐶 **퍼즐 규칙의 일관성과 안정성을 우선**  
-🐶 **모바일 환경을 고려한 입력 / 카메라 / UI 흐름 설계**  
-🐶 **환경·충격·시그널·UI 시스템을 명확히 역할 분리**  
-
-<br><br>
 
 ---
 
