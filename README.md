@@ -45,6 +45,7 @@
 - [Tech Stack](#tech-stack)
 - [Overview](#overview)
 - [Architecture](#architecture)
+- [Design Notes](#point)
 - [Core Systems](#core-systems)
   - [Player Movement & Input](#player-movement--input)
   - [PushableObjects (Puzzle Rule Core)](#pushableobjects-puzzle-rule-core)
@@ -54,9 +55,9 @@
   - [Shockwave System](#shockwave)
   - [Range Visualization](#ringrange)
 - [Supporting Systems](#support-systems)
+  - [Treasure & Stage UI](#treasure--stage-ui)
   - [Game Info System](#info-system)
   - [Camera & Player Experience](#camera--ux)
-  - [Treasure & Stage UI](#treasure--stage-ui)
   - [Build & Tooling](#tooling)
 - [Developer](#developer)
   
@@ -65,7 +66,7 @@
 ---
 
 <a id="tech-stack"></a>
-## 🛠️ 기술 스택
+## 🛠️ Tech Stack
 
 - **Language :** C#  
 - **Engine :** Unity 6
@@ -91,6 +92,32 @@
 
 ---
 
+<a id="architecture"></a>
+### 전체 아키텍처
+
+#### 📂 Source Entry
+- [`/Assets/_Proj/Scripts`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts)
+
+<div align="center"><a href="https://github.com/user-attachments/assets/14a72f3f-993e-4fda-972a-65b4f572cc0c"><img width="800" alt="doogy whole architecture" src="https://github.com/user-attachments/assets/14a72f3f-993e-4fda-972a-65b4f572cc0c" /></a></div>
+
+<br>
+
+---
+
+### Pushables 플로우 차트
+<div align="center"><a href="https://github.com/user-attachments/assets/e7cd9806-93b0-4c0d-85bb-d4c3d8967295"><img height="650" alt="doogy pushables flow chart" src="https://github.com/user-attachments/assets/e7cd9806-93b0-4c0d-85bb-d4c3d8967295" /></a></div>
+
+<br>
+
+---
+
+### 시그널 시스템 아키텍처
+<div align="center"><a href="https://github.com/user-attachments/assets/c5491c19-4713-4d13-ac0b-6a5a94d259dd"><img width="700" alt="doogy signal system architecture" src="https://github.com/user-attachments/assets/c5491c19-4713-4d13-ac0b-6a5a94d259dd" /></a></div>
+
+<br>
+
+---
+
 <a id="point"></a>
 ## ⚙️ Design Notes
 - **Strategy/Interface 기반 설계로 기믹 간 결합도 최소화**  
@@ -101,31 +128,12 @@
 <br><br>
 
 ---
-<a id="architecture"></a>
-### 전체 아키텍처
-
-#### 📂 Source Entry
-- [`/Assets/_Proj/Scripts`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts)
-
-<img width="1348" height="952" alt="doogy whole architecture" src="https://github.com/user-attachments/assets/14a72f3f-993e-4fda-972a-65b4f572cc0c" />
-
-### Pushables 플로우 차트
-<img width="642" height="1610" alt="doogy pushables flow chart" src="https://github.com/user-attachments/assets/e7cd9806-93b0-4c0d-85bb-d4c3d8967295" />
-
-
-### 시그널 시스템 아키텍처
-<img width="874" height="626" alt="doogy signal system architecture" src="https://github.com/user-attachments/assets/c5491c19-4713-4d13-ac0b-6a5a94d259dd" />
-<a id="key-systems"></a>
-
-<br>
-
----
 
 <a id="core-systems"></a>
 ## 🏅 Core Systems
 
 #### 🔗 Detailed Design & Flow
-<a href="노션 링크 나중에 첨부"><img with = "50" height="50" alt="notion icon" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1570106347/noticon/hx52ypkqqdzjdvd8iaid.svg" /> 노션 기술문서 링크</a>
+<a href="노션 링크 나중에 첨부"><img with = "20" height="20" alt="notion icon" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1570106347/noticon/hx52ypkqqdzjdvd8iaid.svg" /> 노션 기술문서 링크</a>
 
 <a id="player-movement--input"></a>
 ### 🎮 Player Movement & Input
@@ -203,7 +211,7 @@
 
 #### 📂 Code Reference
 - [`/Scripts/Gimmicks/Animals`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Animals)
-- [`/Scripts/Stage/Block/Water](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Stage/Block/Water)
+- [`/Scripts/Stage/Block/Water`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Stage/Block/Water)
 
 💡 **퍼즐 규칙을 직접 변경하지 않고, 플레이어의 이동 방식과 퍼즐 흐름을 확장하는 상호작용 기반 기믹 시스템**
 
@@ -214,6 +222,7 @@
 
 <br>
 
+
 #### 🐗 Boar
 💡 **직선 돌진을 통해 퍼즐 오브젝트 체인을 이동시키는 돌진·충돌형 기믹**
 
@@ -223,6 +232,7 @@
 
 <br>
 
+
 #### 🐢 Turtle
 💡 **빙판 규칙 기반 연속 이동 + 탑승 구조를 결합한 이동 보조 기믹**
 
@@ -230,6 +240,7 @@
   - 이동 중 상단 오브젝트를 함께 이동시키는 탑승 구조 제공
 
 <br>
+
 
 #### 🐃 Buffalo
 💡 **충격파를 통해 퍼즐 상태 변화를 유도하는 고정형 환경 기믹**
@@ -239,7 +250,6 @@
 
 <br>
 
----
 
 #### 🌊 Flow Water (Environment)
 💡 **물 타일 위 오브젝트의 주기적인 이동을 유도하는 환경 보조 기믹**
@@ -252,190 +262,146 @@
 
 ---
 
+<a id="signal-system"></a>
+### 🛰️ Signal System
 
-### 🌊 공통 환경 시스템
+#### 📂 Code Reference
+- [`Scripts/Gimmicks/Objects`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects)
+- [`/Scripts/Stage/Block`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Stage/Block)
+
+💡 **충격, 감지, 조건 충족 등의 이벤트를 직접적인 참조 없이 시그널로 연결하여 퍼즐 상태 변화를 제어하는 기믹 시스템**
+
+#### 🚦 Signal Interface
+
+  - 시그널 송신자(Sender)와 수신자(Receiver)를 분리하는 공통 인터페이스
+  - 감지탑, 터렛, 스위치 등 다양한 기믹 조합 지원
+  - 특정 기믹에 종속되지 않는 시그널 흐름 구성
+
+<br>
+
+#### 🗼 ShockDetectionTower
+
+  - 충격파 이벤트를 감지하여 시그널로 변환하는 감지 기믹
+  - 쿨타임 기반 중복 감지 방지
+  - 인접 감지탑으로 이벤트 릴레이하여 전파
+  - Door 등 시그널 수신 기믹과 연결되어 상태 변화 유도
+
+<br>
+
+#### 💿 Turret
+
+  - 시야각(FOV) 및 반경 기준으로 타겟을 감지하는 감시 기믹
+  - 감지 상태에 따라 시그널을 송신하여 퍼즐 조건 제어
+  - 감지 범위와 상태를 시각적으로 표현하여 플레이어에게 피드백 제공
+
+<br>
+
+#### 🚪 Door
+
+  - 시그널 수신에 따라 열림/닫힘 상태가 변경되는 퍼즐 오브젝트
+  - 외부 기믹 조건에 의해 상테가 제어됨
+  - 조건 충족 시 영구 개방 등 퍼즐 설계 확장
+
+<br>
+
+---
+
+<a id="shared-systems"></a>
+## 🌊 Shared Environment Systems
+
+💡 **여러 기믹에서 공통으로 사용되는 환경·보조 시스템으로, 특정 도메인에 종속되지 않고 퍼즐 상호작용을 지원하는 역할 담당**
+
+<a id="shockwave"></a>
+### ⚫ Shockwave Systems
 
 #### [`Shockwave.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Shockwave.cs)
-💡 **여러 기믹에서 재사용되는 충격파(리프트) 환경 시스템**
 
-- **주요 기능**
   - 반경 내 퍼즐 오브젝트에 충격(리프트) 효과를 전달하는 공용 환경 시스템
-  - 동일 좌표 기반 적층 구조를 고려한 충격 전파 처리
+  - 적층 구조를 고려한 충격 전파 처리로 퍼즐 안정성 유지
   - 차폐(Occlusion) 옵션을 통한 충격 전파 제어
-
-- **주요 메서드**
-  - `Fire(Vector3 origin, float tile, ...)`: 지정 조건에 따라 충격파 실행
-  - `IsLineBlocked(Vector3 origin, Collider targetCol, ...)`: 차폐 여부 검사(RaycastAll)
 
 <br>
 
 #### [`ShockPing.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/ShockPing.cs)
-💡 **충격파 발생 시 반경 내 감지탑으로 신호를 전달하는 중계 컴포넌트**
 
-- **주요 기능**
-  - 충격파 기준 반경 내 감지탑을 탐색하여 신호 전달
-
-- **주요 메서드**
-  - `PingTowers(Vector3 origin)`: 반경 내 감지탑에 충격 신호 전달
+  - 충격파 발생 시 반경 내 감지탑으로 이벤트를 전달하는 중계 컴포넌트
+  - Shockwave와 감지탑(타워) 간 직접 의존을 제거하는 역할
 
 <br>
 
----
+<a id="ringrange"></a>
+### 🟢 Range Visualization
 
 #### [`RingRange.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Animals/RingRange.cs)
-💡 **범위(원형/부채꼴) 시각화를 위한 공용 링 렌더링 컴포넌트**
 
-- **주요 기능**
-  - 충격, 감지, 상호작용 범위를 원형 또는 부채꼴 형태로 시각화
-  - 반경 및 각도 변경에 대응한 실시간 범위 갱신
-
-- **주요 메서드**
-  - `RebuildAll()`: 범위 시각화 재구성
-
-<br>
-
-
----
-
-<a id="shock-signal"></a>
-### 🛰️ 충격파와 시그널 기믹
-
-#### [`ShockDetectionTower.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/ShockDetectionTower.cs)
-💡 **충격파 감지 및 시그널 릴레이를 담당하는 감지탑**
-
-- **주요 기능**
-  - 충격파 이벤트를 수신하여 시그널로 변환
-  - 쿨타임 기반 중복 감지 방지
-  - 인접 감지탑으로 이벤트 릴레이 전파
-  - Door 등 시그널 수신 기믹과 연결
-
-- **주요 메서드**
-  - `ReceiveShock(Vector3 origin)`: 충격 이벤트 수신
-  - `SendSignal()`: 연결된 수신기에 시그널 전달
-  - `RelayToNearbyTowers(Vector3 origin)`: 인접 감지탑으로 충격 이벤트 전파
-
-<br>
-
-#### [`Turret.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/Turret.cs)
-💡 **시야각(FOV) 기반 타겟 감지 후 문을 제어하는 감시 기믹**
-
-- **주요 기능**
-  - 반경 및 시야각(FOV) 기준 타겟 감지
-  - 감지 상태에 따라 시그널 전송
-  - 탐지 범위 및 상태를 시각적으로 표시
-
-- **주요 메서드**
-  - `DetectTarget()`: 타겟 감지 처리
-  - `UpdateRingColour(bool detected)`: 감지 상태 시각화
-
-<br>
-
-#### [`ISignals.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Stage/Block/Interfaces/ISignals.cs)
-💡 **시그널 송·수신을 분리하기 위한 인터페이스 정의**
-
-- **주요 기능**
-  - Sender / Receiver 구조로 기믹 간 결합도 최소화
-  - 감지탑, 터렛, 스위치 등 다양한 기믹 조합 지원
-
-- **주요 메서드**
-  - `SendSignal()`: 시그널 송신
-  - `ReceiveSignal()`: 시그널 수신
-
-<br>
-
-#### [`DoorBlock.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Stage/Block/DoorBlock.cs)
-💡 **시그널 수신에 따라 열리고 닫히는 문 기믹**
-
-- **주요 기능**
-  - 외부 기믹의 시그널을 수신하여 문 상태 제어
-  - 열림 / 닫힘 상태에 따른 충돌 처리
-  - 조건에 따라 영구 개방 상태 지원
-
-- **주요 메서드**
-  - `ReceiveSignal()`: 시그널 수신 시 문 상태 토글
-  - `ToggleDoor(bool open)`: 문 애니메이션 및 콜라이더 상태 전환
-  - `OpenPermanently()`: 충격 감지탑 조건에 따른 영구 개방 처리
+  - 충격, 감지, 상호작용 범위를 시각하기 위한 공용 렌더링 컴포넌트
+  - 원형·부채꼴 범위를 지원하여 다양한 기믹에서 재사용
+  - 반경 및 각도 변경에 대응하여 실시간으로 시각 요소 갱신
 
 <br>
 
 ---
 
-### 💎 보물과 스테이지 UI
+<a id="support-systems"></a>
+## 🏅 Supporting Systems
 
-#### [`Treasure.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Stage/Block/Treasure.cs)
-💡 **스테이지 보물 획득 처리 및 UI 흐름을 제어하는 보물 오브젝트 로직**
-
-- **주요 기능**
-  - 보물 획득 여부에 따라 상호작용 처리
-  - 획득 시 UI 표시 및 입력 제어
-  - 수집 완료 상태에 따른 시각 효과 반영
-
-- **주요 메서드**
-  - `Init(string id)`: 보물 ID 초기화
-  - `OnTriggerEnter(Collider other)`: 플레이어 충돌 시 보물 획득 및 UI 처리
+💡 **퍼즐 규칙에는 직접 관여하지 않지만, 플레이 흐름·정보 전달·연출 완성도를 책임지는 보조 시스템**
 
 <br>
 
-#### [`StageTitleInfo.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/UI/Option/StageTitleInfo.cs)
-#### [`StageTitleIngame.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/UI/Option/StageTitleIngame.cs)
-💡 **선택된 스테이지 정보를 UI에 표시하는 타이틀 컴포넌트**
+<a id="treasure--stage-ui"></a>
+### 💎 Treasure & Stage UI
 
-- **주요 기능**
-  - 스테이지 진입/인게임 화면에 현재 스테이지 정보를 표시하는 UI
+#### 📂 Code Reference
+- [`Treasure.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Stage/Block/Treasure.cs)
+- [`/Assets/_Proj/Script/UI/Option`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/UI/Option)
+💡 **퍼즐 목표 인식 → 보상 → 다음 행동 유도의 UX 흐름을 담당**
+
+  - 스테이지 내 핵심 목표 요소(보물)의 획득 상태를 관리
+  - 획득 시 입력 제어 및 UI 피드백을 통해 플레이 흐름을 명확히 전달
+  - 스테이지 진입/인게임 상황에 맞춰 현재 스테이지 정보를 표시
 
 <br>
 
 ---
 
-### 🧭 도움말
+<a id="info-system"></a>
+### 🧭 Game Info System
 
 #### [`GameInfoPopup.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/UI/Option/GameInfoPopup.cs)
-💡 **매뉴얼 데이터를 기반으로 도움말 UI를 동적으로 구성하는 팝업 시스템**
+💡 **초기 1회 튜토리얼 이후, 플레이 중 자율 학습을 유도하는 정보 시스템**
 
-- **주요 기능**
-  - DataManager에 로드된 매뉴얼 데이터를 기반으로 탭 버튼 동적 생성
-  - 탭 선택 시 매뉴얼 ID에 해당하는 제목, 설명, 이미지 갱신
-  - 선택된 탭에 대한 시각적 강조 처리
-
-- **주요 메서드**
-  - `BuildTabsFromCSV()`: 매뉴얼 데이터 목록을 기반으로 탭 버튼 생성
-  - `LoadManual(int manualId)`: 선택된 매뉴얼 데이터 UI 반영
-
+  - 매뉴얼 데이터를 기반으로 도움말 UI를 동적으로 구성
+  - 탭 구조를 통해 퍼즐 기믹, 조작 방법, 규칙 등을 안내
+  - 최초 1회 필수 튜토리얼 이후, 필요 시 언제든 확인 가능한 도움말 구조
+  - 기획 데이터 변경 시 코드 수정 없이 도움말 확장 가능
 
 <br>
 
 ---
 
-### 🎥 카메라 시스템
+<a id="camera--ux"></a>
+### 🎥 Camera & Player Experience
 
 #### [`CamControl.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Camera/CamControl.cs)
 💡 **플레이어 추적, 둘러보기, 스테이지 카메라 워킹을 담당하는 카메라 컨트롤러**
 
-- **주요 기능**
-  - 플레이어 추적 모드와 자유 시점 모드 전환
-  - 드래그 입력을 통한 카메라 둘러보기
-  - 스테이지 연출용 카메라 워킹 지원
-
-- **주요 메서드**
-  - `FixedUpdate()`: 카메라 위치 갱신
-  - `SetFollowingPlayer(bool follow)`: 추적 상태 전환
-
+  - 플레이어 추적, 자유 시점, 연출용 카메라 워킹을 상황에 따라 전환
+  - 입력 상태 및 게임 흐름에 따라 카메라 제어 방식 분리
+  - 퍼즐 플레이 방해 없이 공간 인식과 몰입도를 유지하도록 설계
 
 <br>
 
 ---
-
-### 🔁 빌드 버전 자동화
+<a id="tooling"></a>
+### 🔁 Build & Tooling
 
 #### [`AutoVersionIncrement.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Editor/AutoVersionIncrement.cs)
-💡 **빌드 시점마다 게임 버전을 자동 증가시키는 Editor 스크립트**
+💡 **개발 편의성과 빌드 기록을 위한 내부 도구**
 
-- **주요 기능:**
-  - 빌드 시 버전 자동 증가
-  - 수동 버전 관리 실수 방지
-
-- **주요 메서드:**
-  - `OnPreprocessBuild(BuildReport report)`: 빌드 전 버전 갱신
+  - 빌드 시점마다 게임 버전 자동으로 증가
+  - 수동 버전 관리로 인한 실수 방지
+  - 팀 협업 환경에서 빌드 결과 추적 용이성 확보
 
 <br>
 
