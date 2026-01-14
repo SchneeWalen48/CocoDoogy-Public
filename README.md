@@ -86,7 +86,7 @@
 - 개발 기간: 2025.10.16 ~ 2025.12.09  
 - 프로젝트 형태: 기업협약 팀 프로젝트 (개발 6명 / 기획 4명)
 
-> 본 README에는 팀 프로젝트 중 제가 맡은 **퍼즐 규칙 시스템, 플레이어 이동, 환경 기믹 아키텍처를 전담 설계·구현**파트가 정리되어 있습니다.
+> 본 README에는 팀 프로젝트 중 제가 맡은 **퍼즐 규칙 시스템, 플레이어 이동, 환경 기믹 아키텍처를 전담 설계·구현** 파트가 정리되어 있습니다.
 
 <br><br>
 
@@ -132,9 +132,9 @@
 <a id="core-systems"></a>
 ## 🏅 Core Systems
 
-#### 🔗 Detailed Design & Flow
+<!-- #### 🔗 Detailed Design & Flow
 <a href="노션 링크 나중에 첨부"><img with = "20" height="20" alt="notion icon" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1570106347/noticon/hx52ypkqqdzjdvd8iaid.svg" /> 노션 기술문서 링크</a>
-
+-->
 <a id="player-movement--input"></a>
 ### 🎮 Player Movement & Input
 
@@ -272,7 +272,7 @@
 💡 **충격, 감지, 조건 충족 등의 이벤트를 직접적인 참조 없이 시그널로 연결하여 퍼즐 상태 변화를 제어하는 기믹 시스템**
 
 #### 🚦 Signal Interface
-💡 **기믹 간 직접 참조 없이 이벤트 전달만 표준화하는 연결 규약**
+💡 **기믹 간 직접 참조 없이 시그널 전달만 표준화하는 연결 규약**
 
   - 시그널 송신자(Sender)와 수신자(Receiver)를 분리하는 공통 인터페이스
   - 감지탑, 터렛, 스위치 등 다양한 기믹 조합 지원
@@ -281,17 +281,17 @@
 <br>
 
 #### 🗼 ShockDetectionTower
-💡 **충격파(Shockwave) 감지를 시그널 이벤트로 변환하는 송수신 감지 기믹**
+💡 **충격파(Shockwave)를 시그널로 변환하여 송·수신 모두 수행하는 감지 기믹**
 
   - 충격파 이벤트를 감지하여 시그널로 변환하는 감지 기믹
   - 쿨타임 기반 중복 감지 방지
-  - 인접 감지탑으로 이벤트 릴레이하여 전파
+  - 인접 감지탑으로 시그널을 릴레이하여 전파
   - Door 등 시그널 수신 기믹과 연결되어 상태 변화 유도
 
 <br>
 
 #### 💿 Turret
-💡 **FOV/반경으로 타겟 상태를 판정하고, 감지 결과를 시그널로 송신형 감시 기믹**
+💡 **FOV/반경으로 타겟 상태를 판정하고, 감지 결과를 시그널로 송신하는 감시 기믹**
 
   - 시야각(FOV) 및 반경 기준으로 타겟을 감지하는 감시 기믹
   - 감지 상태에 따라 시그널을 송신하여 퍼즐 조건 제어
@@ -300,10 +300,10 @@
 <br>
 
 #### 🚪 Door
-💡 **시그널 수신에 따라 Open/Close를 전환하는 수신형 퍼즐 오브젝트**
+💡 **시그널 수신에 따라 열림/닫힘을 전환하는 수신형 퍼즐 오브젝트**
 
   - 시그널 수신에 따라 열림/닫힘 상태가 변경되는 퍼즐 오브젝트
-  - 외부 기믹 조건에 의해 상테가 제어됨
+  - 외부 기믹 조건에 의해 상태가 제어됨
   - 조건 충족 시 영구 개방 등 퍼즐 설계 확장
 
 <br>
@@ -313,13 +313,13 @@
 <a id="shared-systems"></a>
 ## 🌊 Shared Environment Systems
 
-💡 **여러 기믹에서 공통으로 사용되는 환경·보조 시스템으로, 특정 도메인에 종속되지 않고 퍼즐 상호작용을 지원하는 역할 담당**
+💡 **여러 기믹에서 공용으로 사용되는 환경·보조 시스템으로, 특정 도메인에 종속되지 않고 퍼즐 상호작용을 지원하는 역할 담당**
 
 <a id="shockwave"></a>
 ### ⚫ Shockwave Systems
 
 #### [`Shockwave.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Shockwave.cs)
-💡 **반경 내 오브젝트에 충격(Lift) 효과를 전달하는 공용 시스템**
+💡 **반경 내 오브젝트에 충격파를 전달하는 공용 시스템**
 
   - 반경 내 퍼즐 오브젝트에 충격(리프트) 효과를 전달하는 공용 환경 시스템
   - 적층 구조를 고려한 충격 전파 처리로 퍼즐 안정성 유지
@@ -328,10 +328,10 @@
 <br>
 
 #### [`ShockPing.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/ShockPing.cs)
-💡 **Shockwave 발생을 감지탑으로 전달하는 브릿지 컴포넌트**
+💡 **충격파 발생을 감지탑으로 전달하는 브리지 컴포넌트**
 
   - 충격파 발생 시 반경 내 감지탑으로 이벤트를 전달하는 중계 컴포넌트
-  - Shockwave와 감지탑(타워) 간 직접 의존을 제거하는 역할
+  - 충격파와 감지탑(타워) 간 직접 의존을 제거하는 역할
 
 <br>
 
@@ -354,14 +354,13 @@
 
 💡 **퍼즐 규칙에는 직접 관여하지 않지만, 플레이 흐름·정보 전달·연출 완성도를 책임지는 보조 시스템**
 
-<br>
-
 <a id="treasure--stage-ui"></a>
 ### 💎 Treasure & Stage UI
 
 #### 📂 Code Reference
 - [`Treasure.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Stage/Block/Treasure.cs)
 - [`/Assets/_Proj/Script/UI/Option`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/UI/Option)
+
 💡 **퍼즐 목표 인식 → 보상 → 다음 행동 유도의 UX 흐름을 담당**
 
   - 스테이지 내 핵심 목표 요소(보물)의 획득 상태를 관리
