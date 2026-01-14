@@ -272,6 +272,7 @@
 💡 **충격, 감지, 조건 충족 등의 이벤트를 직접적인 참조 없이 시그널로 연결하여 퍼즐 상태 변화를 제어하는 기믹 시스템**
 
 #### 🚦 Signal Interface
+💡 **기믹 간 직접 참조 없이 이벤트 전달만 표준화하는 연결 규약**
 
   - 시그널 송신자(Sender)와 수신자(Receiver)를 분리하는 공통 인터페이스
   - 감지탑, 터렛, 스위치 등 다양한 기믹 조합 지원
@@ -280,6 +281,7 @@
 <br>
 
 #### 🗼 ShockDetectionTower
+💡 **충격파(Shockwave) 감지를 시그널 이벤트로 변환하는 송수신 감지 기믹**
 
   - 충격파 이벤트를 감지하여 시그널로 변환하는 감지 기믹
   - 쿨타임 기반 중복 감지 방지
@@ -289,6 +291,7 @@
 <br>
 
 #### 💿 Turret
+💡 **FOV/반경으로 타겟 상태를 판정하고, 감지 결과를 시그널로 송신형 감시 기믹**
 
   - 시야각(FOV) 및 반경 기준으로 타겟을 감지하는 감시 기믹
   - 감지 상태에 따라 시그널을 송신하여 퍼즐 조건 제어
@@ -297,6 +300,7 @@
 <br>
 
 #### 🚪 Door
+💡 **시그널 수신에 따라 Open/Close를 전환하는 수신형 퍼즐 오브젝트**
 
   - 시그널 수신에 따라 열림/닫힘 상태가 변경되는 퍼즐 오브젝트
   - 외부 기믹 조건에 의해 상테가 제어됨
@@ -315,6 +319,7 @@
 ### ⚫ Shockwave Systems
 
 #### [`Shockwave.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Shockwave.cs)
+💡 **반경 내 오브젝트에 충격(Lift) 효과를 전달하는 공용 시스템**
 
   - 반경 내 퍼즐 오브젝트에 충격(리프트) 효과를 전달하는 공용 환경 시스템
   - 적층 구조를 고려한 충격 전파 처리로 퍼즐 안정성 유지
@@ -323,6 +328,7 @@
 <br>
 
 #### [`ShockPing.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Objects/ShockPing.cs)
+💡 **Shockwave 발생을 감지탑으로 전달하는 브릿지 컴포넌트**
 
   - 충격파 발생 시 반경 내 감지탑으로 이벤트를 전달하는 중계 컴포넌트
   - Shockwave와 감지탑(타워) 간 직접 의존을 제거하는 역할
@@ -333,6 +339,7 @@
 ### 🟢 Range Visualization
 
 #### [`RingRange.cs`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts/Gimmicks/Animals/RingRange.cs)
+💡 **감지·상호작용·충격 범위를 시각화하는 공용 렌더링 컴포넌트**
 
   - 충격, 감지, 상호작용 범위를 시각하기 위한 공용 렌더링 컴포넌트
   - 원형·부채꼴 범위를 지원하여 다양한 기믹에서 재사용
