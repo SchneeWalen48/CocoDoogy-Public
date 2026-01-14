@@ -132,9 +132,9 @@
 <a id="core-systems"></a>
 ## 🏅 Core Systems
 
-<!-- #### 🔗 Detailed Design & Flow
-<a href="노션 링크 나중에 첨부"><img with = "20" height="20" alt="notion icon" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1570106347/noticon/hx52ypkqqdzjdvd8iaid.svg" /> 노션 기술문서 링크</a>
--->
+#### 🔗 Detailed Design & Flow
+<a href="https://www.notion.so/CocoDoogy-2e7eddbae78d80649c7fcb5607244823?source=copy_link"><img with = "20" height="20" alt="notion icon" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1570106347/noticon/hx52ypkqqdzjdvd8iaid.svg" /> 노션 기술문서 링크</a>
+
 <a id="player-movement--input"></a>
 ### 🎮 Player Movement & Input
 
