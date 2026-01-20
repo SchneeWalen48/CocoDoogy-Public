@@ -100,7 +100,7 @@
 #### 📂 Source Entry
 - [`/Assets/_Proj/Scripts`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts)
 
-<div align="center"><a href="https://github.com/user-attachments/assets/14a72f3f-993e-4fda-972a-65b4f572cc0c"><img width="800" alt="doogy pushable architecture" src="https://github.com/user-attachments/assets/87ca8013-1e06-4df2-9f36-31a955c122ae" /></a></div>
+<div align="center"><a href="https://github.com/user-attachments/assets/87ca8013-1e06-4df2-9f36-31a955c122ae"><img width="800" alt="doogy pushable architecture" src="https://github.com/user-attachments/assets/87ca8013-1e06-4df2-9f36-31a955c122ae" /></a></div>
 
 <br>
 
