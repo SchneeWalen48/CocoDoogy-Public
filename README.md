@@ -93,7 +93,7 @@
 ---
 
 <a id="architecture"></a>
-## 시스템 아키텍처 개요
+## 🐶 System Architecture
 
 ### 규칙 중심 Pushable 아키텍처
 
