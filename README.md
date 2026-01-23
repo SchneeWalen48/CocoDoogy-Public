@@ -100,21 +100,21 @@
 #### 📂 Source Entry
 - [`/Assets/_Proj/Scripts`](https://github.com/SchneeWalen48/CocoDoogy-Public/blob/main/Assets/_Proj/Scripts)
 
-<div align="center"><a href="https://github.com/user-attachments/assets/87ca8013-1e06-4df2-9f36-31a955c122ae"><img width="800" alt="doogy pushable architecture" src="https://github.com/user-attachments/assets/87ca8013-1e06-4df2-9f36-31a955c122ae" /></a></div>
+<div align="center"><a href="https://github.com/user-attachments/assets/3b85ed4a-4639-4892-b1b1-8e0a243a2698"><img width="800" alt="doogy pushable architecture" src="https://github.com/user-attachments/assets/3b85ed4a-4639-4892-b1b1-8e0a243a2698" /></a></div>
 
 <br>
 
 ---
 
 ### Pushables 플로우 차트
-<div align="center"><a href="https://github.com/user-attachments/assets/e7cd9806-93b0-4c0d-85bb-d4c3d8967295"><img height="650" alt="doogy pushables flow chart" src="https://github.com/user-attachments/assets/e7cd9806-93b0-4c0d-85bb-d4c3d8967295" /></a></div>
+<div align="center"><a href="https://github.com/user-attachments/assets/8edede77-c887-4846-98fa-8a1ef7a8f60b"><img height="650" alt="doogy pushables flow chart" src="https://github.com/user-attachments/assets/8edede77-c887-4846-98fa-8a1ef7a8f60b" /></a></div>
 
 <br>
 
 ---
 
 ### 시그널 시스템 아키텍처
-<div align="center"><a href="https://github.com/user-attachments/assets/c5491c19-4713-4d13-ac0b-6a5a94d259dd"><img width="700" alt="doogy signal system architecture" src="https://github.com/user-attachments/assets/c5491c19-4713-4d13-ac0b-6a5a94d259dd" /></a></div>
+<div align="center"><a href="https://github.com/user-attachments/assets/0a1130e8-d521-4e27-b43d-bb0341b873ab"><img width="700" alt="doogy signal system architecture" src="https://github.com/user-attachments/assets/0a1130e8-d521-4e27-b43d-bb0341b873ab" /></a></div>
 
 <br>
 
