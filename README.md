@@ -7,7 +7,9 @@
     src="https://github.com/user-attachments/assets/2aa6f449-7ffa-4dd2-9086-232f5499456f" />
 </a>
 
-<br><br>
+<br>
+<a href="https://www.notion.so/2e8eddbae78d80128221c47e6ab6edd1?source=copy_link">기술문서 PDF 다운로드</a>
+<br>
 
 <table>
   <tr>
@@ -28,8 +30,6 @@
     </td>
   </tr>
 </table>
-
-<a href="https://www.notion.so/2e8eddbae78d80128221c47e6ab6edd1?source=copy_link">기술문서 PDF 다운로드</a>
   
 <br>
 
