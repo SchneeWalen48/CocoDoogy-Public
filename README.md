@@ -29,6 +29,8 @@
   </tr>
 </table>
 
+<a href="https://www.notion.so/2e8eddbae78d80128221c47e6ab6edd1?source=copy_link">기술문서 PDF 다운로드</a>
+  
 <br>
 
 🐶 **기업협약 프로젝트로 진행된 소코반 기반 모바일 퍼즐 게임**  
