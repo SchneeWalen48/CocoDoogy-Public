@@ -47,8 +47,8 @@
 
 - [기술 스택(Tech Stack)](#tech-stack)
 - [개요(Overview)](#overview)
-- [아키텍처(Architecture)](#architecture)
 - [설계 포인트(Design Notes)](#point)
+- [아키텍처(Architecture)](#architecture)
 - [핵심 시스템(Core Systems)](#core-systems)
   - [플레이어(Player Movement & Joystick)](#player-movement--input)
   - [푸셔블(PushableObjects (Puzzle Rule Core))](#pushableobjects-puzzle-rule-core)
@@ -90,16 +90,22 @@
 - 프로젝트 형태: 기업협약 팀 프로젝트 (개발 6명 / 기획 4명)
 
 > 본 README에는 팀 프로젝트 중 제가 맡은 **퍼즐 규칙 시스템, 플레이어 이동 등 인게임** 파트가 정리되어 있습니다.<br>
+
+<br><br>
+
+---
+
+<a id="point"></a>
+## ⚙️ Design Notes
+
 > 본 프로젝트는 퍼즐 장르 특성상 '항상 예측 가능한 결과 도출' 이라는 원칙을 중심으로 설계되었습니다.<br>
-<br>
-> 이를 위해 다음과 같은 구조를 적용했습니다.<br>
 
-> - 입력과 실행 단계 분리<br>
-> - 이동과 낙하를 단일 파이프라인으로 통합<br>
-> - 판정 단계와 실행 단계 분리<br>
-> - 환경 효과와 이동 책임 분리<br>
-> - 인터페이스 기반 확장 구조 적용
-
+- **Strategy/Interface 기반 설계로 기믹 간 결합도 최소화** → 새로운 기믹 추가 시 기존 로직 수정 없이 확장 가능하도록 설계
+- **퍼즐 규칙의 일관성과 안정성을 최우선으로 유지**  
+- **모바일 환경을 고려한 입력 / 카메라 / UI 흐름 설계**  
+- **환경·충격·시그널·UI 시스템의 책임 명확화**
+- **입력과 실행 단계 분리**
+  
 <br><br>
 
 ---
@@ -129,17 +135,6 @@
 <div align="center"><a href="https://github.com/user-attachments/assets/0a1130e8-d521-4e27-b43d-bb0341b873ab"><img width="700" alt="doogy signal system architecture" src="https://github.com/user-attachments/assets/0a1130e8-d521-4e27-b43d-bb0341b873ab" /></a></div>
 
 <br>
-
----
-
-<a id="point"></a>
-## ⚙️ Design Notes
-- **Strategy/Interface 기반 설계로 기믹 간 결합도 최소화**  
-- **퍼즐 규칙의 일관성과 안정성을 최우선으로 유지**  
-- **모바일 환경을 고려한 입력 / 카메라 / UI 흐름 설계**  
-- **환경·충격·시그널·UI 시스템의 책임 명확화**  
-
-<br><br>
 
 ---
 
