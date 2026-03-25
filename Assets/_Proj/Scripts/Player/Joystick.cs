@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 모바일 가상 조이스틱 입력을 처리하는 UI 컴포넌트.
 /// 한 손가락 입력은 플레이어 이동용 방향 벡터를 생성하고,
-/// 두 손가락 입력은 카메라 둘로보기(Look Around) 모드로 전환함.
+/// 두 손가락 입력은 카메라 둘러보기(Look Around) 모드로 전환함.
 /// 입력 안정화를 위해 방향 스냅과 시각적 하이라이트를 포함함.
 /// </summary>
 public class Joystick : MonoBehaviour
